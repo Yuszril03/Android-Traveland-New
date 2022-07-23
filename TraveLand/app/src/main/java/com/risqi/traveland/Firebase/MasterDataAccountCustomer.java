@@ -6,6 +6,10 @@ public class MasterDataAccountCustomer {
 
     }
 
+    public MasterDataAccountCustomer(String kataSandi) {
+        KataSandi = kataSandi;
+    }
+
     public String getKataSandi() {
         return KataSandi;
     }
