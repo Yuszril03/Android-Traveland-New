@@ -4,8 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".FirstScreen">
+    tools:context=".ThridScreen">
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto"
+        android:justificationMode="inter_word"
+        android:text="Selamat menikmati liburan anda."
+        android:textColor="@color/accent"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -15,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_hello_rafiki" />
+        app:srcCompat="@drawable/ic_milestones_of_business_projects_cuate" />
 
     <TextView
         android:id="@+id/textView5"
@@ -23,39 +38,37 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/roboto_bold"
-        android:text="Hai, Traveler"
+        android:text="Selesai"
         android:textColor="@color/black"
         android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/roboto"
-        android:justificationMode="inter_word"
-        android:text="Selamat Datang Di TraveLand, pada aplikasi ini menyediakan beberapa fitur seperti pencarian wisata, tempat tinggal, dan kendaraan."
-        android:textColor="@color/accent"
-        android:textSize="21sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
     <Button
         android:id="@+id/button6"
         android:layout_width="150dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="19dp"
         android:layout_marginBottom="30dp"
         android:background="@drawable/button_primary"
         android:fontFamily="@font/roboto_medium"
-        android:text="Selanjutnya"
+        android:text="Selesai"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView6" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/button_primary"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Sebelumnya"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/button6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button6" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

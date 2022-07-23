@@ -10,12 +10,13 @@ import android.widget.Button;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 
-public class FirstScreen extends AppCompatActivity {
-    Button next;
+public class ThridScreen extends AppCompatActivity {
+
+    Button prev,next;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_screen);
+        setContentView(R.layout.activity_thrid_screen);
         initialize();
         next.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -30,18 +31,41 @@ public class FirstScreen extends AppCompatActivity {
             }
         });
 
+        prev.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
+                    prev.setBackgroundResource(R.drawable.button_primary_pressed);
+                }
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    prev.setBackgroundResource(R.drawable.button_primary);
+                }
+                return false;
+            }
+        });
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(FirstScreen.this, SecondScreen.class);
+                Intent intent = new Intent(ThridScreen.this, LoginScreen.class);
                 startActivity(intent);
-                Animatoo.animateSwipeRight(FirstScreen.this);
+                Animatoo.animateSwipeRight(ThridScreen.this);
                 finish();
             }
         });
 
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ThridScreen.this, SecondScreen.class);
+                startActivity(intent);
+                Animatoo.animateSwipeLeft(ThridScreen.this);
+                finish();
+            }
+        });
     }
     private void initialize(){
         next = findViewById(R.id.button6);
+        prev = findViewById(R.id.button7);
     }
 }
