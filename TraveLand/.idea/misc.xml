@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/background_login.xml" value="0.1445" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/background_register.xml" value="0.1445" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/border_image_profil_home.xml" value="0.146" />
@@ -39,6 +40,8 @@
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_second_screen.xml" value="0.3333333333333333" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_splash_screen.xml" value="0.1308876811594203" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_thrid_screen.xml" value="0.15534420289855072" />
+=======
+>>>>>>> parent of 2bb8159 (update data)
         <entry key="..\:/APLIKASI/TraveLand/app/src/main/res/drawable/button_primary.xml" value="0.146" />
         <entry key="..\:/APLIKASI/TraveLand/app/src/main/res/drawable/button_primary_pressed.xml" value="0.146" />
         <entry key="..\:/APLIKASI/TraveLand/app/src/main/res/drawable/form_control_danger.xml" value="0.146" />
