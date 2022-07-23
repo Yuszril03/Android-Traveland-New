@@ -4,45 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/white"
+    android:id="@+id/layoutData"
     tools:context=".LoginScreen">
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="186dp"
-        android:layout_height="168dp"
-        android:layout_marginTop="80dp"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="508dp"
+        android:layout_height="680dp"
+        android:layout_marginTop="-10dp"
+        android:background="@drawable/background_login"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:background="@null"
+        android:id="@+id/imageView2"
+        android:layout_width="40dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/penuhlogo" />
+        app:srcCompat="@drawable/button_white" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/roboto_medium"
-        android:text="Masuk Ke Akun Anda"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Masuk TraveLand"
+        android:textColor="@color/white"
+        android:background="@null"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="@+id/imageView2"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+    <TextView
+        android:background="@null"
+        android:layout_marginTop="40dp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lengkapi Data Untuk Bisa Masuk"
+        tools:layout_editor_absoluteX="83dp"
+        tools:layout_editor_absoluteY="152dp"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:fontFamily="@font/roboto"
+        tools:ignore="NotSibling" />
 
     <ImageView
+        android:background="@null"
         android:id="@+id/imageView4"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="@+id/textView"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:srcCompat="@drawable/form_control" />
 
     <ImageView
+        android:background="@null"
         android:id="@+id/imageView6"
         android:layout_width="350dp"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
         app:srcCompat="@drawable/form_control" />
 
@@ -82,7 +117,7 @@
 
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="250dp"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:background="@null"
         android:ems="10"
@@ -94,6 +129,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
     <TextView
+        android:background="@null"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -101,34 +137,27 @@
         android:fontFamily="@font/roboto"
         android:text="Lupa Kata Sandi ?"
         android:textAllCaps="false"
-        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="350dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/button_primary"
-        android:text="Masuk"
+        android:background="@drawable/button_white"
+        android:drawableEnd="@drawable/icon_right_primary"
+        android:paddingStart="120dp"
+        android:paddingEnd="120dp"
+        android:text="     Masuk"
+        android:textAlignment="center"
+        android:textColor="@color/primary"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView6"
         app:layout_constraintStart_toStartOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/roboto"
-        android:text="Tidak Punya Akun ? Daftar"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <ImageView
         android:id="@+id/dangerEmail"
@@ -149,5 +178,39 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="@+id/imageView6"
         app:srcCompat="@drawable/icon_warning" />
+
+    <ImageButton
+        android:id="@+id/showPass"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+        app:layout_constraintEnd_toEndOf="@+id/dangerKatasandi"
+        app:layout_constraintTop_toTopOf="@+id/imageView6"
+        android:background="@drawable/icon_eye_show" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/icon_cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="-5dp"
+        android:layout_marginBottom="-5dp"
+        android:background="@drawable/btn_register"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Daftar"
+        android:textColor="@color/secondary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

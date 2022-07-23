@@ -2,18 +2,26 @@ package com.risqi.traveland;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +30,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.MasterDataAccountCustomer;
 import com.risqi.traveland.Firebase.MasterDataCustomer;
 import com.risqi.traveland.TempData.TempDataCustomer;
+import com.tomergoldst.tooltips.ToolTip;
+import com.tomergoldst.tooltips.ToolTipsManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -33,12 +43,20 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class LoginScreen extends AppCompatActivity {
 
     //Layout
-    private Button buttonLogin;
+    private Button buttonLogin,btnDaftar;
     private EditText emailText,KataSandiText;
     private ImageView dangerEmail,dangerKataSandi,formEmail, formKataSandi;
+    private  ImageButton showPass;
 
     //Database
     private DatabaseReference databaseReference,databaseReference2;
+
+    private ConstraintLayout layoutData;
+    private ToolTipsManager toolTipsManager;
+
+    private String textDangerEmail,textDangerKataSandi;
+
+    private  int ShowHide=0;
 
 
     @Override
@@ -47,7 +65,8 @@ public class LoginScreen extends AppCompatActivity {
         setContentView(R.layout.activity_login_screen);
 
         initialize();
-//        Log.d("COBA", "onCreate: "+convertMD5("12345678"));
+        // Initialize tooltip manager
+        toolTipsManager=new ToolTipsManager();
         //Invisable Danger
         dangerEmail.setVisibility(View.INVISIBLE);
         dangerKataSandi.setVisibility(View.INVISIBLE);
@@ -59,12 +78,40 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_DOWN){
-                    buttonLogin.setBackgroundResource(R.drawable.button_primary_pressed);
+                    buttonLogin.setBackgroundResource(R.drawable.button_white_press);
                 }
                 if(motionEvent.getAction() == MotionEvent.ACTION_UP){
-                    buttonLogin.setBackgroundResource(R.drawable.button_primary);
+                    buttonLogin.setBackgroundResource(R.drawable.button_white);
                 }
                 return false;
+            }
+        });
+
+        //dafter
+        btnDaftar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginScreen.this, RegisterScreen.class);
+                startActivity(intent);
+                Animatoo.animateSlideRight(LoginScreen.this);
+                finish();
+
+            }
+        });
+
+        //showPAss
+        showPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if(ShowHide==0){
+                   showPass.setBackgroundResource(R.drawable.icon_eye_hide);
+                   KataSandiText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                   ShowHide=1;
+               }else{
+                   showPass.setBackgroundResource(R.drawable.icon_eye_show);
+                   KataSandiText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                   ShowHide=0;
+               }
             }
         });
 
@@ -77,43 +124,66 @@ public class LoginScreen extends AppCompatActivity {
                 if(TextUtils.isEmpty(emailData) || TextUtils.isEmpty(katasandiData)){
 
                     if(TextUtils.isEmpty(emailData)){
+                        displayToolTips(dangerEmail,"Email Harus Diisi!");
+                        textDangerEmail="Email Harus Diisi!";
                         dangerEmail.setVisibility(View.VISIBLE);
                         formEmail.setBackgroundResource(R.drawable.form_control_danger);
                     }else{
+                        toolTipsManager.findAndDismiss(dangerEmail);
                         dangerEmail.setVisibility(View.INVISIBLE);
                         formEmail.setBackgroundResource(R.drawable.form_control);
                     }
                     if(TextUtils.isEmpty(katasandiData)){
+                        displayToolTips(dangerKataSandi,"Kata Sandi Harus Diisi!");
+                        textDangerKataSandi="Kata Sandi Harus Diisi!";
                         dangerKataSandi.setVisibility(View.VISIBLE);
                         formKataSandi.setBackgroundResource(R.drawable.form_control_danger);
                     }else{
+                        toolTipsManager.findAndDismiss(dangerKataSandi);
                         dangerKataSandi.setVisibility(View.INVISIBLE);
                         formKataSandi.setBackgroundResource(R.drawable.form_control);
                     }
 
-                    new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText("Harap kolom harus diisi!")
-                            .setConfirmText("Okey")
-                            .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
-                            .show();
+//                    new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.ERROR_TYPE)
+//                            .setTitleText("Oops...")
+//                            .setContentText("Harap kolom harus diisi!")
+//                            .setConfirmText("Okey")
+//                            .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
+//                            .show();
                 }else if(validasiEmail(emailData)==false){
+                    toolTipsManager.dismissAll();
+                    displayToolTips(dangerEmail,"Email Tidak Valid!");
+                    textDangerEmail="Email Tidak Valid!";
                     dangerEmail.setVisibility(View.VISIBLE);
                     dangerKataSandi.setVisibility(View.INVISIBLE);
 
                     formEmail.setBackgroundResource(R.drawable.form_control_danger);
                     formKataSandi.setBackgroundResource(R.drawable.form_control);
 
-                    new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.ERROR_TYPE)
-                            .setTitleText("Oops...")
-                            .setContentText("Email Tidak Valid!")
-                            .setConfirmText("Okey")
-                            .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
-                            .show();
+//                    new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.ERROR_TYPE)
+//                            .setTitleText("Oops...")
+//                            .setContentText("Email Tidak Valid!")
+//                            .setConfirmText("Okey")
+//                            .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
+//                            .show();
                 }
                 else{
+                    toolTipsManager.dismissAll();
                     cekData(emailData,convertMD5(katasandiData));
                 }
+            }
+        });
+
+        dangerEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayToolTips(dangerEmail,textDangerEmail);
+            }
+        });
+        dangerKataSandi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayToolTips(dangerKataSandi,textDangerKataSandi);
             }
         });
 
@@ -124,11 +194,12 @@ public class LoginScreen extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                final int[] cekLuar = {0};
+                int cekLuar = 0;
                 for (DataSnapshot postData : snapshot.getChildren()){
                     MasterDataCustomer masterDataCustomer = postData.getValue(MasterDataCustomer.class);
 
                     if(email.equals(masterDataCustomer.getEmailCustomer())){
+                        cekLuar = 1;
                         databaseReference2 = FirebaseDatabase.getInstance().getReference("Master-Data-Account-Customer");
                         databaseReference2.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -143,6 +214,7 @@ public class LoginScreen extends AppCompatActivity {
                                     }
                                 }
                                 if(cekDalam==1){
+                                    toolTipsManager.dismissAll();
                                     dangerEmail.setVisibility(View.INVISIBLE);
                                     dangerKataSandi.setVisibility(View.INVISIBLE);
 
@@ -153,18 +225,23 @@ public class LoginScreen extends AppCompatActivity {
                                             .setContentText("Anda berhasil masuk aplikasi!")
                                             .show();
                                 }else{
+                                    toolTipsManager.dismissAll();
+                                    textDangerEmail="Email Salah!";
+                                    textDangerKataSandi="Kata Sandi Salah!";
+                                    displayToolTips(dangerEmail,"Email Salah!");
+                                    displayToolTips(dangerKataSandi,"Kata Sandi Salah!");
                                     dangerEmail.setVisibility(View.VISIBLE);
                                     dangerKataSandi.setVisibility(View.VISIBLE);
 
                                     formEmail.setBackgroundResource(R.drawable.form_control_danger);
                                     formKataSandi.setBackgroundResource(R.drawable.form_control_danger);
 
-                                    new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.ERROR_TYPE)
-                                            .setTitleText("Oops...")
-                                            .setContentText("Email Atau Kata Sandi Tidak Salah!")
-                                            .setConfirmText("Okey")
-                                            .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
-                                            .show();
+//                                    new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.ERROR_TYPE)
+//                                            .setTitleText("Oops...")
+//                                            .setContentText("Email Atau Kata Sandi Tidak Salah!")
+//                                            .setConfirmText("Okey")
+//                                            .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
+//                                            .show();
                                 }
                             }
 
@@ -174,10 +251,24 @@ public class LoginScreen extends AppCompatActivity {
                             }
                         });
                     }
+
 //
 
                 }
+                if(cekLuar==0){
+                    toolTipsManager.dismissAll();
+                    displayToolTips(dangerEmail,"Email Salah!");
+                    textDangerEmail="Email Salah!";
+                    textDangerKataSandi="Kata Sandi Salah!";
+                    displayToolTips(dangerKataSandi,"Kata Sandi Salah!");
+                    dangerEmail.setVisibility(View.VISIBLE);
+                    dangerKataSandi.setVisibility(View.VISIBLE);
 
+                    formEmail.setBackgroundResource(R.drawable.form_control_danger);
+                    formKataSandi.setBackgroundResource(R.drawable.form_control_danger);
+                }else{
+                    toolTipsManager.dismissAll();
+                }
 
             }
 
@@ -196,6 +287,9 @@ public class LoginScreen extends AppCompatActivity {
         KataSandiText = findViewById(R.id.editTextTextPassword);
         formKataSandi = findViewById(R.id.imageView6);
         formEmail = findViewById(R.id.imageView4);
+        btnDaftar = findViewById(R.id.button4);
+        layoutData = findViewById(R.id.layoutData);
+        showPass= findViewById(R.id.showPass);
     }
 
     private boolean validasiEmail(String email){
@@ -225,6 +319,18 @@ public class LoginScreen extends AppCompatActivity {
             e.printStackTrace();
         }
         return "";
+    }
+
+    private  void displayToolTips(ImageView component, String textAlert){
+        // create tooltip
+        ToolTip.Builder builder=new ToolTip.Builder(this,component,layoutData,textAlert,ToolTip.POSITION_ABOVE);
+        // set align
+        builder.setAlign(ToolTip.ALIGN_RIGHT);
+        // set background color
+        builder.setBackgroundColor(Color.RED);
+        // show tooltip
+        toolTipsManager.show(builder.build());
+
     }
 
 }
