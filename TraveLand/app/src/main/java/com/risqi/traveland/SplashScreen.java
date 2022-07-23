@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
@@ -14,12 +15,13 @@ import com.google.firebase.database.DatabaseReference;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreen extends AppCompatActivity {
-
+    public static final int MODE_NIGHT_UNSPECIFIED = 0;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

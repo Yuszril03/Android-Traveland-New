@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.risqi.traveland">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="com.androidtutorialpoint.mymapsappsdirection.permission.MAPS_RECEIVE" />
 
     <application
         android:allowBackup="true"
@@ -21,25 +23,20 @@
         android:theme="@style/Theme.TraveLand.light"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
-            android:name=".ThridScreen"
+            android:name=".ThridScreen"/>
+        <activity
+            android:name=".FirstScreen"
             android:exported="false" />
         <activity
             android:name=".SecondScreen"
             android:exported="false" />
-        <activity
-            android:name=".FirstScreen"
-            android:configChanges="orientation"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+
         <activity
             android:name=".RegisterScreen"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-=======
->>>>>>> parent of 2bb8159 (update data)
             android:name=".LoginScreen"
             android:configChanges="orientation"
             android:exported="false"

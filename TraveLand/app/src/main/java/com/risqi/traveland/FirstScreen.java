@@ -12,6 +12,7 @@ import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 
 public class FirstScreen extends AppCompatActivity {
     Button next;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
