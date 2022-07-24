@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.DataKegiatan;
+import com.risqi.traveland.RecyclerView.KegiatanRecyclerViewAdapter;
+import com.risqi.traveland.RecyclerView.PemberitahuanRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,20 +29,17 @@ public class MainMenu extends AppCompatActivity {
     private  List<DataKegiatan> dataKegiatanT = new ArrayList<>();
     private DatabaseReference Reff;
     RecyclerView recyclerView;
+    RecyclerView recyclerViewPemberitahuan;
     private KegiatanRecyclerViewAdapter kegiatanRecyclerViewAdapter;
+    private PemberitahuanRecyclerViewAdapter pemberitahuanRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        recyclerView = findViewById(R.id.vwKegiatan);
+        initialize();
         setData();
-
-
-
-
-
-
+        setPemberitahuan();
 
 //        rvGroceries = findViewById(R.id.vwKegiatan);
 //        rvGroceries.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
@@ -55,6 +54,19 @@ public class MainMenu extends AppCompatActivity {
         startActivity(a);
     }
 
+    private void initialize(){
+        recyclerView = findViewById(R.id.vwKegiatan);
+        recyclerViewPemberitahuan = findViewById(R.id.vmPemberitahuan);
+    }
+
+    private  void  setPemberitahuan(){
+        pemberitahuanRecyclerViewAdapter = new PemberitahuanRecyclerViewAdapter(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+        recyclerViewPemberitahuan.setLayoutManager(layoutManager);
+        recyclerViewPemberitahuan.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewPemberitahuan.setAdapter(pemberitahuanRecyclerViewAdapter);
+    }
 
 
     private void setData() {
@@ -66,7 +78,7 @@ public class MainMenu extends AppCompatActivity {
         recyclerView.setAdapter(kegiatanRecyclerViewAdapter);
 
         Reff = FirebaseDatabase.getInstance().getReference("Data-Kegiatan");
-        Reff.addValueEventListener(new ValueEventListener() {
+        Reff.orderByChild("TanggalMulai").limitToFirst(5).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 dataKegiatanT.clear();

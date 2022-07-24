@@ -7,8 +7,10 @@
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     tools:context=".MainMenu">
     <LinearLayout
+        android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -72,7 +74,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/icon" />
+                    app:srcCompat="@drawable/icon_user_warning" />
 
                 <Button
                     android:id="@+id/button2"
@@ -103,13 +105,13 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Menu"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintTop_toBottomOf="@+id/pemberitahuan" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
@@ -122,13 +124,13 @@
                 app:layout_constraintStart_toStartOf="@+id/textView8"
                 app:layout_constraintTop_toBottomOf="@+id/textView8">
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/imageView8"-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="210dp"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:srcCompat="@drawable/trippana" />-->
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="150dp"
+                    android:layout_height="210dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_wisataa" />
 
                 <TextView
                     android:id="@+id/textView9"
@@ -166,13 +168,13 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout">
-<!--                <ImageView-->
-<!--                    android:id="@+id/imageView9"-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="210dp"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:srcCompat="@drawable/hotelbookingcuate" />-->
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="150dp"
+                    android:layout_height="210dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_bookhotel" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -219,13 +221,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/imageView81"-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="210dp"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:srcCompat="@drawable/rental" />-->
+                <ImageView
+                    android:id="@+id/imageView81"
+                    android:layout_width="150dp"
+                    android:layout_height="210dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_rentals" />
 
                 <TextView
                     android:id="@+id/textView92"
@@ -252,14 +254,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout3"
                 app:layout_constraintTop_toTopOf="@+id/constraintLayout3">
-<!--                <ImageView-->
-<!--                    android:id="@+id/imageView93"-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="210dp"-->
-<!--                    android:layout_marginTop="-20dp"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:srcCompat="@drawable/booking" />-->
+                <ImageView
+                    android:id="@+id/imageView93"
+                    android:layout_width="150dp"
+                    android:layout_height="210dp"
+                    android:layout_marginTop="-20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_pemesanann" />
 
                 <TextView
                     android:id="@+id/textView103"
@@ -300,17 +302,31 @@
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/vwKegiatan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fadeScrollbars="true"
-                    android:orientation="horizontal"
-                    android:scrollbarAlwaysDrawHorizontalTrack="true"
-                    app:layout_constraintLeft_toLeftOf="@+id/textView11"
-                    app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/vwKegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:fadeScrollbars="true"
+                android:orientation="horizontal"
+                android:scrollbarAlwaysDrawHorizontalTrack="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/pemberitahuan"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/textView7">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/vmPemberitahuan"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

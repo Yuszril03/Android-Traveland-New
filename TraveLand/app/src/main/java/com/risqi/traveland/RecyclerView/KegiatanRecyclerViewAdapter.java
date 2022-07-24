@@ -1,22 +1,19 @@
-package com.risqi.traveland;
+package com.risqi.traveland.RecyclerView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.View;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.risqi.traveland.Firebase.DataKegiatan;
-import com.squareup.picasso.Picasso;
+import com.risqi.traveland.R;
+//import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -27,17 +24,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class KegiatanRecyclerViewAdapter extends RecyclerView.Adapter<KegiatanRecyclerViewAdapter.NameViewHolder> {
     public class NameViewHolder extends RecyclerView.ViewHolder{
-        TextView Judul, LinkImage;
+        TextView Judul, tanggalBuat;
         Button buttonList;
         ImageView Linkimage;
         public NameViewHolder(@NonNull View itemView) {
             super(itemView);
             Judul = (TextView)itemView.findViewById(R.id.tvJudulKegiatan);
+            tanggalBuat = (TextView)itemView.findViewById(R.id.textView13);
             Linkimage = (ImageView) itemView.findViewById(R.id.imageView8);
             buttonList = (Button)itemView.findViewById(R.id.btnlistkegiatan) ;
         }
@@ -54,7 +54,17 @@ public class KegiatanRecyclerViewAdapter extends RecyclerView.Adapter<KegiatanRe
     @Override
     public void onBindViewHolder(@NonNull KegiatanRecyclerViewAdapter.NameViewHolder holder, int position) {
         DataKegiatan datakegiatan = dataKegiatan.get(position);
+
         holder.Judul.setText(datakegiatan.getJudul());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat postFormater = new SimpleDateFormat("EEEE, dd MMMM yyyy");
+        try {
+            Date dateObj = simpleDateFormat.parse(datakegiatan.getTanggalMulai());
+            holder.tanggalBuat.setText(postFormater.format(dateObj));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
         holder.buttonList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,12 +77,23 @@ public class KegiatanRecyclerViewAdapter extends RecyclerView.Adapter<KegiatanRe
 
         }else
         {
-            Picasso.with(context)
+            Glide.with(context).clear(holder.Linkimage);
+            Glide.with(context)
                     .load(datakegiatan.getLinkImage())
-                    .placeholder(R.drawable.ic_no_image) // optional
-                    .error(R.drawable.ic_error_image)         // option
-                    .fit()
+//                    .transform(new MultiTransformation(new FitCenter()))
+                    .apply(new RequestOptions()
+                            .override(194, 112)
+                            .priority(Priority.HIGH)
+                            .centerCrop())
                     .into(holder.Linkimage);
+
+//            Picasso.with(context)
+//                    .load(datakegiatan.getLinkImage()).resize(600, 350)
+//                    .placeholder(R.drawable.ic_no_image) // optional
+//                    .error(R.drawable.ic_error_image)         // option
+////                    .fit()
+//                    .transform(new RoundedCornersTransformation(10,10))
+//                    .into(holder.Linkimage);
         }
 
 
