@@ -12,5 +12,6 @@
     <color name="blueNeon">#FFB8E7</color>
     <color name="yellow">#FFEB3B</color>
     <color name="red">#FA7A7A</color>
+    <color name="darkMode">#263238</color>
 
 </resources>

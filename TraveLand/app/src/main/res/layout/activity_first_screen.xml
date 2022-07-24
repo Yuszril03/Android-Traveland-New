@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:id="@+id/layoutUtama"
     tools:context=".FirstScreen">
 
     <ImageView
@@ -24,7 +25,7 @@
         android:layout_marginStart="20dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Hai, Traveler"
-        android:textColor="@color/black"
+        android:textColor="@color/darkMode"
         android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9" />
@@ -39,7 +40,7 @@
         android:fontFamily="@font/roboto"
         android:justificationMode="inter_word"
         android:text="Selamat Datang Di TraveLand, pada aplikasi ini menyediakan beberapa fitur seperti pencarian wisata, tempat tinggal, dan kendaraan."
-        android:textColor="@color/accent"
+        android:textColor="@color/darkMode"
         android:textSize="21sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -54,6 +55,7 @@
         android:background="@drawable/button_primary"
         android:fontFamily="@font/roboto_medium"
         android:text="Selanjutnya"
+        android:textColor="@color/darkMode"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView6" />

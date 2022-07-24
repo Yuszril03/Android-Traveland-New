@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layoutUtama"
     tools:context=".ThridScreen">
 
     <TextView
@@ -16,7 +17,7 @@
         android:fontFamily="@font/roboto"
         android:justificationMode="inter_word"
         android:text="Selamat menikmati liburan anda."
-        android:textColor="@color/accent"
+        android:textColor="@color/darkMode"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView5"
@@ -39,7 +40,7 @@
         android:layout_marginStart="20dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Selesai"
-        android:textColor="@color/black"
+        android:textColor="@color/darkMode"
         android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9" />
@@ -53,6 +54,7 @@
         android:background="@drawable/button_primary"
         android:fontFamily="@font/roboto_medium"
         android:text="Selesai"
+        android:textColor="@color/darkMode"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -65,6 +67,7 @@
         android:background="@drawable/button_primary"
         android:fontFamily="@font/roboto_medium"
         android:text="Sebelumnya"
+        android:textColor="@color/darkMode"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/button6"
         app:layout_constraintStart_toStartOf="parent"

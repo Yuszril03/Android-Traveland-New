@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layoutUtama"
     tools:context=".SecondScreen">
 
     <ImageView
@@ -23,7 +24,7 @@
         android:layout_marginStart="20dp"
         android:fontFamily="@font/roboto_bold"
         android:text="Mode Aplikasi"
-        android:textColor="@color/black"
+        android:textColor="@color/darkMode"
         android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView9" />
@@ -36,6 +37,7 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/button_primary"
         android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/darkMode"
         android:text="Selanjutnya"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,6 +50,7 @@
         android:layout_marginStart="20dp"
         android:background="@drawable/button_primary"
         android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/darkMode"
         android:text="Sebelumnya"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/button6"
@@ -56,6 +59,7 @@
 
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -66,8 +70,11 @@
             android:id="@+id/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/darkMode"
+            android:checked="true"
             android:fontFamily="@font/roboto"
             android:text="Mode Siang / Mode Terang"
+            android:textColor="@color/darkMode"
             android:textSize="21sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="parent" />
@@ -77,8 +84,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:buttonTint="@color/darkMode"
             android:fontFamily="@font/roboto"
             android:text="Mode Malam / Mode Gelap"
+            android:textColor="@color/darkMode"
             android:textSize="21sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/radioButton" />

@@ -22,7 +22,7 @@ public class DataLoginUser extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table table_user(id text null);");
+        sqLiteDatabase.execSQL("create table table_user(nik text null);");
     }
 
     @Override
