@@ -26,7 +26,16 @@
             android:name=".ThridScreen"/>
         <activity
             android:name=".FirstScreen"
+            android:exported="false"
+            />
+        <activity
+            android:name=".MainProfile"
+            android:exported="false"
+           />
+        <activity
+            android:name=".MainMenu"
             android:exported="false" />
+
         <activity
             android:name=".SecondScreen"
             android:exported="false" />

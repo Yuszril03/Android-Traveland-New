@@ -25,7 +25,8 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
+
+                Intent intent = new Intent(SplashScreen.this, MainMenu.class);
                 startActivity(intent);
                 Animatoo.animateFade(SplashScreen.this);
                 finish();
