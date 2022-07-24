@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataLoginUser extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "data_traveland.db";
+    public static final String DATABASE_NAME = "data_traveland_user.db";
     public static final String TABLE_NAME = "table_user_login";
     public static final String COL_NIK = "nik";
     public static final String COL_NAMA = "nama";
@@ -22,7 +22,7 @@ public class DataLoginUser extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table table_user(nik text null);");
+        sqLiteDatabase.execSQL("create table table_user(nik text null,nama text null,foto text null,gender text null);");
     }
 
     @Override

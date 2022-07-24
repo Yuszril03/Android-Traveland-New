@@ -9,8 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataMode extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "data_traveland_mode.db";
     public static final String TABLE_NAME = "table_mode";
-    public static final String COL_ID = "id";
-    public static final String COL_Mode = "mode";
+    public static final String COL_1 = "id";
+    public static final String COL_2 = "mode";
     public static final int DATABASE_VERTION = 1;
 
     public DataMode(Context context) {
@@ -19,7 +19,7 @@ public class DataMode extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table table_mode(id text null);");
+        sqLiteDatabase.execSQL("create table table_mode(id text null,mode text null);");
     }
 
     @Override
@@ -30,8 +30,8 @@ public class DataMode extends SQLiteOpenHelper {
     public boolean insertData(String mode){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_ID,"1");
-        contentValues.put(COL_Mode,mode);
+        contentValues.put(COL_1,"1");
+        contentValues.put(COL_2,mode);
         long result = db.insert(TABLE_NAME,null,contentValues);
         if(result==-1) {
             return false;
@@ -44,7 +44,7 @@ public class DataMode extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_Mode,mode);
+        contentValues.put(COL_2,mode);
         db.update(TABLE_NAME,contentValues,"id=?",new String[]{"1"});
 
         return  true;
