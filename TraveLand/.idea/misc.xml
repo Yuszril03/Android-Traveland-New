@@ -8,6 +8,8 @@
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/border_line_in_profile.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/borders_menu_profile.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/borders_menu_profile_dark_mode.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/btn_login.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/btn_register.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/button_edit_profile.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/button_keluar_profile.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/button_main_menu_wisata.xml" value="0.158" />
@@ -17,9 +19,18 @@
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_bookhotel.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_left_arrow.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_left_arrow_dark_mode.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_lock.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_logout.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_menu_darkmode.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_moon.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_no_user.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_password.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_person.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_profile.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_right_arrow.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_right_arrow_dark.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_right_arrow_light.xml" value="0.158" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_riwayat.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_user_profile.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_user_warning.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/icon_warningg.xml" value="0.158" />
@@ -28,7 +39,7 @@
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/drawable/track_switch_mode_on.xml" value="0.158" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_first_screen.xml" value="0.15534420289855072" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_main_menu.xml" value="0.24864024864024864" />
-        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_main_profile.xml" value="0.22" />
+        <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_main_profile.xml" value="0.4199066874027994" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_second_screen.xml" value="0.3333333333333333" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_splash_screen.xml" value="0.12228260869565218" />
         <entry key="..\:/APLIKASI/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_thrid_screen.xml" value="0.15534420289855072" />

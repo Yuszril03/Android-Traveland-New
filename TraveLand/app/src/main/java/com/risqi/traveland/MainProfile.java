@@ -22,6 +22,7 @@ public class MainProfile extends AppCompatActivity {
     //Main
     private LinearLayout linear;
     private ScrollView scrollable;
+    private ConstraintLayout constraintLayout5;
 
     //Atas
     private TextView textEmail,textprofile1;
@@ -32,6 +33,21 @@ public class MainProfile extends AppCompatActivity {
     //Bawah
     private ConstraintLayout backgrooundSecond;
     private TextView TitleSetting,TitleMode;
+
+    //Profile
+    private TextView textProfile;
+    private ImageView arrowProfile;
+    //KataSandi
+    private TextView textKataSandi;
+    private ImageView arrowKataSandi;
+    //RIwayat
+    private TextView textKataRiwayat;
+    private ImageView arrowRiwayat;
+    //KEluar
+    private TextView textKeluar;
+    private ImageView arrowKeluar;
+    //Versi
+    private TextView textVersi1;
 
     private Switch switchMode;
     private int posisiMode=0;
@@ -60,6 +76,7 @@ public class MainProfile extends AppCompatActivity {
             //Main
             linear.setBackgroundResource(R.color.darkMode);
             scrollable.setBackgroundResource(R.color.darkMode);
+            constraintLayout5.setBackgroundResource(R.color.darkMode);
             //ATAS
             backgrooundMain.setBackgroundResource(R.color.darkMode2);
             textprofile1.setTextColor(getResources().getColor(R.color.white));
@@ -71,6 +88,20 @@ public class MainProfile extends AppCompatActivity {
             backgrooundSecond.setBackgroundResource(R.drawable.borders_menu_profile_dark_mode);
             TitleSetting.setTextColor(getResources().getColor(R.color.white));
             TitleMode.setTextColor(getResources().getColor(R.color.white));
+            //Profile
+            textProfile.setTextColor(getResources().getColor(R.color.white));
+            arrowProfile.setBackgroundResource(R.drawable.icon_right_arrow_dark);
+            //KataSandi
+            textKataSandi.setTextColor(getResources().getColor(R.color.white));
+            arrowKataSandi.setBackgroundResource(R.drawable.icon_right_arrow_dark);
+            //Profile
+            textKataRiwayat.setTextColor(getResources().getColor(R.color.white));
+            arrowRiwayat.setBackgroundResource(R.drawable.icon_right_arrow_dark);
+            //Profile
+            textKeluar.setTextColor(getResources().getColor(R.color.white));
+            arrowKeluar.setBackgroundResource(R.drawable.icon_right_arrow_dark);
+            //versi
+            textVersi1.setTextColor(getResources().getColor(R.color.white));
         }else{
             switchMode.setChecked(false);
             posisiMode=0;
@@ -78,6 +109,7 @@ public class MainProfile extends AppCompatActivity {
             //main
             linear.setBackgroundResource(R.color.white);
             scrollable.setBackgroundResource(R.color.white);
+            constraintLayout5.setBackgroundResource(R.color.white);
             //ATAS
             backgrooundMain.setBackgroundResource(R.color.whitemode2);
             textprofile1.setTextColor(getResources().getColor(R.color.darkMode));
@@ -88,6 +120,21 @@ public class MainProfile extends AppCompatActivity {
             backgrooundSecond.setBackgroundResource(R.drawable.borders_menu_profile);
             TitleSetting.setTextColor(getResources().getColor(R.color.darkMode));
             TitleMode.setTextColor(getResources().getColor(R.color.darkMode));
+
+            //Profile
+            textProfile.setTextColor(getResources().getColor(R.color.darkMode));
+            arrowProfile.setBackgroundResource(R.drawable.icon_right_arrow_light);
+            //KataSandi
+            textKataSandi.setTextColor(getResources().getColor(R.color.darkMode));
+            arrowKataSandi.setBackgroundResource(R.drawable.icon_right_arrow_light);
+            //Profile
+            textKataRiwayat.setTextColor(getResources().getColor(R.color.darkMode));
+            arrowRiwayat.setBackgroundResource(R.drawable.icon_right_arrow_light);
+            //Profile
+            textKeluar.setTextColor(getResources().getColor(R.color.darkMode));
+            arrowKeluar.setBackgroundResource(R.drawable.icon_right_arrow_light);
+            //versi
+            textVersi1.setTextColor(getResources().getColor(R.color.darkMode));
         }
 
         //switchmode
@@ -101,6 +148,7 @@ public class MainProfile extends AppCompatActivity {
                     //Main
                     linear.setBackgroundResource(R.color.darkMode);
                     scrollable.setBackgroundResource(R.color.darkMode);
+                    constraintLayout5.setBackgroundResource(R.color.darkMode);
                     //ATAS
                     backgrooundMain.setBackgroundResource(R.color.darkMode2);
                     textprofile1.setTextColor(getResources().getColor(R.color.white));
@@ -112,6 +160,22 @@ public class MainProfile extends AppCompatActivity {
                     backgrooundSecond.setBackgroundResource(R.drawable.borders_menu_profile_dark_mode);
                     TitleSetting.setTextColor(getResources().getColor(R.color.white));
                     TitleMode.setTextColor(getResources().getColor(R.color.white));
+
+                    //Profile
+                    textProfile.setTextColor(getResources().getColor(R.color.white));
+                    arrowProfile.setBackgroundResource(R.drawable.icon_right_arrow_dark);
+                    //KataSandi
+                    textKataSandi.setTextColor(getResources().getColor(R.color.white));
+                    arrowKataSandi.setBackgroundResource(R.drawable.icon_right_arrow_dark);
+                    //Profile
+                    textKataRiwayat.setTextColor(getResources().getColor(R.color.white));
+                    arrowRiwayat.setBackgroundResource(R.drawable.icon_right_arrow_dark);
+                    //Profile
+                    textKeluar.setTextColor(getResources().getColor(R.color.white));
+                    arrowKeluar.setBackgroundResource(R.drawable.icon_right_arrow_dark);
+                    //versi
+                    textVersi1.setTextColor(getResources().getColor(R.color.white));
+
                 }else{
                     dataMode.updateData("Siang");
                     posisiMode=0;
@@ -119,6 +183,7 @@ public class MainProfile extends AppCompatActivity {
                     //main
                     linear.setBackgroundResource(R.color.white);
                     scrollable.setBackgroundResource(R.color.white);
+                    constraintLayout5.setBackgroundResource(R.color.white);
                     //ATAS
                     backgrooundMain.setBackgroundResource(R.color.whitemode2);
                     textprofile1.setTextColor(getResources().getColor(R.color.darkMode));
@@ -129,6 +194,21 @@ public class MainProfile extends AppCompatActivity {
                     backgrooundSecond.setBackgroundResource(R.drawable.borders_menu_profile);
                     TitleSetting.setTextColor(getResources().getColor(R.color.darkMode));
                     TitleMode.setTextColor(getResources().getColor(R.color.darkMode));
+
+                    //Profile
+                    textProfile.setTextColor(getResources().getColor(R.color.darkMode));
+                    arrowProfile.setBackgroundResource(R.drawable.icon_right_arrow_light);
+                    //KataSandi
+                    textKataSandi.setTextColor(getResources().getColor(R.color.darkMode));
+                    arrowKataSandi.setBackgroundResource(R.drawable.icon_right_arrow_light);
+                    //Profile
+                    textKataRiwayat.setTextColor(getResources().getColor(R.color.darkMode));
+                    arrowRiwayat.setBackgroundResource(R.drawable.icon_right_arrow_light);
+                    //Profile
+                    textKeluar.setTextColor(getResources().getColor(R.color.darkMode));
+                    arrowKeluar.setBackgroundResource(R.drawable.icon_right_arrow_light);
+                    //versi
+                    textVersi1.setTextColor(getResources().getColor(R.color.darkMode));
                 }
             }
         });
@@ -161,6 +241,7 @@ public class MainProfile extends AppCompatActivity {
         //Main
         scrollable= findViewById(R.id.scrollable);
         linear= findViewById(R.id.linear);
+        constraintLayout5= findViewById(R.id.constraintLayout5);
 
         //ATAS
         textprofile1 = findViewById(R.id.textprofile1);
@@ -175,5 +256,20 @@ public class MainProfile extends AppCompatActivity {
         backgrooundSecond = findViewById(R.id.backgrooundSecond);
         TitleSetting = findViewById(R.id.TitleSetting);
         TitleMode = findViewById(R.id.textprofile2);
+
+        //Profile
+        textProfile = findViewById(R.id.textprofile21);
+        arrowProfile = findViewById(R.id.arrow1);
+        //KataSandi
+        textKataSandi= findViewById(R.id.textprofile22);
+        arrowKataSandi = findViewById(R.id.arrow2);
+        //Riwayat
+        textKataRiwayat= findViewById(R.id.textprofile23);
+        arrowRiwayat = findViewById(R.id.arrow3);
+        //Riwayat
+        textKeluar= findViewById(R.id.textprofile24);
+        arrowKeluar = findViewById(R.id.arrow4);
+        //Versi
+        textVersi1= findViewById(R.id.versi1);
     }
 }
