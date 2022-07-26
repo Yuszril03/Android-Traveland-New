@@ -57,7 +57,7 @@ public class FirstScreen extends AppCompatActivity {
                 Intent intent = new Intent(FirstScreen.this, SecondScreen.class);
                 intent.putExtra("ModeApp",ModeApp);
                 startActivity(intent);
-                Animatoo.animateSwipeRight(FirstScreen.this);
+                Animatoo.animateSlideRight(FirstScreen.this);
                 finish();
             }
         });

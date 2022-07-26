@@ -84,7 +84,7 @@ public class SecondScreen extends AppCompatActivity {
                 Intent intent = new Intent(SecondScreen.this, ThridScreen.class);
                 intent.putExtra("ModeApp",ModeApp);
                 startActivity(intent);
-                Animatoo.animateSwipeRight(SecondScreen.this);
+                Animatoo.animateSlideRight(SecondScreen.this);
                 finish();
             }
         });
@@ -95,7 +95,7 @@ public class SecondScreen extends AppCompatActivity {
                 Intent intent = new Intent(SecondScreen.this, FirstScreen.class);
                 intent.putExtra("ModeApp",ModeApp);
                 startActivity(intent);
-                Animatoo.animateSwipeLeft(SecondScreen.this);
+                Animatoo.animateSlideLeft(SecondScreen.this);
                 finish();
             }
         });

@@ -7,9 +7,11 @@
     android:fillViewport="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/scrolLayout"
     android:background="#fff"
     tools:context=".MainMenu">
     <LinearLayout
+        android:id="@+id/linerLayout"
         android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +21,7 @@
             android:layout_marginBottom="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/constraintLa"
             android:background="#FFFFFF">
 
             <TextView
@@ -29,7 +32,7 @@
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Hallo,"
-                android:textColor="@color/black"
+                android:textColor="@color/darkMode"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -41,7 +44,7 @@
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Nama User"
-                android:textColor="@color/black"
+                android:textColor="@color/darkMode"
                 android:textSize="22sp"
                 app:layout_constraintStart_toEndOf="@+id/textView4"
                 app:layout_constraintTop_toTopOf="@+id/textView4" />
@@ -96,7 +99,7 @@
                 android:layout_marginTop="52dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Ingin Memesan Apa Hari Ini?"
-                android:textColor="@color/black"
+                android:textColor="@color/darkMode"
                 android:textSize="35dp"
                 app:layout_constraintStart_toStartOf="@+id/textView4"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -105,10 +108,10 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Menu"
-                android:textColor="@color/black"
+                android:textColor="@color/darkMode"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/textView7"
                 app:layout_constraintTop_toBottomOf="@+id/pemberitahuan" />
@@ -297,7 +300,7 @@
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/roboto_medium"
                 android:text="Kegiatan"
-                android:textColor="@color/black"
+                android:textColor="@color/darkMode"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout3"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />

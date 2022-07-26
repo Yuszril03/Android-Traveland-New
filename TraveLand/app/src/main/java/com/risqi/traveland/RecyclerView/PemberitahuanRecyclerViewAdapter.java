@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.risqi.traveland.Firebase.DataKegiatan;
 import com.risqi.traveland.R;
+import com.risqi.traveland.TempData.TempDataInformation;
 
 import java.util.List;
 
@@ -27,29 +28,30 @@ public class PemberitahuanRecyclerViewAdapter extends RecyclerView.Adapter<Pembe
 
     @Override
     public void onBindViewHolder(@NonNull PemberitahuanRecyclerViewAdapter.NameViewHolder holder, int position) {
+        TempDataInformation information = dataInformations.get(position);
 
+        holder.informasi.setText(information.getNamaInformasi());
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return dataInformations.size();
     }
     public class NameViewHolder extends RecyclerView.ViewHolder{
-//        TextView Judul, tanggalBuat;
+        TextView informasi;
 //        Button buttonList;
 //        ImageView Linkimage;
         public NameViewHolder(@NonNull View itemView) {
             super(itemView);
-//            Judul = (TextView)itemView.findViewById(R.id.tvJudulKegiatan);
-//            tanggalBuat = (TextView)itemView.findViewById(R.id.textView13);
-//            Linkimage = (ImageView) itemView.findViewById(R.id.imageView8);
-//            buttonList = (Button)itemView.findViewById(R.id.btnlistkegiatan) ;
+            informasi = (TextView)itemView.findViewById(R.id.textView12);
         }
 
     }
     private Context context;
-    public  PemberitahuanRecyclerViewAdapter(Context context)
+    private List<TempDataInformation> dataInformations;
+    public  PemberitahuanRecyclerViewAdapter(Context context,  List<TempDataInformation> dataInformations)
     {
         this.context=context;
+        this.dataInformations = dataInformations;
     }
 }

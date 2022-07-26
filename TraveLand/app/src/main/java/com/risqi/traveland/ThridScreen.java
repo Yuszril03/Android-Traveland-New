@@ -79,7 +79,7 @@ public class ThridScreen extends AppCompatActivity {
                 Intent intent = new Intent(ThridScreen.this, MainMenu.class);
                 intent.putExtra("ModeApp",ModeApp);
                 startActivity(intent);
-                Animatoo.animateSwipeRight(ThridScreen.this);
+                Animatoo.animateFade(ThridScreen.this);
                 finish();
             }
         });
@@ -90,7 +90,7 @@ public class ThridScreen extends AppCompatActivity {
                 Intent intent = new Intent(ThridScreen.this, SecondScreen.class);
                 intent.putExtra("ModeApp",ModeApp);
                 startActivity(intent);
-                Animatoo.animateSwipeLeft(ThridScreen.this);
+                Animatoo.animateSlideLeft(ThridScreen.this);
                 finish();
             }
         });
