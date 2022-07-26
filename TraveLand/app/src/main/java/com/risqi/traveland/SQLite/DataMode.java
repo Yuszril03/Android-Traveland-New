@@ -42,10 +42,11 @@ public class DataMode extends SQLiteOpenHelper {
     }
     public boolean updateData(String mode)
     {
+        String idd="1";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,mode);
-        db.update(TABLE_NAME,contentValues,"id=?",new String[]{"1"});
+        db.update(TABLE_NAME,contentValues,"id=?",new String[]{idd});
 
         return  true;
     }

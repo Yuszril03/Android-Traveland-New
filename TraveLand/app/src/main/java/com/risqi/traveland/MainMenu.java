@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -75,6 +77,7 @@ public class MainMenu extends AppCompatActivity {
         while (!mod.isAfterLast()) {
 //            Toast.makeText(this, "" + mod.getString(mod.getColumnIndexOrThrow("mode")), Toast.LENGTH_SHORT).show();
             modeApps = mod.getString(mod.getColumnIndexOrThrow("mode"));
+            Log.d("ANEH", "setModeApp: "+modeApps);
 
             mod.moveToNext();
         }
@@ -88,7 +91,7 @@ public class MainMenu extends AppCompatActivity {
             subMenu.setTextColor(getResources().getColor(R.color.white));
             subKegiatan.setTextColor(getResources().getColor(R.color.white));
             judulAwal.setTextColor(getResources().getColor(R.color.white));
-            tanggal.setTextColor(getResources().getColor(R.color.white));
+            tanggal.setTextColor(getResources().getColor(R.color.darkTxt));
         }else{
             linearLayout.setBackgroundColor(getResources().getColor(R.color.white));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.white));
@@ -105,6 +108,8 @@ public class MainMenu extends AppCompatActivity {
     public void MenuProfile(View view){
         Intent a = new Intent(MainMenu.this, MainProfile.class);
         startActivity(a);
+        Animatoo.animateFade(MainMenu.this);
+        finish();
     }
 
     private void initialize(){
@@ -160,7 +165,7 @@ public class MainMenu extends AppCompatActivity {
         recyclerView.setAdapter(kegiatanRecyclerViewAdapter);
 
         Reff = FirebaseDatabase.getInstance().getReference("Data-Kegiatan");
-        Reff.orderByChild("TanggalMulai").limitToFirst(5).addValueEventListener(new ValueEventListener() {
+        Reff.orderByChild("TanggalMulai").limitToLast(5).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 dataKegiatanT.clear();
