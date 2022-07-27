@@ -112,6 +112,26 @@ public class MainMenu extends AppCompatActivity {
         finish();
     }
 
+    public void wisata (View view){
+        Intent a = new  Intent(MainMenu.this, MenuWisata.class);
+        startActivity(a);
+        Animatoo.animateFade(MainMenu.this);
+        finish();
+    }
+    public void hotel (View view){
+        Intent a = new  Intent(MainMenu.this, MenuHotel.class);
+        startActivity(a);
+        Animatoo.animateFade(MainMenu.this);
+        finish();
+    }
+    public void rental (View view){
+        Intent a = new  Intent(MainMenu.this, MenuRental.class);
+        startActivity(a);
+        Animatoo.animateFade(MainMenu.this);
+        finish();
+    }
+
+
     private void initialize(){
         recyclerView = findViewById(R.id.vwKegiatan);
         recyclerViewPemberitahuan = findViewById(R.id.vmPemberitahuan);
@@ -128,6 +148,7 @@ public class MainMenu extends AppCompatActivity {
         dataMode= new DataMode(this);
         loginUser = new DataLoginUser(this);
     }
+
 
     private  void  setPemberitahuan(){
 

@@ -3,15 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.risqi.traveland">
 
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="com.androidtutorialpoint.mymapsappsdirection.permission.MAPS_RECEIVE" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -23,23 +14,27 @@
         android:theme="@style/Theme.TraveLand.light"
         tools:targetApi="31">
         <activity
-            android:name=".ThridScreen"/>
+            android:name=".MenuRental"
+            android:exported="false" />
+        <activity
+            android:name=".MenuHotel"
+            android:exported="false" />
+        <activity
+            android:name=".MenuWisata"
+            android:exported="false" />
+        <activity android:name=".ThridScreen" />
         <activity
             android:name=".FirstScreen"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".MainProfile"
-            android:exported="false"
-           />
+            android:exported="false" />
         <activity
             android:name=".MainMenu"
             android:exported="false" />
-
         <activity
             android:name=".SecondScreen"
             android:exported="false" />
-
         <activity
             android:name=".RegisterScreen"
             android:configChanges="orientation"
@@ -64,5 +59,13 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="com.androidtutorialpoint.mymapsappsdirection.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>
