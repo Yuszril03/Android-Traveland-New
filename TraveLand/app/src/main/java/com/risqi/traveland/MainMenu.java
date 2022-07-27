@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -31,7 +32,9 @@ import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.TempData.TempDataInformation;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainMenu extends AppCompatActivity {
@@ -48,15 +51,20 @@ public class MainMenu extends AppCompatActivity {
     private LinearLayout linearLayout;
     private ConstraintLayout constraintLayout;
     private TextView halo,nama,tanggal,judulAwal,subMenu,subKegiatan;
+    private ImageView logoUser;
 
     private DataMode dataMode;
     private DataLoginUser loginUser;
+
+    private Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         initialize();
+        setTanggal();
         setData();
         setPemberitahuan();
         setModeApp();
@@ -68,6 +76,10 @@ public class MainMenu extends AppCompatActivity {
 //        rvGroceries.setAdapter(groceryRecyclerViewAdapter);
 //
 //        setData();
+    }
+
+    private void setTanggal() {
+        tanggal.setText(simpleDateFormat.format(calendar.getTime()).toString());
     }
 
     private void setModeApp() {
@@ -124,6 +136,7 @@ public class MainMenu extends AppCompatActivity {
         subMenu = findViewById(R.id.textView8);
         judulAwal = findViewById(R.id.textView7);
         subKegiatan = findViewById(R.id.textView11);
+        logoUser = findViewById(R.id.imageView3);
 
         dataMode= new DataMode(this);
         loginUser = new DataLoginUser(this);
@@ -144,12 +157,14 @@ public class MainMenu extends AppCompatActivity {
         recyclerViewPemberitahuan.setAdapter(pemberitahuanRecyclerViewAdapter);
 
         if(hasil==0){
+            nama.setVisibility(View.GONE);
+            logoUser.setBackgroundResource(R.drawable.icon_user_warning);
             TempDataInformation information = new TempDataInformation();
             information.setNamaInformasi("Segera Daftar/Masuk Aplikasi");
             dataInformations.add(information);
             pemberitahuanRecyclerViewAdapter.notifyDataSetChanged();
         }else{
-
+            logoUser.setBackgroundResource(R.drawable.icon_no_user);
         }
 
 
