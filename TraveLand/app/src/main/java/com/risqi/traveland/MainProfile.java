@@ -16,6 +16,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.RequestOptions;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.risqi.traveland.SQLite.DataBeforeLogin;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
@@ -31,6 +35,7 @@ public class MainProfile extends AppCompatActivity {
     private TextView textEmail,textprofile1;
     private ConstraintLayout backgrooundMain;
     private ImageView back;
+    private CircularImageView circularimageview;
     private Button takeImage,btnbackprofile,btnLOgin;
 
     //Bawah
@@ -84,6 +89,35 @@ public class MainProfile extends AppCompatActivity {
             layoutKeluar.setVisibility(View.GONE);
 
         }else{
+            Cursor mod = loginUser.getDataOne();
+            mod.moveToFirst();
+            String nama = "";
+            String foto = "";
+            String nik = "";
+            while (!mod.isAfterLast()) {
+//            Toast.makeText(this, "" + mod.getString(mod.getColumnIndexOrThrow("mode")), Toast.LENGTH_SHORT).show();
+                nama = mod.getString(mod.getColumnIndexOrThrow("nama"));
+                foto = mod.getString(mod.getColumnIndexOrThrow("foto"));
+                nik = mod.getString(mod.getColumnIndexOrThrow("nik"));
+
+                mod.moveToNext();
+            }
+            mod.close();
+            textprofile1.setText(nama);
+            textEmail.setText(nik);
+            if(foto.equals("")){
+
+            }else{
+                Glide.with(this).clear(circularimageview);
+                Glide.with(this)
+                        .load(foto)
+//                    .transform(new MultiTransformation(new FitCenter()))
+                        .apply(new RequestOptions()
+                                .override(194, 112)
+                                .priority(Priority.HIGH)
+                                .centerCrop())
+                        .into(circularimageview);
+            }
             textVersi1.setVisibility(View.VISIBLE);
             textVersi2.setVisibility(View.INVISIBLE);
             takeImage.setVisibility(View.VISIBLE);
@@ -319,6 +353,7 @@ public class MainProfile extends AppCompatActivity {
         takeImage = findViewById(R.id.takeImage);
         btnbackprofile = findViewById(R.id.btnbackprofile);
         btnLOgin = findViewById(R.id.btnLOgin);
+        circularimageview = findViewById(R.id.circularImageView);
 
 
         //BAwah

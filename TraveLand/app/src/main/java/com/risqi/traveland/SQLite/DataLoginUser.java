@@ -13,6 +13,7 @@ public class DataLoginUser extends SQLiteOpenHelper {
     public static final String COL_2 = "nama";
     public static final String COL_3 = "foto";
     public static final String COL_4 = "gender";
+    public static final String COL_5 = "katasandi";
     public static final int DATABASE_VERTION = 1;
 
     public DataLoginUser(Context context) {
@@ -22,7 +23,7 @@ public class DataLoginUser extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table table_user_login(id text null,nik text null,nama text null,foto text null,gender text null);");
+        sqLiteDatabase.execSQL("create table table_user_login(id text null,nik text null,nama text null,foto text null,gender text null,katasandi text null);");
     }
 
     @Override
@@ -31,7 +32,7 @@ public class DataLoginUser extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean insertData(String Nik, String Nama, String foto, String gender){
+    public boolean insertData(String Nik, String Nama, String foto, String gender,String katasandi){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("id","1");
@@ -39,6 +40,7 @@ public class DataLoginUser extends SQLiteOpenHelper {
         contentValues.put(COL_2,Nama);
         contentValues.put(COL_3,foto);
         contentValues.put(COL_4,gender);
+        contentValues.put(COL_5,katasandi);
         long result = db.insert(TABLE_NAME,null,contentValues);
         if(result==-1) {
             return false;
@@ -61,13 +63,14 @@ public class DataLoginUser extends SQLiteOpenHelper {
         Cursor res = db.rawQuery(sql,null);
         return  res;
     }
-    public boolean updateData(String Nik, String Nama, String foto, String gender)
+    public boolean updateData(String Nik, String Nama, String foto, String gender,String katasandi)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,Nama);
         contentValues.put(COL_3,foto);
         contentValues.put(COL_4,gender);
+        contentValues.put(COL_5,katasandi);
         db.update(TABLE_NAME,contentValues,"id=?",new String[]{Nik});
 
         return  true;

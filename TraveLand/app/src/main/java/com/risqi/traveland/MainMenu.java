@@ -164,7 +164,18 @@ public class MainMenu extends AppCompatActivity {
             dataInformations.add(information);
             pemberitahuanRecyclerViewAdapter.notifyDataSetChanged();
         }else{
+            Cursor mod = loginUser.getDataOne();
+            mod.moveToFirst();
+            String NamaUSer = "";
+            while (!mod.isAfterLast()) {
+//            Toast.makeText(this, "" + mod.getString(mod.getColumnIndexOrThrow("mode")), Toast.LENGTH_SHORT).show();
+                NamaUSer = mod.getString(mod.getColumnIndexOrThrow("nama"));
+
+                mod.moveToNext();
+            }
+            mod.close();
             logoUser.setBackgroundResource(R.drawable.icon_no_user);
+            nama.setText(", "+NamaUSer);
         }
 
 
