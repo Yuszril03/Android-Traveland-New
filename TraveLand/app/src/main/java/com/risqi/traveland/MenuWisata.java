@@ -26,7 +26,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ktx.Firebase;
 import com.risqi.traveland.Firebase.MasterDataWisata;
 import com.risqi.traveland.RecyclerView.WisataRecyclerViewAdapter;
 
@@ -50,28 +49,7 @@ public class MenuWisata extends AppCompatActivity {
         setWisata();
 //        searchWisata();
 
-        final DatabaseReference test = Reff.child("Master-Data_Wisata").push();
-        test.setValue("true");
-        final EditText editText = (EditText) findViewById(R.id.editText);
 
-        editText.addTextChangedListener(new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-                if (s == editText) {
-                    Reff.child("room-typing").child(test.getKey()).child("test").setValue("true");
-                } else {
-                    Reff.child("room-typing").child(test.getKey()).child("test").setValue("false");
-                }
-            }
-        });
 
 //        editSearch.addTextChangedListener(new TextWatcher() {
 //            @Override

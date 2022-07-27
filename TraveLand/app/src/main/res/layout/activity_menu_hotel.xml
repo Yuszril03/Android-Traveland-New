@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
+        android:layout_height="60dp"
         android:background="@drawable/border_menu_wisata"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,8 +20,8 @@
             android:layout_width="25dp"
             android:layout_height="30dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="35dp"
             android:src="@drawable/icon_left_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,13 +29,13 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="36dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Hotel"
             android:textColor="@color/darkMode"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/btnKembalihotel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
@@ -43,24 +43,25 @@
             android:layout_width="25dp"
             android:layout_height="33dp"
             android:layout_marginStart="14dp"
-            android:layout_marginTop="34dp"
             android:background="@null"
             android:onClick="btnbackhotel"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.015"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout7"
-        android:layout_width="320dp"
-        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/border_search_pencarian"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/form_control"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
@@ -72,21 +73,16 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:background="@null"
-            android:hint="Search"
+            android:drawableStart="@drawable/icon_search"
+            android:drawablePadding="3dp"
+            android:hint="Pencarian"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <ImageButton
-            android:id="@+id/btnSearchhotel"
-            android:layout_width="25dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="15dp"
-            android:background="@drawable/icon_search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -94,7 +90,7 @@
         android:layout_width="408dp"
         android:layout_height="710dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="1dp"
         android:fadeScrollbars="true"
