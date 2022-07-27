@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
 
 public class MainProfile extends AppCompatActivity {
@@ -28,7 +30,7 @@ public class MainProfile extends AppCompatActivity {
     private TextView textEmail,textprofile1;
     private ConstraintLayout backgrooundMain;
     private ImageView back;
-    private Button takeImage,btnbackprofile;
+    private Button takeImage,btnbackprofile,btnLOgin;
 
     //Bawah
     private ConstraintLayout backgrooundSecond;
@@ -37,26 +39,83 @@ public class MainProfile extends AppCompatActivity {
     //Profile
     private TextView textProfile;
     private ImageView arrowProfile;
+    private ConstraintLayout layoutProfile;
     //KataSandi
     private TextView textKataSandi;
     private ImageView arrowKataSandi;
+    private ConstraintLayout layoutKataSandi;
     //RIwayat
     private TextView textKataRiwayat;
     private ImageView arrowRiwayat;
+    private ConstraintLayout layoutRiwayat;
     //KEluar
     private TextView textKeluar;
     private ImageView arrowKeluar;
+    private ConstraintLayout layoutKeluar;
     //Versi
-    private TextView textVersi1;
+    private TextView textVersi1,textVersi2;
 
     private Switch switchMode;
     private int posisiMode=0;
     DataMode dataMode;
+    private DataLoginUser loginUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_profile);
         initialize();
+
+        //Akun
+        Cursor loginUserDataOne = loginUser.getDataOne();
+        loginUserDataOne.moveToFirst();
+        int hasil = loginUserDataOne.getCount();
+        loginUserDataOne.close();
+        if(hasil==0){
+            textVersi1.setVisibility(View.GONE);
+            textVersi2.setVisibility(View.VISIBLE);
+            takeImage.setVisibility(View.GONE);
+            btnLOgin.setVisibility(View.VISIBLE);
+            //layout
+            layoutProfile.setVisibility(View.GONE);
+            layoutKataSandi.setVisibility(View.GONE);
+            layoutRiwayat.setVisibility(View.GONE);
+            layoutKeluar.setVisibility(View.GONE);
+
+        }else{
+            textVersi1.setVisibility(View.VISIBLE);
+            textVersi2.setVisibility(View.INVISIBLE);
+            takeImage.setVisibility(View.VISIBLE);
+            btnLOgin.setVisibility(View.INVISIBLE);
+            //layout
+            layoutProfile.setVisibility(View.VISIBLE);
+            layoutKataSandi.setVisibility(View.VISIBLE);
+            layoutRiwayat.setVisibility(View.VISIBLE);
+            layoutKeluar.setVisibility(View.VISIBLE);
+        }
+
+        //BUTTON LOGIN
+        btnLOgin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    btnLOgin.setBackgroundResource(R.drawable.button_blue_press);
+                }
+                if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    btnLOgin.setBackgroundResource(R.drawable.button_blue);
+                }
+                return false;
+            }
+        });
+        btnLOgin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainProfile.this, LoginScreen.class);
+                intent.putExtra("BeforeActivty", "Profil");
+                startActivity(intent);
+                Animatoo.animateSlideUp(MainProfile.this);
+                finish();
+            }
+        });
 
         //MODE
         Cursor mod = dataMode.getDataOne();
@@ -102,6 +161,7 @@ public class MainProfile extends AppCompatActivity {
             arrowKeluar.setBackgroundResource(R.drawable.icon_right_arrow_dark);
             //versi
             textVersi1.setTextColor(getResources().getColor(R.color.white));
+            textVersi2.setTextColor(getResources().getColor(R.color.white));
         }else{
             switchMode.setChecked(false);
             posisiMode=0;
@@ -135,6 +195,7 @@ public class MainProfile extends AppCompatActivity {
             arrowKeluar.setBackgroundResource(R.drawable.icon_right_arrow_light);
             //versi
             textVersi1.setTextColor(getResources().getColor(R.color.darkMode));
+            textVersi2.setTextColor(getResources().getColor(R.color.darkMode));
         }
 
         //switchmode
@@ -175,6 +236,7 @@ public class MainProfile extends AppCompatActivity {
                     arrowKeluar.setBackgroundResource(R.drawable.icon_right_arrow_dark);
                     //versi
                     textVersi1.setTextColor(getResources().getColor(R.color.white));
+                    textVersi2.setTextColor(getResources().getColor(R.color.white));
 
                 }else{
                     dataMode.updateData("Siang");
@@ -209,6 +271,7 @@ public class MainProfile extends AppCompatActivity {
                     arrowKeluar.setBackgroundResource(R.drawable.icon_right_arrow_light);
                     //versi
                     textVersi1.setTextColor(getResources().getColor(R.color.darkMode));
+                    textVersi2.setTextColor(getResources().getColor(R.color.darkMode));
                 }
             }
         });
@@ -235,6 +298,7 @@ public class MainProfile extends AppCompatActivity {
     private void initialize() {
 
         dataMode = new DataMode(this);
+        loginUser = new DataLoginUser(this);
 
         switchMode = findViewById(R.id.switchMode);
 
@@ -250,6 +314,7 @@ public class MainProfile extends AppCompatActivity {
         back = findViewById(R.id.imageprofile);
         takeImage = findViewById(R.id.takeImage);
         btnbackprofile = findViewById(R.id.btnbackprofile);
+        btnLOgin = findViewById(R.id.btnLOgin);
 
 
         //BAwah
@@ -260,16 +325,21 @@ public class MainProfile extends AppCompatActivity {
         //Profile
         textProfile = findViewById(R.id.textprofile21);
         arrowProfile = findViewById(R.id.arrow1);
+        layoutProfile = findViewById(R.id.constraintLayout7);
         //KataSandi
         textKataSandi= findViewById(R.id.textprofile22);
         arrowKataSandi = findViewById(R.id.arrow2);
+        layoutKataSandi = findViewById(R.id.constraintLayout8);
         //Riwayat
         textKataRiwayat= findViewById(R.id.textprofile23);
         arrowRiwayat = findViewById(R.id.arrow3);
+        layoutRiwayat= findViewById(R.id.constraintLayout9);
         //Riwayat
         textKeluar= findViewById(R.id.textprofile24);
         arrowKeluar = findViewById(R.id.arrow4);
+        layoutKeluar = findViewById(R.id.constraintLayout10);
         //Versi
         textVersi1= findViewById(R.id.versi1);
+        textVersi2= findViewById(R.id.versi2);
     }
 }

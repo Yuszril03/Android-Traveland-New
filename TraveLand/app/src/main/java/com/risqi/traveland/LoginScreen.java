@@ -43,7 +43,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class LoginScreen extends AppCompatActivity {
 
     //Layout
-    private Button buttonLogin,btnDaftar;
+    private Button buttonLogin,btnDaftar,back;
     private EditText emailText,KataSandiText;
     private ImageView dangerEmail,dangerKataSandi,formEmail, formKataSandi;
     private  ImageButton showPass;
@@ -57,6 +57,7 @@ public class LoginScreen extends AppCompatActivity {
     private String textDangerEmail,textDangerKataSandi;
 
     private  int ShowHide=0;
+    private String activityBefore;
 
 
     @Override
@@ -65,6 +66,16 @@ public class LoginScreen extends AppCompatActivity {
         setContentView(R.layout.activity_login_screen);
 
         initialize();
+
+        if(getIntent().getExtras() != null){
+            Bundle bundle = getIntent().getExtras();
+            activityBefore = bundle.getString("BeforeActivty");
+
+        }else{
+            activityBefore = getIntent().getStringExtra("BeforeActivty");
+
+        }
+
         // Initialize tooltip manager
         toolTipsManager=new ToolTipsManager();
         //Invisable Danger
@@ -187,6 +198,29 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(activityBefore.equals("Profil")){
+                    Intent intent = new Intent(LoginScreen.this, MainProfile.class);
+                    startActivity(intent);
+                    Animatoo.animateSlideDown(LoginScreen.this);
+                    finish();
+                }
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(activityBefore.equals("Profil")){
+            Intent intent = new Intent(LoginScreen.this, MainProfile.class);
+            startActivity(intent);
+            Animatoo.animateSlideDown(LoginScreen.this);
+            finish();
+        }
     }
 
     private void cekData(String email, String KataSandi){
@@ -290,6 +324,7 @@ public class LoginScreen extends AppCompatActivity {
         btnDaftar = findViewById(R.id.button4);
         layoutData = findViewById(R.id.layoutData);
         showPass= findViewById(R.id.showPass);
+        back= findViewById(R.id.button3);
     }
 
     private boolean validasiEmail(String email){

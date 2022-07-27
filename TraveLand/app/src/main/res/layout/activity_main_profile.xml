@@ -108,10 +108,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textprofile1" />
 
+            <Button
+                android:id="@+id/btnLOgin"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:text="Masuk / Daftar"
+                android:background="@drawable/button_blue"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/circularImageView"
+                android:layout_width="220dp"
+                android:layout_height="60dp"/>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/backgrooundSecond"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/borders_menu_profile"
@@ -398,10 +411,22 @@
                     android:id="@+id/versi1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="@color/darkMode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
+                <TextView
+                    app:layout_constraintTop_toBottomOf="@id/constraintLayout6"
+                    android:text="Versi 1.0.0"
+                    android:layout_marginTop="190dp"
+                    android:textSize="18sp"
+                    android:id="@+id/versi2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:textColor="@color/darkMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
