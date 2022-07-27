@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +39,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.MasterDataCustomer;
+import com.risqi.traveland.SQLite.DataMode;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
 
@@ -65,7 +67,7 @@ public class RegisterScreen extends AppCompatActivity {
     private int show1 = 0;
     private int show2 = 0;
     CheckBox checkBox;
-    private ConstraintLayout layoutData, formNIK, formNama, formEmail, formTelefon, formGender, formTanggalahir, formAlamat, formPassword, formPassword2;
+    private ConstraintLayout layoutData,layoutUtama, formNIK, formNama, formEmail, formTelefon, formGender, formTanggalahir, formAlamat, formPassword, formPassword2;
     private ToolTipsManager toolTipsManager;
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     Date dateNow, dateInput;
@@ -78,12 +80,31 @@ public class RegisterScreen extends AppCompatActivity {
     final Calendar myCalendar = Calendar.getInstance();
     final Calendar calendarCreated = Calendar.getInstance();
 
+    private DataMode dataMode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_screen);
 
         initialize();
+
+        //MODE
+        Cursor mod = dataMode.getDataOne();
+        mod.moveToFirst();
+        String modeApps = "";
+        while (!mod.isAfterLast()) {
+//            Toast.makeText(this, "" + mod.getString(mod.getColumnIndexOrThrow("mode")), Toast.LENGTH_SHORT).show();
+            modeApps = mod.getString(mod.getColumnIndexOrThrow("mode"));
+
+            mod.moveToNext();
+        }
+        mod.close();
+        if (modeApps.equals("Malam")) {
+            layoutUtama.setBackgroundResource(R.color.darkMode);
+        }else{
+            layoutUtama.setBackgroundResource(R.color.white);
+        }
 
 //        insertData();
 //Sweet Alert
@@ -823,6 +844,10 @@ public class RegisterScreen extends AppCompatActivity {
         //Eyes
         showPass1 = findViewById(R.id.showPass1);
         showPass2 = findViewById(R.id.showPass2);
+
+        //DarkMODE
+        layoutUtama= findViewById(R.id.layoutUtama);
+        dataMode = new DataMode(this);
     }
 
     private void displayToolTips(ImageView component, String textAlert) {

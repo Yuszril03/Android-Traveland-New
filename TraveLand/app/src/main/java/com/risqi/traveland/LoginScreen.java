@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.MasterDataAccountCustomer;
 import com.risqi.traveland.Firebase.MasterDataCustomer;
+import com.risqi.traveland.SQLite.DataBeforeLogin;
+import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.TempData.TempDataCustomer;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
@@ -59,6 +62,9 @@ public class LoginScreen extends AppCompatActivity {
     private  int ShowHide=0;
     private String activityBefore;
 
+    private DataMode dataMode;
+    private DataBeforeLogin beforeLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +73,23 @@ public class LoginScreen extends AppCompatActivity {
 
         initialize();
 
-        if(getIntent().getExtras() != null){
-            Bundle bundle = getIntent().getExtras();
-            activityBefore = bundle.getString("BeforeActivty");
+        //MODE
+        Cursor mod = dataMode.getDataOne();
+        mod.moveToFirst();
+        String modeApps = "";
+        while (!mod.isAfterLast()) {
+//            Toast.makeText(this, "" + mod.getString(mod.getColumnIndexOrThrow("mode")), Toast.LENGTH_SHORT).show();
+            modeApps = mod.getString(mod.getColumnIndexOrThrow("mode"));
 
-        }else{
-            activityBefore = getIntent().getStringExtra("BeforeActivty");
-
+            mod.moveToNext();
         }
+        mod.close();
+        if (modeApps.equals("Malam")) {
+            layoutData.setBackgroundResource(R.color.darkMode);
+        }else{
+            layoutData.setBackgroundResource(R.color.white);
+        }
+
 
         // Initialize tooltip manager
         toolTipsManager=new ToolTipsManager();
@@ -197,6 +212,17 @@ public class LoginScreen extends AppCompatActivity {
                 displayToolTips(dangerKataSandi,textDangerKataSandi);
             }
         });
+
+        //Data BEfore
+        Cursor before = beforeLogin.getDataOne();
+        before.moveToFirst();
+        while (!before.isAfterLast()) {
+//            Toast.makeText(this, "" + mod.getString(mod.getColumnIndexOrThrow("mode")), Toast.LENGTH_SHORT).show();
+            activityBefore = before.getString(before.getColumnIndexOrThrow("screen"));
+
+            before.moveToNext();
+        }
+        before.close();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,6 +351,9 @@ public class LoginScreen extends AppCompatActivity {
         layoutData = findViewById(R.id.layoutData);
         showPass= findViewById(R.id.showPass);
         back= findViewById(R.id.button3);
+
+        dataMode = new DataMode(this);
+        beforeLogin = new DataBeforeLogin(this);
     }
 
     private boolean validasiEmail(String email){

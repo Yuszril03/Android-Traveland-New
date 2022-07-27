@@ -16,6 +16,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.risqi.traveland.SQLite.DataBeforeLogin;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
 
@@ -59,6 +60,7 @@ public class MainProfile extends AppCompatActivity {
     private int posisiMode=0;
     DataMode dataMode;
     private DataLoginUser loginUser;
+    private DataBeforeLogin beforeLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,8 +111,8 @@ public class MainProfile extends AppCompatActivity {
         btnLOgin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                beforeLogin.insertData("Profil");
                 Intent intent = new Intent(MainProfile.this, LoginScreen.class);
-                intent.putExtra("BeforeActivty", "Profil");
                 startActivity(intent);
                 Animatoo.animateSlideUp(MainProfile.this);
                 finish();
@@ -279,6 +281,7 @@ public class MainProfile extends AppCompatActivity {
         btnbackprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent a = new Intent(MainProfile.this, MainMenu.class);
                 startActivity(a);
                 Animatoo.animateFade(MainProfile.this);
@@ -299,6 +302,7 @@ public class MainProfile extends AppCompatActivity {
 
         dataMode = new DataMode(this);
         loginUser = new DataLoginUser(this);
+        beforeLogin = new DataBeforeLogin(this);
 
         switchMode = findViewById(R.id.switchMode);
 
