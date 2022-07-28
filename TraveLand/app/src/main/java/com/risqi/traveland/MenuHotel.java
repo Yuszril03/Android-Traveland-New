@@ -2,6 +2,7 @@ package com.risqi.traveland;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +37,7 @@ public class MenuHotel extends AppCompatActivity {
     private HotelRecyclerViewAdapter hotelRecyclerViewAdapter;
     private EditText textCari;
     private TextWatcher taTextWatcher =null;
+    private ConstraintLayout constraintLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,10 +54,8 @@ public class MenuHotel extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(TextUtils.isEmpty(textCari.getText())){
                     setHotel("");
-
                 }else{
                     setHotel(textCari.getText().toString());
-                    
                 }
             }
 
@@ -71,6 +71,7 @@ public class MenuHotel extends AppCompatActivity {
     private void initialize() {
         recyclerViewHotel = findViewById(R.id.vwHotel);
         textCari = findViewById(R.id.editSearchhotel);
+        constraintLayout = findViewById(R.id.constrainthotelnodata);
     }
 
     private void setHotel(String cari){
@@ -99,7 +100,11 @@ public class MenuHotel extends AppCompatActivity {
 
                     }
                 }
-
+                if(masterDataHotell.isEmpty()){
+                    constraintLayout.setVisibility(View.VISIBLE);
+                }else {
+                    constraintLayout.setVisibility(View.INVISIBLE);
+                }
                 hotelRecyclerViewAdapter.notifyDataSetChanged();
             }
 

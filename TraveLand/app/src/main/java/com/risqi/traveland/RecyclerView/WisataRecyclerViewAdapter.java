@@ -2,15 +2,22 @@ package com.risqi.traveland.RecyclerView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
+import com.risqi.traveland.DetailWisata;
 import com.risqi.traveland.Firebase.MasterDataWisata;
+import com.risqi.traveland.MainMenu;
+import com.risqi.traveland.MenuRental;
+import com.risqi.traveland.MenuWisata;
 import com.risqi.traveland.R;
 //import com.squareup.picasso.Picasso;
 
@@ -62,7 +69,10 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
         holder.btnlistwisata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Berhasil", Toast.LENGTH_SHORT).show();
+                Intent a = new  Intent(context, DetailWisata.class);
+                context.startActivity(a);
+                Animatoo.animateFade(context);
+                ((Activity)context).finish();
             }
         });
         if(masterdatawisata.getFotoWisata().equals(""))
@@ -75,7 +85,7 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
                     .load(masterdatawisata.getFotoWisata())
 //                    .transform(new MultiTransformation(new FitCenter()))
                     .apply(new RequestOptions()
-                            .override(135, 135)
+                            .override(125, 125)
                             .priority(Priority.HIGH)
                             .centerCrop())
                     .into(holder.fotowisata);

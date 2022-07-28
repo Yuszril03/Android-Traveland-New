@@ -5,13 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -33,49 +30,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuWisata extends AppCompatActivity {
+
     private List<MasterDataWisata> masterDataWisata1 = new ArrayList<>();
     private DatabaseReference Reff;
     RecyclerView recyclerViewWisata;
     private WisataRecyclerViewAdapter wisataRecyclerViewAdapter;
-    private EditText editSearch;
+    private EditText textCari;
+    private TextWatcher textWatcher =null;
+    private ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_wisata);
-        recyclerViewWisata = findViewById(R.id.vwWisata);
-        editSearch = (EditText) findViewById(R.id.editText);
+        initialize();
+        setWisata("");
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        setWisata();
-//        searchWisata();
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(TextUtils.isEmpty(textCari.getText())){
+                    setWisata("");
+                }else{
+                    setWisata(textCari.getText().toString());
+                }
+            }
 
+            @Override
+            public void afterTextChanged(Editable editable) {
 
-//        editSearch.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//                // TODO Auto-generated method stub
-//                Toast.makeText(MenuWisata.this,"before text change", Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//                // TODO Auto-generated method stub
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//                // TODO Auto-generated method stub
-//            }
-//        });
+            }
+        };
+        textCari.addTextChangedListener(textWatcher);
         
     }
+    private void initialize(){
+        recyclerViewWisata = findViewById(R.id.vwWisata);
+        textCari = findViewById(R.id.editSearch);
+        constraintLayout = findViewById(R.id.constraintwisatanodata);
+    }
 
-    private void setWisata(){
+    private void setWisata(String cari){
         wisataRecyclerViewAdapter = new WisataRecyclerViewAdapter(this, masterDataWisata1);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false);
         recyclerViewWisata.setLayoutManager(layoutManager);
@@ -87,9 +86,23 @@ public class MenuWisata extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 masterDataWisata1.clear();
-                for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                    MasterDataWisata masterdatawisata = postSnapshot.getValue(MasterDataWisata.class);
-                    masterDataWisata1.add(masterdatawisata);
+                if (cari.equals("")){
+                    for (DataSnapshot postSnapshot1 : snapshot.getChildren()){
+                        MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
+                        masterDataWisata1.add(masterdatawisataa);
+                    }
+                }else {
+                    for (DataSnapshot postSnapshot1 : snapshot.getChildren()){
+                        MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
+                        if (masterdatawisataa.getNamaWisata().contains(cari)){
+                            masterDataWisata1.add(masterdatawisataa);
+                        }
+                    }
+                }
+                if (masterDataWisata1.isEmpty()){
+                    constraintLayout.setVisibility(View.VISIBLE);
+                }else {
+                    constraintLayout.setVisibility(View.INVISIBLE);
                 }
                 wisataRecyclerViewAdapter.notifyDataSetChanged();
             }
@@ -108,8 +121,4 @@ public class MenuWisata extends AppCompatActivity {
         finish();
     }
 
-    private void searchWisata(){
-        
-
-    }
 }

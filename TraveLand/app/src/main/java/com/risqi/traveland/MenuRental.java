@@ -2,13 +2,18 @@ package com.risqi.traveland;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.firebase.database.DataSnapshot;
@@ -28,16 +33,46 @@ public class MenuRental extends AppCompatActivity {
     private DatabaseReference Reff;
     RecyclerView recyclerViewRental;
     private RentalRecyclerViewAdapter rentalRecyclerViewAdapter;
+    private EditText textCari;
+    private TextWatcher rTextWatcher = null;
+    private ConstraintLayout constraintLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_rental);
-        recyclerViewRental = findViewById(R.id.vwRental);
-        setRental();
+        initialize();
+        setRental("");
+        rTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (TextUtils.isEmpty(textCari.getText())){
+                    setRental("");
+                }else {
+                    setRental(textCari.getText().toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+        textCari.addTextChangedListener(rTextWatcher);
     }
 
-    private void setRental(){
+    private void initialize(){
+        recyclerViewRental = findViewById(R.id.vwRental);
+        textCari = findViewById(R.id.editSearchrental);
+        constraintLayout = findViewById(R.id.constraintrentalnodata);
+    }
+
+    private void setRental(String cari){
         rentalRecyclerViewAdapter = new RentalRecyclerViewAdapter(this, masterDataRentall);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false);
         recyclerViewRental.setLayoutManager(layoutManager);
@@ -49,9 +84,23 @@ public class MenuRental extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 masterDataRentall.clear();
-                for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                    MasterDataRental masterdatarental = postSnapshot.getValue(MasterDataRental.class);
-                    masterDataRentall.add(masterdatarental);
+                if (cari.equals("")){
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()){
+                        MasterDataRental masterdatarental = postSnapshot.getValue(MasterDataRental.class);
+                        masterDataRentall.add(masterdatarental);
+                    }
+                }else {
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()){
+                        MasterDataRental masterdatarental = postSnapshot.getValue(MasterDataRental.class);
+                        if (masterdatarental.getNamaRental().contains(cari)){
+                            masterDataRentall.add(masterdatarental);
+                        }
+                    }
+                }
+                if (masterDataRentall.isEmpty()){
+                    constraintLayout.setVisibility(View.VISIBLE);
+                }else {
+                    constraintLayout.setVisibility(View.INVISIBLE);
                 }
                 rentalRecyclerViewAdapter.notifyDataSetChanged();
             }
