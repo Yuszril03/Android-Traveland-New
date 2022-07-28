@@ -75,6 +75,16 @@ public class DataLoginUser extends SQLiteOpenHelper {
 
         return  true;
     }
+    public boolean updateDataFoto( String foto)
+    {
+        String ID="1";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_3,foto);
+        db.update(TABLE_NAME,contentValues,"id=?",new String[]{ID});
+
+        return  true;
+    }
     public Boolean deleteDataAll()
     {
         SQLiteDatabase db = this.getWritableDatabase();

@@ -63,6 +63,7 @@ public class LoginScreen extends AppCompatActivity {
 
     //Database
     private DatabaseReference databaseReference, databaseReference2;
+    private  DatabaseReference databaseReference3;
 
     private ConstraintLayout layoutData;
     private ToolTipsManager toolTipsManager;
@@ -392,7 +393,11 @@ public class LoginScreen extends AppCompatActivity {
         String keyAndroid = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         Map<String, String> insertCustomer = new HashMap<>();
         insertCustomer.put("KeyAndroid", keyAndroid);
-        databaseReference = FirebaseDatabase.getInstance().getReference("Data-Login-Customer");
+
+        HashMap insertCustomerUpdate = new HashMap();
+        insertCustomerUpdate.put("KeyAndroid", keyAndroid);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("Data-Login-Customer").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -436,6 +441,8 @@ public class LoginScreen extends AppCompatActivity {
                                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                             @Override
                                             public void onClick(SweetAlertDialog sDialog) {
+                                                databaseReference.onDisconnect();
+                                                databaseReference2.onDisconnect();
                                                 sDialog.dismissWithAnimation();
                                                 dataLoginUser.insertData(nik, nama, foto, gender, katasandi);
                                                 pDialog.dismiss();
@@ -443,23 +450,12 @@ public class LoginScreen extends AppCompatActivity {
                                                     Intent intent = new Intent(LoginScreen.this, MainProfile.class);
                                                     startActivity(intent);
                                                     Animatoo.animateSlideDown(LoginScreen.this);
-                                                    finish();
+                                                    onStop();
                                                 }
                                             }
                                         })
                                         .show();
 
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                pDialog.dismiss();
-                                new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.ERROR_TYPE)
-                                        .setTitleText("Oops...")
-                                        .setContentText("Gagal Login Aplikasi!")
-                                        .setConfirmText("Okey")
-                                        .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
-                                        .show();
                             }
                         });
                     } else {
@@ -479,8 +475,8 @@ public class LoginScreen extends AppCompatActivity {
                                     @Override
                                     public void onClick(SweetAlertDialog sDialog) {
                                         sDialog.dismissWithAnimation();
-                                        databaseReference2 = FirebaseDatabase.getInstance().getReference().child("Data-Login-Customer").child(nik);
-                                        databaseReference2.setValue(insertCustomer).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        databaseReference3 = FirebaseDatabase.getInstance().getReference().child("Data-Login-Customer").child(nik);
+                                        databaseReference3.setValue(insertCustomer).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
                                                 new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.SUCCESS_TYPE)
@@ -492,6 +488,8 @@ public class LoginScreen extends AppCompatActivity {
                                                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                                             @Override
                                                             public void onClick(SweetAlertDialog sDialog) {
+                                                                databaseReference.onDisconnect();
+                                                                databaseReference3.onDisconnect();
                                                                 sDialog.dismissWithAnimation();
                                                                 dataLoginUser.insertData(nik, nama, foto, gender, katasandi);
                                                                 pDialog.dismiss();
@@ -499,21 +497,11 @@ public class LoginScreen extends AppCompatActivity {
                                                                     Intent intent = new Intent(LoginScreen.this, MainProfile.class);
                                                                     startActivity(intent);
                                                                     Animatoo.animateSlideDown(LoginScreen.this);
-                                                                    finish();
+                                                                    onStop();
+
                                                                 }
                                                             }
                                                         })
-                                                        .show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                pDialog.dismiss();
-                                                new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.ERROR_TYPE)
-                                                        .setTitleText("Oops...")
-                                                        .setContentText("Gagal Login Aplikasi!")
-                                                        .setConfirmText("Okey")
-                                                        .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
                                                         .show();
                                             }
                                         });

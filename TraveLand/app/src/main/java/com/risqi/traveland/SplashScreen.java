@@ -104,13 +104,14 @@ public class SplashScreen extends AppCompatActivity {
 
                             new SweetAlertDialog(SplashScreen.this, SweetAlertDialog.ERROR_TYPE)
                                     .setTitleText("Opps...")
-                                    .setContentText("Akun anda dikeluarkan dari perangkat lain!")
+                                    .setContentText("Akun sedang tertaut di perangkat lain!")
                                     .setConfirmText("Iya!")
                                     .showCancelButton(false)
                                     .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                         @Override
                                         public void onClick(SweetAlertDialog sDialog) {
+                                            databaseReference.onDisconnect();
                                             sDialog.dismissWithAnimation();
                                             new Handler().postDelayed(new Runnable() {
                                                 @Override
@@ -144,6 +145,7 @@ public class SplashScreen extends AppCompatActivity {
 //                boolean ok=dataFirstApp.insertData("Masuk");
                                     Cursor res = dataFirstApp.getDataOne();
                                     res.moveToFirst();
+                                    databaseReference.onDisconnect();
                                     if (res.getCount() == 0) {
                                         Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
                                         intent.putExtra("ModeApp", "Siang");
@@ -170,6 +172,7 @@ public class SplashScreen extends AppCompatActivity {
 //                boolean ok=dataFirstApp.insertData("Masuk");
                                     Cursor res = dataFirstApp.getDataOne();
                                     res.moveToFirst();
+                                    databaseReference.onDisconnect();
                                     if (res.getCount() == 0) {
                                         Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
                                         intent.putExtra("ModeApp", "Siang");
@@ -187,13 +190,14 @@ public class SplashScreen extends AppCompatActivity {
                             }, 1000);
                         }else  if(resLogin.getCount()==0 && cekKeyAndroid==1){
                             databaseReference2 = FirebaseDatabase.getInstance().getReference("Data-Login-Customer").child(cekNIK);
-                            databaseReference2.getRef().removeValue();
+                            databaseReference2.getRef().onDisconnect().removeValue();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
 //                boolean ok=dataFirstApp.insertData("Masuk");
                                     Cursor res = dataFirstApp.getDataOne();
                                     res.moveToFirst();
+                                    databaseReference.onDisconnect();
                                     if (res.getCount() == 0) {
                                         Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
                                         intent.putExtra("ModeApp", "Siang");
@@ -218,6 +222,7 @@ public class SplashScreen extends AppCompatActivity {
 //                boolean ok=dataFirstApp.insertData("Masuk");
                                     Cursor res = dataFirstApp.getDataOne();
                                     res.moveToFirst();
+                                    databaseReference.onDisconnect();
                                     if (res.getCount() == 0) {
                                         Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
                                         intent.putExtra("ModeApp", "Siang");

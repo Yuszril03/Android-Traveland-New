@@ -17,12 +17,29 @@
         android:background="#FFFFFF"
         android:orientation="vertical">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
             android:background="#FFFFFF">
+
+
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textColor="@null"
+                android:id="@+id/textImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textColor="@null"
+                android:id="@+id/textDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/backgrooundMain"
@@ -55,8 +72,8 @@
 
             <Button
                 android:id="@+id/takeImage"
-                android:layout_width="40dp"
-                android:layout_height="35dp"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/icon_add_image"
                 app:layout_constraintBottom_toBottomOf="@+id/imageprofile"
@@ -212,7 +229,7 @@
                         android:id="@+id/imageprofile31"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/button_edit_profile"
+                        android:background="@drawable/button_keluar_profile"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -263,7 +280,7 @@
                         android:id="@+id/imageprofile32"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/button_edit_profile"
+                        android:background="@drawable/button_keluar_profile"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -314,7 +331,7 @@
                         android:id="@+id/imageprofile33"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/button_keluar_profile"
+                        android:background="@drawable/button_edit_profile"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -365,7 +382,7 @@
                         android:id="@+id/imageprofile34"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/button_keluar_profile"
+                        android:background="@drawable/button_edit_profile"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
