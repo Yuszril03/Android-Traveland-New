@@ -11,10 +11,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+
+
+
         //Animator
         maven { url 'https://jitpack.io' }
         //Sweetalrt
         maven { url 'https://jitpack.io' }
+
     }
 }
 rootProject.name = "TraveLand"
