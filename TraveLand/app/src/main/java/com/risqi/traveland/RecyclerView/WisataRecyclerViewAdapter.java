@@ -15,10 +15,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.risqi.traveland.DetailWisata;
 import com.risqi.traveland.Firebase.MasterDataWisata;
+import com.risqi.traveland.FirstScreen;
 import com.risqi.traveland.MainMenu;
 import com.risqi.traveland.MenuRental;
 import com.risqi.traveland.MenuWisata;
 import com.risqi.traveland.R;
+import com.risqi.traveland.SplashScreen;
 //import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -70,6 +72,7 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
             @Override
             public void onClick(View v) {
                 Intent a = new  Intent(context, DetailWisata.class);
+                a.putExtra("id",idmasterDataWisata1.get(position));
                 context.startActivity(a);
                 Animatoo.animateFade(context);
                 ((Activity)context).finish();
@@ -97,8 +100,10 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
     public int getItemCount() { return  masterDataWisata.size(); }
     private Context context;
     private List<MasterDataWisata> masterDataWisata;
-    public WisataRecyclerViewAdapter(Context context, List<MasterDataWisata> masterDataWisata){
+    private List<String> idmasterDataWisata1;
+    public WisataRecyclerViewAdapter(Context context, List<MasterDataWisata> masterDataWisata,List<String> idmasterDataWisata1){
         this.context=context;
         this.masterDataWisata=masterDataWisata;
+        this.idmasterDataWisata1=idmasterDataWisata1;
     }
 }

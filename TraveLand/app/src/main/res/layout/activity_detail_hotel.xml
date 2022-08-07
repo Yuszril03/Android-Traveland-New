@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".DetailWisata">
+    tools:context=".DetailHotel">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,17 +36,17 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/imageView12"
+                        android:id="@+id/imageviewhoteldetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/nonwisata"
                         app:riv_corner_radius="20dip"
                         app:riv_mutate_background="true"
                         app:riv_oval="false"
-                        app:riv_tile_mode="repeat" />
+                        app:riv_tile_mode="repeat"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/imageView13"
+                        android:id="@+id/imageviewhoteldetail1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#A8000000"
@@ -62,7 +62,7 @@
                         app:riv_tile_mode="repeat" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/background"
+                        android:id="@+id/background1"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="20dp"
@@ -74,14 +74,15 @@
 
                         <Button
                             android:id="@+id/back"
-                            android:onClick="backtomenuwisata"
+                            android:onClick="backtomenuhotel"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/icon_back_white" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/judulWisata"
+                        android:id="@+id/judulHotel"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
@@ -90,29 +91,29 @@
                         android:text="Judul Wisata dddddddddddddd Yang Populer"
                         android:textColor="@color/white"
                         android:textSize="25sp"
-                        app:layout_constraintBottom_toTopOf="@id/hargaWisata"
-                        app:layout_constraintLeft_toLeftOf="@id/background" />
+                        app:layout_constraintBottom_toTopOf="@id/hargaKamar"
+                        app:layout_constraintLeft_toLeftOf="@id/background1" />
 
                     <TextView
-                        android:id="@+id/hargaWisata"
+                        android:id="@+id/hargaKamar"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="30dp"
                         android:maxWidth="270dp"
-                        android:text="Rp.10000 (Anak) / Rp.20000 (Dewasa)"
+                        android:text="Rp.10000 "
                         android:textColor="@color/white"
                         android:textSize="18dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="@id/judulWisata" />
+                        app:layout_constraintLeft_toLeftOf="@id/judulHotel" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/backgroud_back_detail"
-                        app:layout_constraintBottom_toBottomOf="@id/hargaWisata"
+                        app:layout_constraintBottom_toBottomOf="@id/hargaKamar"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/hargaWisata">
+                        app:layout_constraintTop_toTopOf="@id/hargaKamar">
 
                         <ImageView
                             android:id="@+id/star"
@@ -140,8 +141,75 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/profilehotel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintLeft_toLeftOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/atas">
+
+                    <ImageView
+                        android:id="@+id/imageprofilehotel"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/user_profile"
+                        app:civ_border_color="#F3F3F3"
+                        app:civ_border_width="2dp"
+                        app:civ_shadow="true"
+                        app:civ_shadow_radius="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/namahotelmitra"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Nama Mitra Hotel"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageprofilehotel"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/judulDeskripsihotel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Deskripsi Hotel"
+                    android:textColor="@color/darkMode"
+                    android:textSize="22sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/profilehotel" />
+
+                <TextView
+                    android:id="@+id/isiDeskripsihotel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:maxWidth="340dp"
+                    android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+                    android:textColor="@color/accent"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="@id/judulDeskripsihotel"
+                    app:layout_constraintTop_toBottomOf="@id/judulDeskripsihotel" />
 
                 <TextView
                     android:id="@+id/judulDeskripsi"
@@ -150,11 +218,11 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Deskripsi"
+                    android:text="Fasilitas"
                     android:textColor="@color/darkMode"
                     android:textSize="22sp"
                     app:layout_constraintLeft_toLeftOf="@+id/atas"
-                    app:layout_constraintTop_toBottomOf="@+id/atas" />
+                    app:layout_constraintTop_toBottomOf="@+id/isiDeskripsihotel" />
 
                 <TextView
                     android:id="@+id/isiDeskripsi"
@@ -216,9 +284,10 @@
                     app:layout_constraintTop_toBottomOf="@id/judulkomen" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </ScrollView>
 
+        </LinearLayout>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/buttonPesan"
@@ -236,5 +305,6 @@
         android:textColor="@color/darkMode"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

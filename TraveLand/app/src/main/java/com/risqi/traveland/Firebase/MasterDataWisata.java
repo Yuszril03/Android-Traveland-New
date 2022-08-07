@@ -4,6 +4,10 @@ public class MasterDataWisata {
     String AlamatWisata,DeskripsiWisata,HargaAnak,HargaDewasa,Latitude,Longlitude,NamaWisata,TanggalBuat,TanggalUpdate,fotoWisata;
     int StatusWisata;
 
+    public MasterDataWisata(){
+
+    }
+
     public String getAlamatWisata() {
         return AlamatWisata;
     }

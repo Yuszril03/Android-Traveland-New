@@ -32,6 +32,7 @@ import java.util.List;
 public class MenuWisata extends AppCompatActivity {
 
     private List<MasterDataWisata> masterDataWisata1 = new ArrayList<>();
+    private List<String> idmasterDataWisata1 = new ArrayList<>();
     private DatabaseReference Reff;
     RecyclerView recyclerViewWisata;
     private WisataRecyclerViewAdapter wisataRecyclerViewAdapter;
@@ -75,7 +76,7 @@ public class MenuWisata extends AppCompatActivity {
     }
 
     private void setWisata(String cari){
-        wisataRecyclerViewAdapter = new WisataRecyclerViewAdapter(this, masterDataWisata1);
+        wisataRecyclerViewAdapter = new WisataRecyclerViewAdapter(this, masterDataWisata1,idmasterDataWisata1);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false);
         recyclerViewWisata.setLayoutManager(layoutManager);
         recyclerViewWisata.setItemAnimator(new DefaultItemAnimator());
@@ -86,16 +87,19 @@ public class MenuWisata extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 masterDataWisata1.clear();
+                idmasterDataWisata1.clear();
                 if (cari.equals("")){
                     for (DataSnapshot postSnapshot1 : snapshot.getChildren()){
                         MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
                         masterDataWisata1.add(masterdatawisataa);
+                        idmasterDataWisata1.add(postSnapshot1.getKey());
                     }
                 }else {
                     for (DataSnapshot postSnapshot1 : snapshot.getChildren()){
                         MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
                         if (masterdatawisataa.getNamaWisata().contains(cari)){
                             masterDataWisata1.add(masterdatawisataa);
+                            idmasterDataWisata1.add(postSnapshot1.getKey());
                         }
                     }
                 }

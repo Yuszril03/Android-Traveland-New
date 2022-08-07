@@ -36,8 +36,9 @@ import java.util.List;
 
 public class MainMenu extends AppCompatActivity {
 
-    private  List<DataKegiatan> dataKegiatanT = new ArrayList<>();
-    private  List<TempDataInformation> dataInformations = new ArrayList<>();
+    private List<DataKegiatan> dataKegiatanT = new ArrayList<>();
+    private List<TempDataInformation> dataInformations = new ArrayList<>();
+    private List<String> iddataKegiatanT = new ArrayList<>();
     private DatabaseReference Reff;
     RecyclerView recyclerView;
     RecyclerView recyclerViewPemberitahuan;
@@ -178,7 +179,7 @@ public class MainMenu extends AppCompatActivity {
 
 
     private void setData() {
-        kegiatanRecyclerViewAdapter = new KegiatanRecyclerViewAdapter(this, dataKegiatanT);
+        kegiatanRecyclerViewAdapter = new KegiatanRecyclerViewAdapter(this, dataKegiatanT, iddataKegiatanT);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL,false);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -193,6 +194,7 @@ public class MainMenu extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()){
                     DataKegiatan dataKegiatan = postSnapshot.getValue(DataKegiatan.class);
                     dataKegiatanT.add(dataKegiatan);
+                    iddataKegiatanT.add(postSnapshot.getKey());
                 }
                 kegiatanRecyclerViewAdapter.notifyDataSetChanged();
             }

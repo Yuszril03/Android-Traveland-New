@@ -66,6 +66,20 @@
         <entry key="..\:/APLIKASI/TraveLand/app/src/main/res/drawable/form_control_danger.xml" value="0.146" />
         <entry key="..\:/APLIKASI/TraveLand/app/src/main/res/layout/activity_login_screen.xml" value="0.22" />
         <entry key="..\:/APLIKASI/TraveLand/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/drawable/border_detail.xml" value="0.113" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/drawable/border_image_list_wisata.xml" value="0.113" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/drawable/border_image_menu_profile.xml" value="0.113" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/drawable/border_image_profil_home.xml" value="0.113" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_detail_hotel.xml" value="0.1" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_detail_kegiatan.xml" value="0.5" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_detail_rental.xml" value="0.22" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_detail_wisata.xml" value="0.25" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_main_menu.xml" value="0.10182370820668693" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_main_profile.xml" value="0.10182370820668693" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_menu_hotel.xml" value="0.10182370820668693" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/activity_menu_wisata.xml" value="0.10182370820668693" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/item_list.xml" value="0.21" />
+        <entry key="..\:/App Traveland/Android-Traveland-New/TraveLand/app/src/main/res/layout/item_list_wisata.xml" value="0.25" />
       </map>
     </option>
   </component>

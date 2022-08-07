@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.MasterDataRental;
+import com.risqi.traveland.Firebase.MasterDataRentalDetail;
 import com.risqi.traveland.RecyclerView.RentalRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -29,7 +30,8 @@ import java.util.List;
 
 public class MenuRental extends AppCompatActivity {
 
-    private List<MasterDataRental> masterDataRentall = new ArrayList<>();
+    private List<MasterDataRentalDetail> masterDataRentalDetaill = new ArrayList<>();
+    private List<String> idmasterDataRentalDetaill = new ArrayList<>();
     private DatabaseReference Reff;
     RecyclerView recyclerViewRental;
     private RentalRecyclerViewAdapter rentalRecyclerViewAdapter;
@@ -73,31 +75,34 @@ public class MenuRental extends AppCompatActivity {
     }
 
     private void setRental(String cari){
-        rentalRecyclerViewAdapter = new RentalRecyclerViewAdapter(this, masterDataRentall);
+        rentalRecyclerViewAdapter = new RentalRecyclerViewAdapter(this, masterDataRentalDetaill, idmasterDataRentalDetaill);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false);
         recyclerViewRental.setLayoutManager(layoutManager);
         recyclerViewRental.setItemAnimator(new DefaultItemAnimator());
         recyclerViewRental.setAdapter(rentalRecyclerViewAdapter);
 
-        Reff = FirebaseDatabase.getInstance().getReference("Master-Data-Rental");
+        Reff = FirebaseDatabase.getInstance().getReference("Master-Data-Rental-Detail");
         Reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                masterDataRentall.clear();
+                masterDataRentalDetaill.clear();
+                idmasterDataRentalDetaill.clear();
                 if (cari.equals("")){
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                        MasterDataRental masterdatarental = postSnapshot.getValue(MasterDataRental.class);
-                        masterDataRentall.add(masterdatarental);
+                        MasterDataRentalDetail masterdatarentaldetail = postSnapshot.getValue(MasterDataRentalDetail.class);
+                        masterDataRentalDetaill.add(masterdatarentaldetail);
+                        idmasterDataRentalDetaill.add(postSnapshot.getKey());
                     }
                 }else {
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                        MasterDataRental masterdatarental = postSnapshot.getValue(MasterDataRental.class);
-                        if (masterdatarental.getNamaRental().contains(cari)){
-                            masterDataRentall.add(masterdatarental);
+                        MasterDataRentalDetail masterdatarentaldetail = postSnapshot.getValue(MasterDataRentalDetail.class);
+                        if (masterdatarentaldetail.getNamaKendaraan().contains(cari)){
+                            masterDataRentalDetaill.add(masterdatarentaldetail);
+                            idmasterDataRentalDetaill.add(postSnapshot.getKey());
                         }
                     }
                 }
-                if (masterDataRentall.isEmpty()){
+                if (masterDataRentalDetaill.isEmpty()){
                     constraintLayout.setVisibility(View.VISIBLE);
                 }else {
                     constraintLayout.setVisibility(View.INVISIBLE);

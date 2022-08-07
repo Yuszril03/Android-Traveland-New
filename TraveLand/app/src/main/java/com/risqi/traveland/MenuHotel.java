@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.MasterDataHotel;
+import com.risqi.traveland.Firebase.MasterDataHotelDetail;
 import com.risqi.traveland.RecyclerView.HotelRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -31,7 +32,8 @@ import java.util.List;
 
 public class MenuHotel extends AppCompatActivity {
 
-    private List<MasterDataHotel> masterDataHotell = new ArrayList<>();
+    private List<MasterDataHotelDetail> masterDataHotelDetaill = new ArrayList<>();
+    private List<String> idmasterDataHotelDetail = new ArrayList<>();
     private DatabaseReference Reff;
     RecyclerView recyclerViewHotel;
     private HotelRecyclerViewAdapter hotelRecyclerViewAdapter;
@@ -75,32 +77,35 @@ public class MenuHotel extends AppCompatActivity {
     }
 
     private void setHotel(String cari){
-        hotelRecyclerViewAdapter = new HotelRecyclerViewAdapter(this, masterDataHotell);
+        hotelRecyclerViewAdapter = new HotelRecyclerViewAdapter(this, masterDataHotelDetaill,idmasterDataHotelDetail);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false);
         recyclerViewHotel.setLayoutManager(layoutManager);
         recyclerViewHotel.setItemAnimator(new DefaultItemAnimator());
         recyclerViewHotel.setAdapter(hotelRecyclerViewAdapter);
 
-        Reff = FirebaseDatabase.getInstance().getReference("Master-Data-Hotel");
+        Reff = FirebaseDatabase.getInstance().getReference("Master-Data-Hotel-Detail");
         Reff.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                masterDataHotell.clear();
+                masterDataHotelDetaill.clear();
+                idmasterDataHotelDetail.clear();
                 if(cari.equals("")){
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                        MasterDataHotel masterdatahotel = postSnapshot.getValue(MasterDataHotel.class);
-                        masterDataHotell.add(masterdatahotel);
+                        MasterDataHotelDetail masterdatahoteldetail = postSnapshot.getValue(MasterDataHotelDetail.class);
+                        masterDataHotelDetaill.add(masterdatahoteldetail);
+                        idmasterDataHotelDetail.add(postSnapshot.getKey());
                     }
                 }else{
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
-                        MasterDataHotel masterdatahotel = postSnapshot.getValue(MasterDataHotel.class);
-                        if(masterdatahotel.getNamaHotel().contains(cari)){
-                            masterDataHotell.add(masterdatahotel);
+                        MasterDataHotelDetail masterdatahoteldetail = postSnapshot.getValue(MasterDataHotelDetail.class);
+                        if(masterdatahoteldetail.getNamaKamar().contains(cari)){
+                            masterDataHotelDetaill.add(masterdatahoteldetail);
+                            idmasterDataHotelDetail.add(postSnapshot.getKey());
                         }
 
                     }
                 }
-                if(masterDataHotell.isEmpty()){
+                if(masterDataHotelDetaill.isEmpty()){
                     constraintLayout.setVisibility(View.VISIBLE);
                 }else {
                     constraintLayout.setVisibility(View.INVISIBLE);

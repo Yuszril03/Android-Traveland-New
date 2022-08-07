@@ -3,6 +3,9 @@ package com.risqi.traveland.Firebase;
 public class MasterDataRental {
     String AlamatRental, DeskripsiRental, Latitude, Longlitude, NamaRental, TanggalBuat, TanggalUpdate, fotoRental;
     int StatusRental;
+    public MasterDataRental(){
+
+    }
 
     public String getAlamatRental() {
         return AlamatRental;
