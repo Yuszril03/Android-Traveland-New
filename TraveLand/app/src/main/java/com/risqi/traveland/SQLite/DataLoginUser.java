@@ -75,12 +75,46 @@ public class DataLoginUser extends SQLiteOpenHelper {
 
         return  true;
     }
+    public boolean updateDataRealTime(String Nama, String foto, String gender,String katasandi)
+    {
+        String ID="1";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_2,Nama);
+        contentValues.put(COL_3,foto);
+        contentValues.put(COL_4,gender);
+        contentValues.put(COL_5,katasandi);
+        db.update(TABLE_NAME,contentValues,"id=?",new String[]{ID});
+
+        return  true;
+    }
+    public boolean updateDataOnlyMaster(String Nama, String gender)
+    {
+        String ID="1";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_2,Nama);
+        contentValues.put(COL_4,gender);
+        db.update(TABLE_NAME,contentValues,"id=?",new String[]{ID});
+
+        return  true;
+    }
     public boolean updateDataFoto( String foto)
     {
         String ID="1";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_3,foto);
+        db.update(TABLE_NAME,contentValues,"id=?",new String[]{ID});
+
+        return  true;
+    }
+    public boolean updateDataKataSandi( String katasandi)
+    {
+        String ID="1";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_5,katasandi);
         db.update(TABLE_NAME,contentValues,"id=?",new String[]{ID});
 
         return  true;

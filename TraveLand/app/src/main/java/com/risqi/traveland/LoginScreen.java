@@ -1,12 +1,9 @@
 package com.risqi.traveland;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -21,12 +18,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -40,15 +38,12 @@ import com.risqi.traveland.Firebase.MasterDataCustomer;
 import com.risqi.traveland.SQLite.DataBeforeLogin;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
-import com.risqi.traveland.TempData.TempDataCustomer;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -63,7 +58,7 @@ public class LoginScreen extends AppCompatActivity {
 
     //Database
     private DatabaseReference databaseReference, databaseReference2;
-    private  DatabaseReference databaseReference3;
+    private  Task databaseReference3;
 
     private ConstraintLayout layoutData;
     private ToolTipsManager toolTipsManager;
@@ -391,11 +386,10 @@ public class LoginScreen extends AppCompatActivity {
 
     private void cekLoginCUstomer(String nik, String nama, String foto, String gender, String katasandi) {
         String keyAndroid = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        Map<String, String> insertCustomer = new HashMap<>();
-        insertCustomer.put("KeyAndroid", keyAndroid);
+        DataLoginCustomer dataLoginCustomer = new DataLoginCustomer();
+        Map<String, String> insertCustomer = dataLoginCustomer.insertData(nik, Build.MODEL,Build.MANUFACTURER);
 
-        HashMap insertCustomerUpdate = new HashMap();
-        insertCustomerUpdate.put("KeyAndroid", keyAndroid);
+        HashMap insertCustomerUpdate = dataLoginCustomer.updateLogin(nik);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("Data-Login-Customer").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -409,26 +403,24 @@ public class LoginScreen extends AppCompatActivity {
                     Log.d("ANEHE", "onComplete: "+Isi);
                     int cekNIK = 0;
                     int cekKeyAndroid = 0;
+                    String Lastkey = "";
+                    int trueKey = 0;
                     if (Isi.equals("null")) {
                         cekNIK = 0;
                     } else {
                         for (Map.Entry<String, Object> entry : Customer.entrySet()) {
-                            String key = entry.getKey();
+                            Lastkey = entry.getKey();
                             Object value = entry.getValue();
                             Map<String, Object> Temps = (Map<String, Object>) entry.getValue();
-                            if (key.equals(nik)) {
+                            if (Lastkey.equals(keyAndroid) && Temps.get("NIK").equals(nik)) {
                                 cekNIK = 1;
                             }
-                            if (Temps.get("KeyAndroid").equals(keyAndroid)) {
-                                cekKeyAndroid = 1;
-                            }
-
-
                         }
                     }
 
                     if (cekNIK == 0) {
-                        databaseReference2 = FirebaseDatabase.getInstance().getReference().child("Data-Login-Customer").child(nik);
+                        Lastkey=Lastkey+1;
+                        databaseReference2 = FirebaseDatabase.getInstance().getReference().child("Data-Login-Customer").child(keyAndroid);
                         databaseReference2.setValue(insertCustomer).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
@@ -451,6 +443,7 @@ public class LoginScreen extends AppCompatActivity {
                                                     startActivity(intent);
                                                     Animatoo.animateSlideDown(LoginScreen.this);
                                                     onStop();
+//                                                    finish();
                                                 }
                                             }
                                         })
@@ -458,56 +451,38 @@ public class LoginScreen extends AppCompatActivity {
 
                             }
                         });
-                    } else {
-                        new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.WARNING_TYPE)
-                                .setTitleText("Apakah Anda Yakin Tetap Masuk?")
-                                .setContentText("Akun sedang terkait pada perangkat lain!")
-                                .setConfirmText("Iya!")
-                                .setCancelText("Tidak")
-                                .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
-                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        pDialog.dismiss();
-                                    }
-                                })
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sDialog) {
-                                        sDialog.dismissWithAnimation();
-                                        databaseReference3 = FirebaseDatabase.getInstance().getReference().child("Data-Login-Customer").child(nik);
-                                        databaseReference3.setValue(insertCustomer).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    }
+                    else {
+                        databaseReference3 = FirebaseDatabase.getInstance().getReference().child("Data-Login-Customer").child(keyAndroid).updateChildren(insertCustomerUpdate);
+                        databaseReference3.addOnCompleteListener(new OnCompleteListener() {
+                            @Override
+                            public void onComplete(@NonNull Task task) {
+                                new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.SUCCESS_TYPE)
+                                        .setTitleText("Berhasil")
+                                        .setContentText("Anda Berhasil Masuk!")
+                                        .setConfirmText("Iya!")
+                                        .showCancelButton(false)
+                                        .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                             @Override
-                                            public void onSuccess(Void unused) {
-                                                new SweetAlertDialog(LoginScreen.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                        .setTitleText("Berhasil")
-                                                        .setContentText("Anda Berhasil Masuk!")
-                                                        .setConfirmText("Iya!")
-                                                        .showCancelButton(false)
-                                                        .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
-                                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                            @Override
-                                                            public void onClick(SweetAlertDialog sDialog) {
-                                                                databaseReference.onDisconnect();
-                                                                databaseReference3.onDisconnect();
-                                                                sDialog.dismissWithAnimation();
-                                                                dataLoginUser.insertData(nik, nama, foto, gender, katasandi);
-                                                                pDialog.dismiss();
-                                                                if (activityBefore.equals("Profil")) {
-                                                                    Intent intent = new Intent(LoginScreen.this, MainProfile.class);
-                                                                    startActivity(intent);
-                                                                    Animatoo.animateSlideDown(LoginScreen.this);
-                                                                    onStop();
+                                            public void onClick(SweetAlertDialog sDialog) {
+                                                databaseReference.onDisconnect();
+                                                sDialog.dismissWithAnimation();
+                                                dataLoginUser.insertData(nik, nama, foto, gender, katasandi);
+                                                pDialog.dismiss();
+                                                if (activityBefore.equals("Profil")) {
+                                                    Intent intent = new Intent(LoginScreen.this, MainProfile.class);
+                                                    startActivity(intent);
+                                                    Animatoo.animateSlideDown(LoginScreen.this);
+                                                    onStop();
+//                                                    finish();
 
-                                                                }
-                                                            }
-                                                        })
-                                                        .show();
+                                                }
                                             }
-                                        });
-                                    }
-                                })
-                                .show();
+                                        })
+                                        .show();
+                            }
+                        });
                     }
 //
 //                    Iterator Loop = Customer.keySet().iterator();

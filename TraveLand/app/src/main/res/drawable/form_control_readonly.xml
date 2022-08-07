@@ -40,7 +40,7 @@
     <!-- Background -->
     <item>
         <shape>
-            <solid android:color="@color/white"/>
+            <solid android:color="@color/darkTxt"/>
             <corners android:radius="20dp" />
             <stroke
                 android:width="2dp"

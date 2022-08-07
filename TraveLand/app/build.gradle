@@ -11,7 +11,7 @@ android {
         minSdk 24
         targetSdk 32
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -61,6 +61,10 @@ dependencies {
     implementation 'com.tomergoldst.android:tooltips:1.1.1'
     //circle Image
     implementation 'com.mikhaellopez:circularimageview:4.3.0'
+    //device
+    implementation 'com.jaredrummler:android-device-names:2.0.0'
+    //Reload Layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
 
 apply plugin: 'com.google.gms.google-services'

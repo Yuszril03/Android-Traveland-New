@@ -1,17 +1,15 @@
 package com.risqi.traveland;
 
-//import android.support.v7.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,45 +24,69 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.risqi.traveland.SQLite.DataFirstApp;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
-import com.risqi.traveland.SQLite.DataVersion;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
+public class VersionScreen extends AppCompatActivity {
 
-@SuppressLint("CustomSplashScreen")
-public class SplashScreen extends AppCompatActivity {
     private DatabaseReference databaseReference, databaseReference2, databaseReference3, databaseReference4;
     private DataFirstApp dataFirstApp;
-    private DataMode dataMode;
-    private DataVersion dataVersion;
     private DataLoginUser dataLoginUser;
-    private ConstraintLayout layoutUtama;
-    private ImageView logo;
     private String keyAndroid;
-    private int internet = 0;
-    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    Date currentDate = new Date();
-    Date versionDate = null;
+
+    //Main
+    private Button updateNow, btnclose;
+    private ConstraintLayout layoutUtama;
+    private TextView text, subText;
+    //Other
+    private String LinkUpdate, BeforeScreen;
+    private DataMode dataMode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(R.layout.activity_version_screen);
         initialize();
         setMode();
-        cekKondisi();
+        getDataInten();
+        toLink();
+        toMenu();
+    }
 
+    private void toMenu() {
+        btnclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (BeforeScreen.equals("SplasScreen")) {
+                    cekUser();
+                }else{
+                    Intent intent = new Intent(VersionScreen.this, MainProfile.class);
+                    startActivity(intent);
+                    Animatoo.animateFade(VersionScreen.this);
+                    onStop();
+                }
 
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (BeforeScreen.equals("SplasScreen")) {
+            cekUser();
+        }else{
+            Intent intent = new Intent(VersionScreen.this, MainProfile.class);
+            startActivity(intent);
+            Animatoo.animateFade(VersionScreen.this);
+            onStop();
+        }
     }
 
     private void setMode() {
         Cursor mod = dataMode.getDataOne();
         mod.moveToFirst();
-        String modeApps = "";
+        String modeApps = "Siang";
         while (!mod.isAfterLast()) {
 //            Toast.makeText(this, "" + mod.getString(mod.getColumnIndexOrThrow("mode")), Toast.LENGTH_SHORT).show();
             modeApps = mod.getString(mod.getColumnIndexOrThrow("mode"));
@@ -74,122 +96,39 @@ public class SplashScreen extends AppCompatActivity {
         mod.close();
         if (modeApps.equals("Malam")) {
             layoutUtama.setBackgroundColor(getResources().getColor(R.color.darkMode));
-            logo.setBackgroundResource(R.drawable.penuhlogowhite);
+            btnclose.setBackgroundResource(R.drawable.icon_cancel);
+            text.setTextColor(getResources().getColor(R.color.white));
+            subText.setTextColor(getResources().getColor(R.color.darkTxt));
         } else {
             layoutUtama.setBackgroundColor(getResources().getColor(R.color.white));
-            logo.setBackgroundResource(R.drawable.penuhlogo);
+            btnclose.setBackgroundResource(R.drawable.icon_cancel_dark);
+            text.setTextColor(getResources().getColor(R.color.darkMode));
+            subText.setTextColor(getResources().getColor(R.color.accent));
         }
     }
 
-    private boolean adaInternet() {
-        ConnectivityManager koneksi = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        return koneksi.getActiveNetworkInfo() != null;
-    }
-
-    private void cekKondisi() {
-        if (!adaInternet() && internet == 0) {
-            internet = 1;
-            new SweetAlertDialog(SplashScreen.this, SweetAlertDialog.ERROR_TYPE)
-                    .setTitleText("Internet tidak terhubung")
-                    .setContentText("Mohon cek kembali konkesi internet")
-                    .setConfirmText("Okey")
-                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            startActivity(getIntent());
-                            Animatoo.animateFade(SplashScreen.this);
-                            onStop();
-                        }
-                    })
-                    .show();
-        } else if (adaInternet() && internet == 0) {
-
-            cekVersion();
+    private void getDataInten() {
+        if (getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            LinkUpdate = bundle.getString("LinkUpdate");
+            BeforeScreen = bundle.getString("Before");
+        } else {
+            LinkUpdate = getIntent().getStringExtra("LinkUpdate");
+            BeforeScreen = getIntent().getStringExtra("Before");
         }
     }
 
-    private void cekVersion() {
-        databaseReference4 = FirebaseDatabase.getInstance().getReference();
-        databaseReference4.child("Data-Version").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+    private void toLink() {
+        updateNow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                String lastVersi="";
-                String linkVersi="";
-                Map<String, Object> Version = (Map<String, Object>) task.getResult().getValue();
-                for (Map.Entry<String, Object> entry : Version.entrySet()) {
-                    String key = entry.getKey();
-                    Object value = entry.getValue();
-                    Map<String, Object> Temps = (Map<String, Object>) entry.getValue();
-                    lastVersi=Temps.get("nomorVersi").toString();
-                    linkVersi=Temps.get("LinkUpdate").toString();
-
-                }
-
-                if(lastVersi.equals(BuildConfig.VERSION_NAME)){
-                    cekUser();
-                }else{
-                    String finalLinkVersi = linkVersi;
-                    Cursor mod = dataVersion.getAllData();
-                    mod.moveToFirst();
-                    String tanggalVersi = "";
-                    while (!mod.isAfterLast()) {
-//            Toast.makeText(this, "" + mod.getString(mod.getColumnIndexOrThrow("mode")), Toast.LENGTH_SHORT).show();
-                        tanggalVersi = mod.getString(mod.getColumnIndexOrThrow("waktu"));
-
-                        mod.moveToNext();
-                    }
-                    mod.close();
-                    if(tanggalVersi.equals("")){
-                        dataVersion.insertData(finalLinkVersi,format.format(currentDate));
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(SplashScreen.this, VersionScreen.class);
-                                intent.putExtra("LinkUpdate", finalLinkVersi);
-                                startActivity(intent);
-                                Animatoo.animateFade(SplashScreen.this);
-                                onStop();
-                            }
-                        }, 1000);
-                    }else{
-                        try {
-                            versionDate = format.parse(tanggalVersi);
-                            //time difference in milliseconds
-                            long diff = currentDate.getTime() - versionDate.getTime();
-
-                            long diffHours = diff / (60 * 60 * 1000);
-                            if(diffHours >= 4){
-                                dataVersion.updateData(finalLinkVersi,format.format(currentDate));
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent intent = new Intent(SplashScreen.this, VersionScreen.class);
-                                        intent.putExtra("LinkUpdate", finalLinkVersi);
-                                        intent.putExtra("Before", "SplasScreen");
-                                        startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
-                                        onStop();
-                                    }
-                                }, 1000);
-                            }else{
-                                cekUser();
-                            }
-
-
-
-//                            Toast.makeText(SplashScreen.this, ""+diffHours, Toast.LENGTH_SHORT).show();
-
-
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-
-                }
-
+            public void onClick(View view) {
+                Uri uri = Uri.parse(LinkUpdate); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
             }
         });
+
+
     }
 
     private void cekUser() {
@@ -237,22 +176,22 @@ public class SplashScreen extends AppCompatActivity {
                                     Cursor res = dataFirstApp.getDataOne();
                                     res.moveToFirst();
                                     if (res.getCount() == 0) {
-                                        Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
+                                        Intent intent = new Intent(VersionScreen.this, FirstScreen.class);
                                         intent.putExtra("ModeApp", "Siang");
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(SplashScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     }
 
                                 }
-                            }, 1000);
+                            }, 100);
                         } else if (resLogin.getCount() == 0 && cekKeyAndroid == 0) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -262,22 +201,22 @@ public class SplashScreen extends AppCompatActivity {
                                     res.moveToFirst();
                                     databaseReference.onDisconnect();
                                     if (res.getCount() == 0) {
-                                        Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
+                                        Intent intent = new Intent(VersionScreen.this, FirstScreen.class);
                                         intent.putExtra("ModeApp", "Siang");
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(SplashScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     }
 
                                 }
-                            }, 1000);
+                            }, 100);
                         }
 
                     } else {
@@ -291,22 +230,22 @@ public class SplashScreen extends AppCompatActivity {
                                     res.moveToFirst();
                                     databaseReference.onDisconnect();
                                     if (res.getCount() == 0) {
-                                        Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
+                                        Intent intent = new Intent(VersionScreen.this, FirstScreen.class);
                                         intent.putExtra("ModeApp", "Siang");
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(SplashScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     }
 
                                 }
-                            }, 1000);
+                            }, 100);
                         } else if (resLogin.getCount() == 0 && cekKeyAndroid == 1) {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -316,22 +255,22 @@ public class SplashScreen extends AppCompatActivity {
                                     res.moveToFirst();
                                     databaseReference.onDisconnect();
                                     if (res.getCount() == 0) {
-                                        Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
+                                        Intent intent = new Intent(VersionScreen.this, FirstScreen.class);
                                         intent.putExtra("ModeApp", "Siang");
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(SplashScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     }
 
                                 }
-                            }, 1000);
+                            }, 100);
 
                         } else if (resLogin.getCount() == 1 && cekKeyAndroid == 1) {
 
@@ -362,22 +301,22 @@ public class SplashScreen extends AppCompatActivity {
                                     res.moveToFirst();
                                     databaseReference.onDisconnect();
                                     if (res.getCount() == 0) {
-                                        Intent intent = new Intent(SplashScreen.this, FirstScreen.class);
+                                        Intent intent = new Intent(VersionScreen.this, FirstScreen.class);
                                         intent.putExtra("ModeApp", "Siang");
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(SplashScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
                                         startActivity(intent);
-                                        Animatoo.animateFade(SplashScreen.this);
+                                        Animatoo.animateFade(VersionScreen.this);
                                         finish();
                                         onStop();
                                     }
 
                                 }
-                            }, 1000);
+                            }, 100);
                         }
                     }
 
@@ -388,12 +327,18 @@ public class SplashScreen extends AppCompatActivity {
     }
 
     private void initialize() {
-        dataFirstApp = new DataFirstApp(this);
-        dataMode = new DataMode(this);
-        dataVersion = new DataVersion(this);
-        dataLoginUser = new DataLoginUser(this);
+
+        //Main
+        btnclose = findViewById(R.id.btnclose);
         layoutUtama = findViewById(R.id.layoutUtama);
-        logo = findViewById(R.id.imageView);
+        subText = findViewById(R.id.subText);
+        text = findViewById(R.id.text);
+
+        //Other
+        updateNow = findViewById(R.id.button);
+        dataMode = new DataMode(this);
+        dataFirstApp = new DataFirstApp(this);
+        dataLoginUser = new DataLoginUser(this);
         keyAndroid = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 }

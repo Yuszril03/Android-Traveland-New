@@ -1,8 +1,8 @@
 package com.risqi.traveland.Firebase;
 
 public class DataKegiatan {
-    String Judul,Alamat,IsiKegiatan,JenisKegiatan,KegiatanYangBerkaitan,LinkImage,Latitute,Longlitute,TanggalAkhir,TanggalBuat,TanggalMulai,TanggalUpdate;
-    int StatusBerita;
+    private String Judul,Alamat,IsiKegiatan,JenisKegiatan,KegiatanYangBerkaitan,LinkImage,Latitute,Longlitute,TanggalAkhir,TanggalBuat,TanggalMulai,TanggalUpdate;
+    private int StatusBerita;
 
     public DataKegiatan(){
 

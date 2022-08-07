@@ -1,11 +1,44 @@
 package com.risqi.traveland.Firebase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+
 public class MasterDataCustomer {
     String AlamatCustomer,EmailCustomer,NamaCustomer,TanggalBuat,TanggalLahirCustomer,TanggalUpdate,TelefonCustomer,fotoCustomer;
     int Gender,StatusCustomer;
+    private SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    private Calendar myCalendar = Calendar.getInstance();
 
     public  MasterDataCustomer(){
 
+    }
+
+    public HashMap updateDataString (String AlamatCustomer,String NamaCustomer,String TanggalLahirCustomer,String TelefonCustomer){
+        String dateTime = simpleDateFormat.format(myCalendar.getTime()).toString();
+        HashMap update = new HashMap();
+        update.put("AlamatCustomer", AlamatCustomer);
+        update.put("NamaCustomer", NamaCustomer);
+        update.put("TanggalLahirCustomer", TanggalLahirCustomer);
+        update.put("TelefonCustomer", TelefonCustomer);
+        update.put("TanggalUpdate", dateTime);
+
+        return  update;
+    }
+    public HashMap updateDataINT (int Gender){
+        String dateTime = simpleDateFormat.format(myCalendar.getTime()).toString();
+        HashMap update = new HashMap();
+        update.put("Gender", Gender);
+        update.put("TanggalUpdate", dateTime);
+
+        return  update;
+    }
+    public HashMap updateDataTanggalPembaruan (){
+        String dateTime = simpleDateFormat.format(myCalendar.getTime()).toString();
+        HashMap update = new HashMap();
+        update.put("TanggalUpdate", dateTime);
+
+        return  update;
     }
 
     public String getAlamatCustomer() {
