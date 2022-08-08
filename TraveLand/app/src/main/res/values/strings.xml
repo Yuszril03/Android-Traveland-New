@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TraveLand</string>
+    <string name="mapbox_access_token">sk.eyJ1Ijoic3VsdGFuMTIzIiwiYSI6ImNsNjg1b2lvajB3cTQzYm5vdnY2eTVweWEifQ.EhWDQZTpPGkp1qk2R0Mw9A</string>
 </resources>

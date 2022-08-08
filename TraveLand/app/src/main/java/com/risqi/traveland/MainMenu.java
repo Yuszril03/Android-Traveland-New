@@ -49,6 +49,7 @@ public class MainMenu extends AppCompatActivity {
 
     private List<DataKegiatan> dataKegiatanT = new ArrayList<>();
     private List<TempDataInformation> dataInformations = new ArrayList<>();
+    private List<String> iddataKegiatanT = new ArrayList<>();
     private DatabaseReference Reff;
     RecyclerView recyclerView;
     RecyclerView recyclerViewPemberitahuan;
@@ -196,7 +197,28 @@ public class MainMenu extends AppCompatActivity {
         onStop();
     }
 
-    private void initialize() {
+
+    public void wisata (View view){
+        Intent a = new  Intent(MainMenu.this, MenuWisata.class);
+        startActivity(a);
+        Animatoo.animateFade(MainMenu.this);
+        finish();
+    }
+    public void hotel (View view){
+        Intent a = new  Intent(MainMenu.this, MenuHotel.class);
+        startActivity(a);
+        Animatoo.animateFade(MainMenu.this);
+        finish();
+    }
+    public void rental (View view){
+        Intent a = new  Intent(MainMenu.this, MenuRental.class);
+        startActivity(a);
+        Animatoo.animateFade(MainMenu.this);
+        finish();
+    }
+
+
+    private void initialize(){
         recyclerView = findViewById(R.id.vwKegiatan);
         recyclerViewPemberitahuan = findViewById(R.id.vmPemberitahuan);
         scrollView = findViewById(R.id.scrolLayout);
@@ -262,7 +284,9 @@ public class MainMenu extends AppCompatActivity {
         nama.setText(", " + arrayName[0]);
     }
 
-    private void setPemberitahuan() {
+
+
+    private  void  setPemberitahuan(){
 
         Cursor modapa = loginUser.getDataOne();
         modapa.moveToFirst();
@@ -292,9 +316,9 @@ public class MainMenu extends AppCompatActivity {
 
 
     private void setData() {
-        kegiatanRecyclerViewAdapter = new KegiatanRecyclerViewAdapter(this, dataKegiatanT);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
 
+        kegiatanRecyclerViewAdapter = new KegiatanRecyclerViewAdapter(this, dataKegiatanT, iddataKegiatanT);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(kegiatanRecyclerViewAdapter);
@@ -307,6 +331,7 @@ public class MainMenu extends AppCompatActivity {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     DataKegiatan dataKegiatan = postSnapshot.getValue(DataKegiatan.class);
                     dataKegiatanT.add(dataKegiatan);
+                    iddataKegiatanT.add(postSnapshot.getKey());
                 }
                 kegiatanRecyclerViewAdapter.notifyDataSetChanged();
             }

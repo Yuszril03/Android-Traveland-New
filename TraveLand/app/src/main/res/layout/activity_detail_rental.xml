@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".DetailRental">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="75dp"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@id/buttonPesan"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/atas"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imageviewrentaldetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/nonwisata"
+                        app:riv_corner_radius="20dip"
+                        app:riv_mutate_background="true"
+                        app:riv_oval="false"
+                        app:riv_tile_mode="repeat"/>
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imageviewrentaldetail1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#A8000000"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:riv_corner_radius="20dip"
+                        app:riv_mutate_background="true"
+                        app:riv_oval="false"
+                        app:riv_tile_mode="repeat"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/background1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/backgroud_back_detail"
+                        android:padding="7dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <Button
+                            android:id="@+id/back"
+                            android:onClick="backtomenurental"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/icon_back_white" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/judulmobil"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/roboto_bold"
+                        android:maxWidth="300dp"
+                        android:text="Judul mobil dddddddddddddd Yang Populer"
+                        android:textColor="@color/white"
+                        android:textSize="25sp"
+                        app:layout_constraintBottom_toTopOf="@id/hargamobil"
+                        app:layout_constraintLeft_toLeftOf="@id/background1" />
+
+                    <TextView
+                        android:id="@+id/hargamobil"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:maxWidth="270dp"
+                        android:text="Rp.10000 "
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@id/judulmobil" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/backgroud_back_detail"
+                        app:layout_constraintBottom_toBottomOf="@id/hargamobil"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/hargamobil">
+
+                        <ImageView
+                            android:id="@+id/star"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/icon_star"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="10dp"
+                            android:text="4.5"
+                            android:textColor="@color/darkMode"
+                            app:layout_constraintBottom_toBottomOf="@id/star"
+                            app:layout_constraintLeft_toRightOf="@id/star"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/star" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/profilerental"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintLeft_toLeftOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/atas">
+
+                    <ImageView
+                        android:id="@+id/imageprofilerental"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/user_profile"
+                        app:civ_border_color="#F3F3F3"
+                        app:civ_border_width="2dp"
+                        app:civ_shadow="true"
+                        app:civ_shadow_radius="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/namamitrarental"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Nama Mitra Rental"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageprofilerental"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/deskripsirental"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Deskripsi Rental"
+                    android:textColor="@color/darkMode"
+                    android:textSize="22sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/profilerental" />
+
+                <TextView
+                    android:id="@+id/isideskripsirental"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:maxWidth="340dp"
+                    android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+                    android:textColor="@color/accent"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="@id/deskripsirental"
+                    app:layout_constraintTop_toBottomOf="@id/deskripsirental" />
+
+                <TextView
+                    android:id="@+id/judulukuran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Ukuran Kendaraan"
+                    android:textColor="@color/darkMode"
+                    android:textSize="22sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/isideskripsirental" />
+
+                <TextView
+                    android:id="@+id/isiukuran"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:maxWidth="340dp"
+                    android:text="XL"
+                    android:textColor="@color/accent"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="@id/judulukuran"
+                    app:layout_constraintTop_toBottomOf="@id/judulukuran" />
+
+                <TextView
+                    android:id="@+id/juduljumlahkursi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Jumlah Kursi"
+                    android:textColor="@color/darkMode"
+                    android:textSize="22sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/isiukuran" />
+
+                <TextView
+                    android:id="@+id/isiJumlahKursi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:maxWidth="340dp"
+                    android:text="8 kursi"
+                    android:textColor="@color/accent"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="@id/juduljumlahkursi"
+                    app:layout_constraintTop_toBottomOf="@id/juduljumlahkursi" />
+
+                <TextView
+                    android:id="@+id/judulDeskripsi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Deskripsi Kendaraan"
+                    android:textColor="@color/darkMode"
+                    android:textSize="22sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/isiJumlahKursi" />
+
+                <TextView
+                    android:id="@+id/isiDeskripsi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:justificationMode="inter_word"
+                    android:maxWidth="340dp"
+                    android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
+                    android:textColor="@color/accent"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="@id/judulDeskripsi"
+                    app:layout_constraintTop_toBottomOf="@id/judulDeskripsi" />
+
+                <TextView
+                    android:id="@+id/judulMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Lokasi"
+                    android:textColor="@color/darkMode"
+                    android:textSize="22sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/isiDeskripsi" />
+
+                <org.osmdroid.views.MapView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/judulMap" />
+
+                <TextView
+                    android:id="@+id/judulkomen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Komentar"
+                    android:textColor="@color/darkMode"
+                    android:textSize="22sp"
+                    app:layout_constraintLeft_toLeftOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/map"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvGroceries"
+                    android:layout_width="154dp"
+                    android:layout_height="178dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintLeft_toLeftOf="@id/judulkomen"
+                    app:layout_constraintTop_toBottomOf="@id/judulkomen" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonPesan"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/button_primary"
+        android:drawableEnd="@drawable/icon_right_dark"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingStart="80dp"
+        android:paddingEnd="60dp"
+        android:text="Pesan Sekarang"
+        android:textAlignment="center"
+        android:textColor="@color/darkMode"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

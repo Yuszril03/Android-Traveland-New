@@ -11,6 +11,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="com.androidtutorialpoint.mymapsappsdirection.permission.MAPS_RECEIVE" />
 
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -31,7 +32,27 @@
             android:name=".EditPasswordScreen"
             android:exported="false" />
         <activity
-            android:name=".EditProfilScreen"
+            android:name=".EditProfilScreen" />
+        <activity
+            android:name=".DetailKegiatan"
+            android:exported="false" />
+        <activity
+            android:name=".DetailRental"
+            android:exported="false" />
+        <activity
+            android:name=".DetailHotel"
+            android:exported="false" />
+        <activity
+            android:name=".DetailWisata"
+            android:exported="false" />
+        <activity
+            android:name=".MenuRental"
+            android:exported="false" />
+        <activity
+            android:name=".MenuHotel"
+            android:exported="false" />
+        <activity
+            android:name=".MenuWisata"
             android:exported="false" />
         <activity android:name=".ThridScreen" />
         <activity
@@ -70,5 +91,17 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="com.androidtutorialpoint.mymapsappsdirection.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>
