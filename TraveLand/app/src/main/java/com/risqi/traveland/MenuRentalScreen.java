@@ -21,14 +21,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.risqi.traveland.Firebase.MasterDataRental;
 import com.risqi.traveland.Firebase.MasterDataRentalDetail;
 import com.risqi.traveland.RecyclerView.RentalRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuRental extends AppCompatActivity {
+public class MenuRentalScreen extends AppCompatActivity {
 
     private List<MasterDataRentalDetail> masterDataRentalDetaill = new ArrayList<>();
     private List<String> idmasterDataRentalDetaill = new ArrayList<>();
@@ -118,9 +117,9 @@ public class MenuRental extends AppCompatActivity {
     }
 
     public void btnbackrental (View view){
-        Intent a = new  Intent(MenuRental.this, MainMenu.class);
+        Intent a = new  Intent(MenuRentalScreen.this, MainMenuScreen.class);
         startActivity(a);
-        Animatoo.animateFade(MenuRental.this);
+        Animatoo.animateFade(MenuRentalScreen.this);
         finish();
     }
 }

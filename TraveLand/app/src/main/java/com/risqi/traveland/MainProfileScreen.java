@@ -49,7 +49,7 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MainProfile extends AppCompatActivity {
+public class MainProfileScreen extends AppCompatActivity {
 
     //Main
     private LinearLayout linear;
@@ -172,7 +172,7 @@ public class MainProfile extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     pDialog.dismiss();
-                                    new SweetAlertDialog(MainProfile.this, SweetAlertDialog.SUCCESS_TYPE)
+                                    new SweetAlertDialog(MainProfileScreen.this, SweetAlertDialog.SUCCESS_TYPE)
                                             .setTitleText("Aplikasi Mutahir")
                                             .setContentText("Aplikasi telah dimutahir")
                                             .setConfirmText("Okey")
@@ -191,11 +191,11 @@ public class MainProfile extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                @Override
                                public void run() {
-                                   Intent intent = new Intent(MainProfile.this, VersionScreen.class);
+                                   Intent intent = new Intent(MainProfileScreen.this, VersionScreen.class);
                                    intent.putExtra("LinkUpdate", finalLinkVersi);
                                    intent.putExtra("Before", "ProfilMain");
                                    startActivity(intent);
-                                   Animatoo.animateFade(MainProfile.this);
+                                   Animatoo.animateFade(MainProfileScreen.this);
                                    onStop();
                                }
                            }, 2000);
@@ -210,9 +210,9 @@ public class MainProfile extends AppCompatActivity {
         layoutKataSandi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent a = new Intent(MainProfile.this, EditPasswordScreen.class);
+                Intent a = new Intent(MainProfileScreen.this, EditPasswordScreen.class);
                 startActivity(a);
-                Animatoo.animateSwipeLeft(MainProfile.this);
+                Animatoo.animateSwipeLeft(MainProfileScreen.this);
                 onStop();
             }
         });
@@ -240,9 +240,9 @@ public class MainProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 beforeLogin.insertData("Profil");
-                Intent intent = new Intent(MainProfile.this, LoginScreen.class);
+                Intent intent = new Intent(MainProfileScreen.this, LoginScreen.class);
                 startActivity(intent);
-                Animatoo.animateSlideUp(MainProfile.this);
+                Animatoo.animateSlideUp(MainProfileScreen.this);
 
                 onStop();
             }
@@ -254,9 +254,9 @@ public class MainProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent a = new Intent(MainProfile.this, MainMenu.class);
+                Intent a = new Intent(MainProfileScreen.this, MainMenuScreen.class);
                 startActivity(a);
-                Animatoo.animateFade(MainProfile.this);
+                Animatoo.animateFade(MainProfileScreen.this);
                 finish();
                 onStop();
             }
@@ -290,7 +290,7 @@ public class MainProfile extends AppCompatActivity {
             public void run() {
                 if (!adaInternet() && internet == 0) {
                     internet = 1;
-                    new SweetAlertDialog(MainProfile.this, SweetAlertDialog.ERROR_TYPE)
+                    new SweetAlertDialog(MainProfileScreen.this, SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("Internet tidak terhubung")
                             .setContentText("Mohon cek kembali konkesi internet")
                             .setConfirmText("Okey")
@@ -298,7 +298,7 @@ public class MainProfile extends AppCompatActivity {
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     startActivity(getIntent());
-                                    Animatoo.animateFade(MainProfile.this);
+                                    Animatoo.animateFade(MainProfileScreen.this);
                                     onStop();
                                 }
                             })
@@ -322,9 +322,9 @@ public class MainProfile extends AppCompatActivity {
         layoutProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent a = new Intent(MainProfile.this, EditProfilScreen.class);
+                Intent a = new Intent(MainProfileScreen.this, EditProfilScreen.class);
                 startActivity(a);
-                Animatoo.animateSwipeLeft(MainProfile.this);
+                Animatoo.animateSwipeLeft(MainProfileScreen.this);
                 onStop();
             }
         });
@@ -365,7 +365,7 @@ public class MainProfile extends AppCompatActivity {
         layoutKeluar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SweetAlertDialog(MainProfile.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(MainProfileScreen.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Apakah Anda Yakin?")
                         .setContentText("Keluar dari akun ini!")
                         .setConfirmText("Iya!")
@@ -384,9 +384,9 @@ public class MainProfile extends AppCompatActivity {
                                     public void run() {
                                         pDialog.dismiss();
                                         loginUser.deleteDataAll();
-                                        Intent intent = new Intent(MainProfile.this, SplashScreen.class);
+                                        Intent intent = new Intent(MainProfileScreen.this, SplashScreen.class);
                                         startActivity(intent);
-                                        Animatoo.animateFade(MainProfile.this);
+                                        Animatoo.animateFade(MainProfileScreen.this);
                                         onStop();
                                     }
                                 }, 2000);
@@ -645,7 +645,7 @@ public class MainProfile extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
 
-            new SweetAlertDialog(MainProfile.this, SweetAlertDialog.WARNING_TYPE)
+            new SweetAlertDialog(MainProfileScreen.this, SweetAlertDialog.WARNING_TYPE)
                     .setTitleText("Apakah Anda Yakin?")
                     .setContentText("Mengganti Foto Profil!")
                     .setConfirmText("Iya!")
@@ -702,14 +702,14 @@ public class MainProfile extends AppCompatActivity {
 
 
                         pDialog.dismiss();
-                        new SweetAlertDialog(MainProfile.this, SweetAlertDialog.SUCCESS_TYPE)
+                        new SweetAlertDialog(MainProfileScreen.this, SweetAlertDialog.SUCCESS_TYPE)
                                 .setTitleText("Berhasil")
                                 .setContentText("Berhasil Mengganti Profil!")
                                 .setConfirmText("Okey")
                                 .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
                                 .show();
-                        Glide.with(MainProfile.this).clear(circularimageview);
-                        Glide.with(MainProfile.this)
+                        Glide.with(MainProfileScreen.this).clear(circularimageview);
+                        Glide.with(MainProfileScreen.this)
                                 .load(uri.toString())
 //                    .transform(new MultiTransformation(new FitCenter()))
                                 .apply(new RequestOptions()
@@ -722,7 +722,7 @@ public class MainProfile extends AppCompatActivity {
                         //editTextNama.setText(uri.toString());
 //                        textViewTemp.setText(uri.toString());
 //                        imageViewProfil.setImageURI(image_uri);
-//                        Toast.makeText(MainProfile.this, uri.toString(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MainProfileScreen.this, uri.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -737,9 +737,9 @@ public class MainProfile extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent a = new Intent(MainProfile.this, MainMenu.class);
+        Intent a = new Intent(MainProfileScreen.this, MainMenuScreen.class);
         startActivity(a);
-        Animatoo.animateFade(MainProfile.this);
+        Animatoo.animateFade(MainProfileScreen.this);
         finish();
         onStop();
     }
@@ -801,7 +801,7 @@ public class MainProfile extends AppCompatActivity {
         textImage = findViewById(R.id.textImage);
 
         //Sweet Alert
-        pDialog = new SweetAlertDialog(MainProfile.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog = new SweetAlertDialog(MainProfileScreen.this, SweetAlertDialog.PROGRESS_TYPE);
 
     }
 }

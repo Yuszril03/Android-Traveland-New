@@ -45,7 +45,7 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenuScreen extends AppCompatActivity {
 
     private List<DataKegiatan> dataKegiatanT = new ArrayList<>();
     private List<TempDataInformation> dataInformations = new ArrayList<>();
@@ -118,7 +118,7 @@ public class MainMenu extends AppCompatActivity {
             public void run() {
                 if (!adaInternet() && internet == 0) {
                     internet = 1;
-                    new SweetAlertDialog(MainMenu.this, SweetAlertDialog.ERROR_TYPE)
+                    new SweetAlertDialog(MainMenuScreen.this, SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("Internet tidak terhubung")
                             .setContentText("Mohon cek kembali konkesi internet")
                             .setConfirmText("Okey")
@@ -126,7 +126,7 @@ public class MainMenu extends AppCompatActivity {
                                 @Override
                                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                                     startActivity(getIntent());
-                                    Animatoo.animateFade(MainMenu.this);
+                                    Animatoo.animateFade(MainMenuScreen.this);
                                     onStop();
                                 }
                             })
@@ -191,30 +191,30 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void MenuProfile(View view) {
-        Intent a = new Intent(MainMenu.this, MainProfile.class);
+        Intent a = new Intent(MainMenuScreen.this, MainProfileScreen.class);
         startActivity(a);
-        Animatoo.animateFade(MainMenu.this);
+        Animatoo.animateFade(MainMenuScreen.this);
         onStop();
     }
 
 
     public void wisata (View view){
-        Intent a = new  Intent(MainMenu.this, MenuWisata.class);
+        Intent a = new  Intent(MainMenuScreen.this, MenuWisataScreen.class);
         startActivity(a);
-        Animatoo.animateFade(MainMenu.this);
-        finish();
+        Animatoo.animateFade(MainMenuScreen.this);
+        onStop();
     }
     public void hotel (View view){
-        Intent a = new  Intent(MainMenu.this, MenuHotel.class);
+        Intent a = new  Intent(MainMenuScreen.this, MenuHotelScreen.class);
         startActivity(a);
-        Animatoo.animateFade(MainMenu.this);
-        finish();
+        Animatoo.animateFade(MainMenuScreen.this);
+        onStop();
     }
     public void rental (View view){
-        Intent a = new  Intent(MainMenu.this, MenuRental.class);
+        Intent a = new  Intent(MainMenuScreen.this, MenuRentalScreen.class);
         startActivity(a);
-        Animatoo.animateFade(MainMenu.this);
-        finish();
+        Animatoo.animateFade(MainMenuScreen.this);
+        onStop();
     }
 
 

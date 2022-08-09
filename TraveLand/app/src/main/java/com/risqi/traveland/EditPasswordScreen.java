@@ -305,7 +305,7 @@ public class EditPasswordScreen extends AppCompatActivity {
                                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        Intent a = new Intent(EditPasswordScreen.this, MainProfile.class);
+                                        Intent a = new Intent(EditPasswordScreen.this, MainProfileScreen.class);
                                         startActivity(a);
                                         Animatoo.animateSwipeRight(EditPasswordScreen.this);
                                         onStop();
@@ -431,7 +431,7 @@ public class EditPasswordScreen extends AppCompatActivity {
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                Intent a = new Intent(EditPasswordScreen.this, MainProfile.class);
+                                Intent a = new Intent(EditPasswordScreen.this, MainProfileScreen.class);
                                 startActivity(a);
                                 Animatoo.animateSwipeRight(EditPasswordScreen.this);
                                 onStop();
@@ -454,7 +454,7 @@ public class EditPasswordScreen extends AppCompatActivity {
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        Intent a = new Intent(EditPasswordScreen.this, MainProfile.class);
+                        Intent a = new Intent(EditPasswordScreen.this, MainProfileScreen.class);
                         startActivity(a);
                         Animatoo.animateSwipeRight(EditPasswordScreen.this);
                         onStop();

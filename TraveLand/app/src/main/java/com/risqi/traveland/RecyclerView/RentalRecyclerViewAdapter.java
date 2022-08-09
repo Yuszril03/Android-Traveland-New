@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,8 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.risqi.traveland.DetailRental;
-import com.risqi.traveland.Firebase.MasterDataRental;
+import com.risqi.traveland.DetailRentalScreen;
 import com.risqi.traveland.Firebase.MasterDataRentalDetail;
 import com.risqi.traveland.R;
 
@@ -69,7 +67,7 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
         holder.Btnlistrental.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new Intent(context, DetailRental.class);
+                Intent a = new Intent(context, DetailRentalScreen.class);
                 a.putExtra("idDetail",idmasterDataRentalDetail.get(position));
                 a.putExtra("idMaster",masterdatarentaldetail.getIdRental());
                 context.startActivity(a);

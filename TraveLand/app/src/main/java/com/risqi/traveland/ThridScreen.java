@@ -76,7 +76,7 @@ public class ThridScreen extends AppCompatActivity {
 
                 dataFirstApp.insertData("Masuk");
                 dataMode.insertData(ModeApp);
-                Intent intent = new Intent(ThridScreen.this, MainMenu.class);
+                Intent intent = new Intent(ThridScreen.this, MainMenuScreen.class);
                 intent.putExtra("ModeApp",ModeApp);
                 startActivity(intent);
                 Animatoo.animateFade(ThridScreen.this);

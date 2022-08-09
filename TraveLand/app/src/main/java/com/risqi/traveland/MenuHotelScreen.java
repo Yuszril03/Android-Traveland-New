@@ -14,8 +14,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.firebase.database.DataSnapshot;
@@ -23,14 +21,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.risqi.traveland.Firebase.MasterDataHotel;
 import com.risqi.traveland.Firebase.MasterDataHotelDetail;
 import com.risqi.traveland.RecyclerView.HotelRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuHotel extends AppCompatActivity {
+public class MenuHotelScreen extends AppCompatActivity {
 
     private List<MasterDataHotelDetail> masterDataHotelDetaill = new ArrayList<>();
     private List<String> idmasterDataHotelDetail = new ArrayList<>();
@@ -121,9 +118,9 @@ public class MenuHotel extends AppCompatActivity {
     }
 
     public void btnbackhotel (View view){
-        Intent a = new  Intent(MenuHotel.this, MainMenu.class);
+        Intent a = new  Intent(MenuHotelScreen.this, MainMenuScreen.class);
         startActivity(a);
-        Animatoo.animateFade(MenuHotel.this);
+        Animatoo.animateFade(MenuHotelScreen.this);
         finish();
     }
 }

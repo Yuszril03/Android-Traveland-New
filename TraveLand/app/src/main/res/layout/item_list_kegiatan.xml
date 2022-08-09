@@ -8,15 +8,53 @@
     android:layout_marginRight="20dp"
     android:background="@drawable/shadow">
 
-
-    <ImageView
-        android:id="@+id/imageView8"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bgImage"
+        android:background="@drawable/background_list_kegiatan"
         android:layout_width="match_parent"
         android:layout_height="112dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/ic_no_image"/>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="1dp"
+            android:id="@+id/imageView8"
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/ic_no_image"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/background_jenis_kegiatan"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_height="20dp">
+
+            <TextView
+                android:id="@+id/jenisKegiatan"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:fontFamily="@font/roboto_medium"
+                android:textColor="@color/darkMode"
+                android:textSize="16sp"
+                android:text="Contoh"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <TextView
         android:id="@+id/tvJudulKegiatan"
@@ -49,10 +87,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:layout_marginStart="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+        app:layout_constraintTop_toBottomOf="@+id/bgImage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,18 +9,10 @@ import android.view.View;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.MultiTransformation;
-import com.bumptech.glide.load.resource.bitmap.FitCenter;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.risqi.traveland.DetailWisata;
+import com.risqi.traveland.DetailWisataScreen;
 import com.risqi.traveland.Firebase.MasterDataWisata;
-import com.risqi.traveland.FirstScreen;
-import com.risqi.traveland.MainMenu;
-import com.risqi.traveland.MenuRental;
-import com.risqi.traveland.MenuWisata;
 import com.risqi.traveland.R;
-import com.risqi.traveland.SplashScreen;
 //import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -30,13 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecyclerViewAdapter.NameViewHolder> {
@@ -71,7 +57,7 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
         holder.btnlistwisata.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new  Intent(context, DetailWisata.class);
+                Intent a = new  Intent(context, DetailWisataScreen.class);
                 a.putExtra("id",idmasterDataWisata1.get(position));
                 context.startActivity(a);
                 Animatoo.animateFade(context);

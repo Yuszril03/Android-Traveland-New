@@ -1,7 +1,5 @@
 package com.risqi.traveland;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,8 +8,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,7 +27,7 @@ import com.risqi.traveland.RecyclerView.WisataRecyclerViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuWisata extends AppCompatActivity {
+public class MenuWisataScreen extends AppCompatActivity {
 
     private List<MasterDataWisata> masterDataWisata1 = new ArrayList<>();
     private List<String> idmasterDataWisata1 = new ArrayList<>();
@@ -119,9 +117,9 @@ public class MenuWisata extends AppCompatActivity {
     }
 
     public void btnbackwisata (View view){
-        Intent a = new  Intent(MenuWisata.this, MainMenu.class);
+        Intent a = new  Intent(MenuWisataScreen.this, MainMenuScreen.class);
         startActivity(a);
-        Animatoo.animateFade(MenuWisata.this);
+        Animatoo.animateFade(MenuWisataScreen.this);
         finish();
     }
 

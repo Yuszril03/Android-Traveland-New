@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class DetailWisata extends AppCompatActivity {
+public class DetailWisataScreen extends AppCompatActivity {
 
     //data dummy
     private RecyclerView rvGroceries;
@@ -100,8 +99,8 @@ public class DetailWisata extends AppCompatActivity {
 
                 }else
                 {
-                    Glide.with(DetailWisata.this).clear(imagewisata);
-                    Glide.with(DetailWisata.this)
+                    Glide.with(DetailWisataScreen.this).clear(imagewisata);
+                    Glide.with(DetailWisataScreen.this)
                             .load(wisata.get("fotoWisata"))
                             .fitCenter()
 //                    .transform(new MultiTransformation(new FitCenter()))
@@ -156,9 +155,9 @@ public class DetailWisata extends AppCompatActivity {
     }
 
     public void backtomenuwisata (View view){
-        Intent a = new  Intent(DetailWisata.this, MenuWisata.class);
+        Intent a = new  Intent(DetailWisataScreen.this, MenuWisataScreen.class);
         startActivity(a);
-        Animatoo.animateFade(DetailWisata.this);
+        Animatoo.animateFade(DetailWisataScreen.this);
         finish();
     }
 

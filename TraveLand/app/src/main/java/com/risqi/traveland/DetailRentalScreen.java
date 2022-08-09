@@ -1,17 +1,15 @@
 package com.risqi.traveland;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
@@ -22,7 +20,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.risqi.traveland.Firebase.MasterDataHotelDetail;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -33,37 +30,32 @@ import org.osmdroid.views.overlay.Marker;
 
 import java.util.Map;
 
-public class DetailHotel extends AppCompatActivity {
+public class DetailRentalScreen extends AppCompatActivity {
 
+    private MapView map;
+    private String idRental, idRentalDetail;
+    private TextView judulmobil, namamitra, ukuran, jumlahkursi, deskripsi, harga, deskripsirental;
+    private ImageView imagemobil, imagemitra;
+    private DatabaseReference getReference, getGetReference;
 
-    private MapView map = null;
-    private String idHotel,idDetail;
-    private TextView judulkamar;
-    private TextView judulhotel;
-    private TextView fasilitas;
-    private TextView deskripsihotel;
-    private TextView harga;
-    private ImageView imagekamar;
-    private ImageView imagehotel;
-    private DatabaseReference getReference;
-    private DatabaseReference getGetReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_hotel);
+        setContentView(R.layout.activity_detail_rental);
 
         if(getIntent().getExtras() != null){
             Bundle bundle = getIntent().getExtras();
-            idHotel = bundle.getString("idMaster");
-            idDetail = bundle.getString("idDetail");
+            idRental = bundle.getString("idMaster");
+            idRentalDetail = bundle.getString("idDetail");
         }else{
-            idHotel = getIntent().getStringExtra("idMaster");
-            idDetail = getIntent().getStringExtra("idDetail");
+            idRental = getIntent().getStringExtra("idMaster");
+            idRentalDetail = getIntent().getStringExtra("idDetail");
         }
-//        Toast.makeText(this, idHotel, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, idRental, Toast.LENGTH_SHORT).show();
 
         initialize();
+
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         map = (MapView) findViewById(R.id.map);
@@ -74,64 +66,61 @@ public class DetailHotel extends AppCompatActivity {
         mapController.setZoom(14);
 
         getReference = FirebaseDatabase.getInstance().getReference();
-        getReference.child("Master-Data-Hotel-Detail").child(idDetail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        getReference.child("Master-Data-Rental-Detail").child(idRentalDetail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Map<String,Object> hotel1 = (Map<String, Object>) task.getResult().getValue();
+                Map<String, Object> rental1 = (Map<String, Object>) task.getResult().getValue();
 
-                judulkamar.setText(""+hotel1.get("NamaKamar"));
-                fasilitas.setText(""+hotel1.get("FasilitasKamar"));
-                harga.setText("Rp. "+hotel1.get("HargaKamar")+" /Hari");
-                if(hotel1.get("fotoKamar").equals(""))
-                {
+                judulmobil.setText(""+rental1.get("NamaKendaraan"));
+                deskripsi.setText(""+rental1.get("deskripsiKendaraan"));
+                harga.setText("Rp. "+rental1.get("HargaSewa")+" /12 jam");
+                ukuran.setText(""+rental1.get("UkuranKendaraan"));
+                jumlahkursi.setText(""+rental1.get("JumlahKursi"));
+                if (rental1.get("fotoKendaraan").equals("")){
 
-                }else
-                {
-                    Glide.with(DetailHotel.this).clear(imagekamar);
-                    Glide.with(DetailHotel.this)
-                            .load(hotel1.get("fotoKamar"))
-                            .fitCenter()
+                }else {
+                    Glide.with(DetailRentalScreen.this).clear(imagemobil);
+                    Glide.with(DetailRentalScreen.this)
+                            .load(rental1.get("fotoKendaraan"))
 //                    .transform(new MultiTransformation(new FitCenter()))
                             .apply(new RequestOptions()
 //                                    .override(300, 600)
                                     .priority(Priority.HIGH)
                                     .centerCrop())
-                            .into(imagekamar);
+                            .into(imagemobil);
                 }
             }
         });
+
         getGetReference = FirebaseDatabase.getInstance().getReference();
-        getGetReference.child("Master-Data-Hotel").child(idHotel).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        getGetReference.child("Master-Data-Rental").child(idRental).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Map<String,Object> hotel2= (Map<String, Object>) task.getResult().getValue();
-//                Log.d("aneh", "onComplete: "+String.valueOf(task.getResult().getValue()));
-                GeoPoint startPoint = new GeoPoint(Double.parseDouble(""+hotel2.get("Latitude")), Double.parseDouble(""+hotel2.get("Longlitude")));
+                Map<String,Object> rental2 = (Map<String, Object>) task.getResult().getValue();
+
+                GeoPoint startPoint = new GeoPoint(Double.parseDouble(""+rental2.get("Latitude")), Double.parseDouble(""+rental2.get("Longlitude")));
                 mapController.setCenter(startPoint);
                 Marker startMarker = new Marker(map);
                 startMarker.setPosition(startPoint);
                 startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 map.getOverlays().add(startMarker);
 
-                judulhotel.setText(""+hotel2.get("NamaHotel"));
-                deskripsihotel.setText(""+hotel2.get("DeskripsiHotel"));
+                namamitra.setText(""+rental2.get("NamaRental"));
+                deskripsirental.setText(""+rental2.get("DeskripsiRental"));
 
-                if(hotel2.get("fotoHotel").equals(""))
-                {
+                if (rental2.get("fotoRental").equals("")){
 
-                }else
-                {
-                    Glide.with(DetailHotel.this).clear(imagehotel);
-                    Glide.with(DetailHotel.this)
-                            .load(hotel2.get("fotoHotel"))
-
+                }else {
+                    Glide.with(DetailRentalScreen.this).clear(imagemitra);
+                    Glide.with(DetailRentalScreen.this)
+                            .load(rental2.get("fotoRental"))
 //                    .transform(new MultiTransformation(new FitCenter()))
                             .apply(new RequestOptions()
 //                                    .override(300, 600)
-                                    .priority(Priority.HIGH)
                                     .circleCrop()
+                                    .priority(Priority.HIGH)
                                     .centerCrop())
-                            .into(imagehotel);
+                            .into(imagemitra);
                 }
             }
         });
@@ -156,19 +145,21 @@ public class DetailHotel extends AppCompatActivity {
     }
 
     public void initialize(){
-        judulkamar = findViewById(R.id.judulHotel);
-        judulhotel = findViewById(R.id.namahotelmitra);
-        fasilitas = findViewById(R.id.isiDeskripsi);
-        harga = findViewById(R.id.hargaKamar);
-        imagekamar = findViewById(R.id.imageviewhoteldetail1);
-        imagehotel = findViewById(R.id.imageprofilehotel);
-        deskripsihotel = findViewById(R.id.isiDeskripsihotel);
+        judulmobil = findViewById(R.id.judulmobil);
+        namamitra = findViewById(R.id.namamitrarental);
+        ukuran = findViewById(R.id.isiukuran);
+        jumlahkursi = findViewById(R.id.isiJumlahKursi);
+        deskripsi = findViewById(R.id.isiDeskripsi);
+        harga = findViewById(R.id.hargamobil);
+        imagemobil = findViewById(R.id.imageviewrentaldetail1);
+        imagemitra = findViewById(R.id.imageprofilerental);
+        deskripsirental = findViewById(R.id.isideskripsirental);
     }
 
-    public void backtomenuhotel (View view){
-        Intent a = new  Intent(DetailHotel.this, MenuHotel.class);
+    public void backtomenurental(View view){
+        Intent a = new  Intent(DetailRentalScreen.this, MenuRentalScreen.class);
         startActivity(a);
-        Animatoo.animateFade(DetailHotel.this);
+        Animatoo.animateFade(DetailRentalScreen.this);
         finish();
     }
 }

@@ -34,35 +34,35 @@
         <activity
             android:name=".EditProfilScreen" />
         <activity
-            android:name=".DetailKegiatan"
+            android:name=".DetailKegiatanScreen"
             android:exported="false" />
         <activity
-            android:name=".DetailRental"
+            android:name=".DetailRentalScreen"
             android:exported="false" />
         <activity
-            android:name=".DetailHotel"
+            android:name=".DetailHotelScreen"
             android:exported="false" />
         <activity
-            android:name=".DetailWisata"
+            android:name=".DetailWisataScreen"
             android:exported="false" />
         <activity
-            android:name=".MenuRental"
+            android:name=".MenuRentalScreen"
             android:exported="false" />
         <activity
-            android:name=".MenuHotel"
+            android:name=".MenuHotelScreen"
             android:exported="false" />
         <activity
-            android:name=".MenuWisata"
+            android:name=".MenuWisataScreen"
             android:exported="false" />
         <activity android:name=".ThridScreen" />
         <activity
             android:name=".FirstScreen"
             android:exported="false" />
         <activity
-            android:name=".MainProfile"
+            android:name=".MainProfileScreen"
             android:exported="false" />
         <activity
-            android:name=".MainMenu"
+            android:name=".MainMenuScreen"
             android:exported="false" />
         <activity
             android:name=".SecondScreen"

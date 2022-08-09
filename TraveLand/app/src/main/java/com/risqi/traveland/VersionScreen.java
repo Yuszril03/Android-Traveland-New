@@ -61,7 +61,7 @@ public class VersionScreen extends AppCompatActivity {
                 if (BeforeScreen.equals("SplasScreen")) {
                     cekUser();
                 }else{
-                    Intent intent = new Intent(VersionScreen.this, MainProfile.class);
+                    Intent intent = new Intent(VersionScreen.this, MainProfileScreen.class);
                     startActivity(intent);
                     Animatoo.animateFade(VersionScreen.this);
                     onStop();
@@ -76,7 +76,7 @@ public class VersionScreen extends AppCompatActivity {
         if (BeforeScreen.equals("SplasScreen")) {
             cekUser();
         }else{
-            Intent intent = new Intent(VersionScreen.this, MainProfile.class);
+            Intent intent = new Intent(VersionScreen.this, MainProfileScreen.class);
             startActivity(intent);
             Animatoo.animateFade(VersionScreen.this);
             onStop();
@@ -183,7 +183,7 @@ public class VersionScreen extends AppCompatActivity {
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenuScreen.class);
                                         startActivity(intent);
                                         Animatoo.animateFade(VersionScreen.this);
                                         finish();
@@ -208,7 +208,7 @@ public class VersionScreen extends AppCompatActivity {
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenuScreen.class);
                                         startActivity(intent);
                                         Animatoo.animateFade(VersionScreen.this);
                                         finish();
@@ -237,7 +237,7 @@ public class VersionScreen extends AppCompatActivity {
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenuScreen.class);
                                         startActivity(intent);
                                         Animatoo.animateFade(VersionScreen.this);
                                         finish();
@@ -262,7 +262,7 @@ public class VersionScreen extends AppCompatActivity {
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenuScreen.class);
                                         startActivity(intent);
                                         Animatoo.animateFade(VersionScreen.this);
                                         finish();
@@ -308,7 +308,7 @@ public class VersionScreen extends AppCompatActivity {
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(VersionScreen.this, MainMenu.class);
+                                        Intent intent = new Intent(VersionScreen.this, MainMenuScreen.class);
                                         startActivity(intent);
                                         Animatoo.animateFade(VersionScreen.this);
                                         finish();

@@ -10,10 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
@@ -25,11 +23,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.risqi.traveland.DetailHotel;
-import com.risqi.traveland.DetailWisata;
-import com.risqi.traveland.Firebase.MasterDataHotel;
+import com.risqi.traveland.DetailHotelScreen;
 import com.risqi.traveland.Firebase.MasterDataHotelDetail;
-import com.risqi.traveland.Firebase.MasterDataWisata;
 import com.risqi.traveland.R;
 
 import java.util.List;
@@ -78,7 +73,7 @@ public class HotelRecyclerViewAdapter extends RecyclerView.Adapter<HotelRecycler
         holder.Btnlisthotel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new  Intent(context, DetailHotel.class);
+                Intent a = new  Intent(context, DetailHotelScreen.class);
                 a.putExtra("idDetail",idmasterDataHotelDetail.get(position));
                 a.putExtra("idMaster",masterdatahoteldetail.getIdHotel());
                 context.startActivity(a);

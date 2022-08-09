@@ -253,7 +253,7 @@ public class LoginScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (activityBefore.equals("Profil")) {
-                    Intent intent = new Intent(LoginScreen.this, MainProfile.class);
+                    Intent intent = new Intent(LoginScreen.this, MainProfileScreen.class);
                     startActivity(intent);
                     Animatoo.animateSlideDown(LoginScreen.this);
                     finish();
@@ -267,7 +267,7 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (activityBefore.equals("Profil")) {
-            Intent intent = new Intent(LoginScreen.this, MainProfile.class);
+            Intent intent = new Intent(LoginScreen.this, MainProfileScreen.class);
             startActivity(intent);
             Animatoo.animateSlideDown(LoginScreen.this);
             finish();
@@ -439,7 +439,7 @@ public class LoginScreen extends AppCompatActivity {
                                                 dataLoginUser.insertData(nik, nama, foto, gender, katasandi);
                                                 pDialog.dismiss();
                                                 if (activityBefore.equals("Profil")) {
-                                                    Intent intent = new Intent(LoginScreen.this, MainProfile.class);
+                                                    Intent intent = new Intent(LoginScreen.this, MainProfileScreen.class);
                                                     startActivity(intent);
                                                     Animatoo.animateSlideDown(LoginScreen.this);
                                                     onStop();
@@ -471,7 +471,7 @@ public class LoginScreen extends AppCompatActivity {
                                                 dataLoginUser.insertData(nik, nama, foto, gender, katasandi);
                                                 pDialog.dismiss();
                                                 if (activityBefore.equals("Profil")) {
-                                                    Intent intent = new Intent(LoginScreen.this, MainProfile.class);
+                                                    Intent intent = new Intent(LoginScreen.this, MainProfileScreen.class);
                                                     startActivity(intent);
                                                     Animatoo.animateSlideDown(LoginScreen.this);
                                                     onStop();

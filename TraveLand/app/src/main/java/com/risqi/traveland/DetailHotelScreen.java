@@ -10,7 +10,6 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
@@ -31,30 +30,37 @@ import org.osmdroid.views.overlay.Marker;
 
 import java.util.Map;
 
+public class DetailHotelScreen extends AppCompatActivity {
 
-public class DetailKegiatan extends AppCompatActivity {
 
     private MapView map = null;
-    private String idKegiatan;
-    private TextView judulkegiatan,beritaevent,tanggalmulaiakhir,isikegiatan,yangberkaitan;
-    private ImageView imagekegiatan;
+    private String idHotel,idDetail;
+    private TextView judulkamar;
+    private TextView judulhotel;
+    private TextView fasilitas;
+    private TextView deskripsihotel;
+    private TextView harga;
+    private ImageView imagekamar;
+    private ImageView imagehotel;
     private DatabaseReference getReference;
+    private DatabaseReference getGetReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_kegiatan);
+        setContentView(R.layout.activity_detail_hotel);
 
         if(getIntent().getExtras() != null){
             Bundle bundle = getIntent().getExtras();
-            idKegiatan = bundle.getString("id");
+            idHotel = bundle.getString("idMaster");
+            idDetail = bundle.getString("idDetail");
         }else{
-            idKegiatan = getIntent().getStringExtra("id");
+            idHotel = getIntent().getStringExtra("idMaster");
+            idDetail = getIntent().getStringExtra("idDetail");
         }
-//        Toast.makeText(this, idKegiatan, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, idHotel, Toast.LENGTH_SHORT).show();
 
         initialize();
-
         Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         map = (MapView) findViewById(R.id.map);
@@ -65,48 +71,65 @@ public class DetailKegiatan extends AppCompatActivity {
         mapController.setZoom(14);
 
         getReference = FirebaseDatabase.getInstance().getReference();
-        getReference.child("Data-Kegiatan").child(idKegiatan).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        getReference.child("Master-Data-Hotel-Detail").child(idDetail).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Map<String,Object> kegiatan = (Map<String, Object>) task.getResult().getValue();
+                Map<String,Object> hotel1 = (Map<String, Object>) task.getResult().getValue();
 
-                GeoPoint startPoint = new GeoPoint(Double.parseDouble(""+kegiatan.get("Latitute")), Double.parseDouble(""+kegiatan.get("Longlitute")));
-                mapController.setCenter(startPoint);
-                Marker startMarker = new Marker(map);
-                startMarker.setPosition(startPoint);
-                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                map.getOverlays().add(startMarker);
-
-                judulkegiatan.setText(""+kegiatan.get("Judul"));
-                beritaevent.setText(""+kegiatan.get("JenisKegiatan"));
-
-                if (kegiatan.get("JenisKegiatan").equals("Berita")){
-                    tanggalmulaiakhir.setText(""+kegiatan.get("TanggalMulai"));
-                }else {
-                    tanggalmulaiakhir.setText(""+kegiatan.get("TanggalMulai")+" - "+kegiatan.get("TanggalAkhir"));
-                }
-
-                isikegiatan.setText(""+kegiatan.get("IsiKegiatan"));
-
-                if(kegiatan.get("LinkImage").equals(""))
+                judulkamar.setText(""+hotel1.get("NamaKamar"));
+                fasilitas.setText(""+hotel1.get("FasilitasKamar"));
+                harga.setText("Rp. "+hotel1.get("HargaKamar")+" /Hari");
+                if(hotel1.get("fotoKamar").equals(""))
                 {
 
                 }else
                 {
-                    Glide.with(DetailKegiatan.this).clear(imagekegiatan);
-                    Glide.with(DetailKegiatan.this)
-                            .load(kegiatan.get("LinkImage"))
+                    Glide.with(DetailHotelScreen.this).clear(imagekamar);
+                    Glide.with(DetailHotelScreen.this)
+                            .load(hotel1.get("fotoKamar"))
                             .fitCenter()
 //                    .transform(new MultiTransformation(new FitCenter()))
                             .apply(new RequestOptions()
 //                                    .override(300, 600)
                                     .priority(Priority.HIGH)
                                     .centerCrop())
-                            .into(imagekegiatan);
+                            .into(imagekamar);
                 }
+            }
+        });
+        getGetReference = FirebaseDatabase.getInstance().getReference();
+        getGetReference.child("Master-Data-Hotel").child(idHotel).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Map<String,Object> hotel2= (Map<String, Object>) task.getResult().getValue();
+//                Log.d("aneh", "onComplete: "+String.valueOf(task.getResult().getValue()));
+                GeoPoint startPoint = new GeoPoint(Double.parseDouble(""+hotel2.get("Latitude")), Double.parseDouble(""+hotel2.get("Longlitude")));
+                mapController.setCenter(startPoint);
+                Marker startMarker = new Marker(map);
+                startMarker.setPosition(startPoint);
+                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                map.getOverlays().add(startMarker);
 
+                judulhotel.setText(""+hotel2.get("NamaHotel"));
+                deskripsihotel.setText(""+hotel2.get("DeskripsiHotel"));
 
+                if(hotel2.get("fotoHotel").equals(""))
+                {
 
+                }else
+                {
+                    Glide.with(DetailHotelScreen.this).clear(imagehotel);
+                    Glide.with(DetailHotelScreen.this)
+                            .load(hotel2.get("fotoHotel"))
+
+//                    .transform(new MultiTransformation(new FitCenter()))
+                            .apply(new RequestOptions()
+//                                    .override(300, 600)
+                                    .priority(Priority.HIGH)
+                                    .circleCrop()
+                                    .centerCrop())
+                            .into(imagehotel);
+                }
             }
         });
     }
@@ -130,18 +153,19 @@ public class DetailKegiatan extends AppCompatActivity {
     }
 
     public void initialize(){
-        judulkegiatan = findViewById(R.id.judulKegiatan);
-        beritaevent = findViewById(R.id.beritaevent);
-        tanggalmulaiakhir = findViewById(R.id.tanggalmulaiakhir);
-        isikegiatan = findViewById(R.id.isiDeskripsikegiatan);
-        imagekegiatan = findViewById(R.id.imageviewkegiatan1);
-        yangberkaitan = findViewById(R.id.yangberkaitan);
+        judulkamar = findViewById(R.id.judulHotel);
+        judulhotel = findViewById(R.id.namahotelmitra);
+        fasilitas = findViewById(R.id.isiDeskripsi);
+        harga = findViewById(R.id.hargaKamar);
+        imagekamar = findViewById(R.id.imageviewhoteldetail1);
+        imagehotel = findViewById(R.id.imageprofilehotel);
+        deskripsihotel = findViewById(R.id.isiDeskripsihotel);
     }
 
-    public void backtomenuutama(View view){
-        Intent a = new  Intent(DetailKegiatan.this, MainMenu.class);
+    public void backtomenuhotel (View view){
+        Intent a = new  Intent(DetailHotelScreen.this, MenuHotelScreen.class);
         startActivity(a);
-        Animatoo.animateFade(DetailKegiatan.this);
+        Animatoo.animateFade(DetailHotelScreen.this);
         finish();
     }
 }

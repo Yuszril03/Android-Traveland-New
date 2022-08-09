@@ -306,7 +306,7 @@ public class EditProfilScreen extends AppCompatActivity {
                                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        Intent a = new Intent(EditProfilScreen.this, MainProfile.class);
+                                        Intent a = new Intent(EditProfilScreen.this, MainProfileScreen.class);
                                         startActivity(a);
                                         Animatoo.animateSwipeRight(EditProfilScreen.this);
                                         onStop();
@@ -554,7 +554,7 @@ public class EditProfilScreen extends AppCompatActivity {
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                Intent a = new Intent(EditProfilScreen.this, MainProfile.class);
+                                Intent a = new Intent(EditProfilScreen.this, MainProfileScreen.class);
                                 startActivity(a);
                                 Animatoo.animateSwipeRight(EditProfilScreen.this);
                                 onStop();
@@ -577,7 +577,7 @@ public class EditProfilScreen extends AppCompatActivity {
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        Intent a = new Intent(EditProfilScreen.this, MainProfile.class);
+                        Intent a = new Intent(EditProfilScreen.this, MainProfileScreen.class);
                         startActivity(a);
                         Animatoo.animateSwipeRight(EditProfilScreen.this);
                         onStop();
