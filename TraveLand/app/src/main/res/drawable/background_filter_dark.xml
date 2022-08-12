@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
     <!-- Drop Shadow Stack -->
     <item>
         <shape>
+            <solid android:color="@null"/>
+            <corners android:topLeftRadius="30dp" android:bottomLeftRadius="30dp" />
             <padding
                 android:bottom="2dp"
                 />
@@ -16,9 +19,10 @@
 
     <item>
         <shape>
+            <solid android:color="@null"/>
+            <corners android:bottomLeftRadius="30dp" android:topLeftRadius="30dp" />
             <padding
                 android:bottom="2dp"
-
                 />
 
             <stroke
@@ -30,11 +34,14 @@
     </item>
 
     <!-- Background -->
-
     <item>
         <shape>
-            <solid android:color="@color/primary"/>
-
+            <solid android:color="@color/darkMode"/>
+            <corners android:topLeftRadius="30dp" android:bottomLeftRadius="30dp" />
+            <stroke
+                android:width="2dp"
+                android:color="#0D263238" />
         </shape>
     </item>
+
 </layer-list>

@@ -2,137 +2,363 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/backgrooundMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MenuWisataScreen"
-    android:background="@color/whitemode2">
+    android:background="@color/whitemode2"
+    tools:context=".MenuWisataScreen">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout4"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:background="@drawable/border_menu_wisata"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/btnKemabli"
-            android:layout_width="25dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="35dp"
-            android:src="@drawable/icon_left_arrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="36dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="Wisata"
-            android:textColor="@color/darkMode"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/btnKemabli"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnbackhotel"
-            android:layout_width="25dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="34dp"
-            android:background="@null"
-            android:onClick="btnbackwisata"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.015"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout7"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/form_control"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
-
-        <EditText
-            android:id="@+id/editSearch"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:drawableStart="@drawable/icon_search"
-            android:drawablePadding="3dp"
-            android:hint="Pencarian"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"/>
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border_menu_wisata"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Wisata"
+                    android:textColor="@color/darkMode"
+                    android:textSize="22sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/vwWisata"
-        android:layout_width="408dp"
-        android:layout_height="710dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="1dp"
-        android:fadeScrollbars="true"
-        android:orientation="vertical"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
-        app:layout_constraintVertical_bias="0.0" />
+                <Button
+                    android:id="@+id/btnbackhotel"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/icon_left_line_dark"
+                    android:onClick="btnbackwisata"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+                <Button
+                    android:id="@+id/bookmarklist"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/icon_bookmark_list"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView14"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/formpencarian"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/form_control"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14">
+
+                    <EditText
+                        android:id="@+id/editSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="40dp"
+                        android:background="@null"
+                        android:drawableStart="@drawable/icon_search"
+                        android:drawablePadding="3dp"
+                        android:hint="Pencarian"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/filterData"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/icon_filter_no"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/vwWisata"
+                android:layout_width="408dp"
+                android:layout_height="710dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="1dp"
+                android:fadeScrollbars="true"
+                android:orientation="vertical"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.47"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintwisatanodata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+                <ImageView
+                    android:id="@+id/imageViewWisata1"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:background="@drawable/image_no_data"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textWisata2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Data Tidak Ditemukan"
+                    android:textColor="@color/darkMode"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewWisata1" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintwisatanodata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/modalBackground"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:background="#54000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
-        <ImageView
-            android:id="@+id/imageViewWisata1"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@drawable/image_no_data"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/modalMainBackground"
+            android:layout_width="370dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_filter_white"
+            app:layout_constraintRight_toRightOf="parent">
 
-        <TextView
-            android:id="@+id/textWisata2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Data Tidak Ditemukan"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewWisata1" />
+            <TextView
+                android:id="@+id/judulFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Filter"
+                android:textColor="@color/darkMode"
+                android:textSize="28sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/btnclosefilter"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/icon_cancel_dark"
+                app:layout_constraintBottom_toBottomOf="@id/judulFilter"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/judulFilter" />
+
+            <TextView
+                android:id="@+id/judulPerharga"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Kisaran Harga (Rp)"
+                android:textColor="@color/secondary"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@id/judulFilter"
+                app:layout_constraintTop_toBottomOf="@id/judulFilter" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/backMin"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/form_control"
+                app:layout_constraintLeft_toLeftOf="@id/judulPerharga"
+                app:layout_constraintTop_toBottomOf="@id/judulPerharga">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:fontFamily="@font/roboto"
+                    android:hint="Minimal"
+                    android:inputType="number"
+                    android:textAlignment="center" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linee"
+                android:layout_width="30dp"
+                android:layout_height="5dp"
+                android:background="#E8E8E8"
+                app:layout_constraintBottom_toBottomOf="@id/backMin"
+                app:layout_constraintLeft_toRightOf="@id/backMin"
+                app:layout_constraintTop_toTopOf="@id/backMin" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/backMax"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:background="@drawable/form_control"
+                app:layout_constraintBottom_toBottomOf="@id/backMin"
+                app:layout_constraintLeft_toRightOf="@id/linee"
+                app:layout_constraintTop_toTopOf="@id/backMin">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:background="@null"
+                    android:fontFamily="@font/roboto"
+                    android:hint="Maksimal"
+                    android:inputType="number"
+                    android:textAlignment="center" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/judulPenilaian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Penilaian"
+                android:textColor="@color/secondary"
+                android:textSize="20sp"
+                app:layout_constraintLeft_toLeftOf="@id/judulFilter"
+                app:layout_constraintTop_toBottomOf="@id/backMin" />
+
+            <RadioGroup
+                android:id="@+id/radioButton"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="@id/judulPenilaian"
+                app:layout_constraintTop_toBottomOf="@id/judulPenilaian">
+
+                <RadioButton
+                    android:id="@+id/bintang5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="Bintang 5"
+                    android:textColor="@color/darkMode"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/bintang4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Bintang 4"
+                    android:textColor="@color/darkMode"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/bintang3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Bintang 3"
+                    android:textColor="@color/darkMode"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/bintang2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Bintang 2"
+                    android:textColor="@color/darkMode"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/bintang1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Bintang 1"
+                    android:textColor="@color/darkMode"
+                    android:textSize="18sp" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/reset"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_white"
+                android:text="Atur Ulang"
+                android:textColor="@color/secondary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_primary"
+                android:text="Terapkan"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
