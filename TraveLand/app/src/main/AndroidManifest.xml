@@ -10,7 +10,20 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="com.androidtutorialpoint.mymapsappsdirection.permission.MAPS_RECEIVE" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="com.androidtutorialpoint.mymapsappsdirection.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -23,43 +36,69 @@
         android:theme="@style/Theme.TraveLand.light"
         tools:targetApi="31">
         <activity
-            android:name=".VersionScreen"
+            android:name=".RatingScreen.RatingScreen"
             android:exported="false" />
         <activity
-            android:name=".HistoryTransactionScreen"
+            android:name=".RatingScreen.ReviewRatingScreen"
             android:exported="false" />
         <activity
-            android:name=".EditPasswordScreen"
+            android:name=".SettingScreen.HistoryOrderingScreen"
             android:exported="false" />
         <activity
-            android:name=".EditProfilScreen" />
+            android:name=".ETicket.ETicketScreen"
+            android:exported="false" />
+        <activity
+            android:name=".TakePhotoTransaction.TakePhotoTransactionScreen"
+            android:exported="false" />
+        <activity
+            android:name=".OrderingScreen.OrderingScreen"
+            android:exported="false" />
+        <activity
+            android:name=".WisataScreen.DetailTransactionWisataScreen"
+            android:exported="false" />
+        <activity
+            android:name=".WisataScreen.ProofPaymentWisataScreen"
+            android:exported="false" />
+        <activity
+            android:name=".NotifSucess.NotifTransactionSuccessScreen"
+            android:exported="false" />
+        <activity
+            android:name=".WisataScreen.TransactionWisataScreen"
+            android:exported="false" />
+        <activity
+            android:name=".SettingScreen.VersionScreen"
+            android:exported="false" />
+        <activity
+            android:name=".SettingScreen.EditPasswordScreen"
+            android:exported="false" />
+        <activity android:name=".SettingScreen.EditProfilScreen" />
         <activity
             android:name=".DetailKegiatanScreen"
             android:exported="false" />
         <activity
-            android:name=".DetailRentalScreen"
+            android:name=".RentalScreen.DetailRentalScreen"
             android:exported="false" />
         <activity
-            android:name=".DetailHotelScreen"
+            android:name=".HotelScreen.DetailHotelScreen"
             android:exported="false" />
         <activity
-            android:name=".DetailWisataScreen"
+            android:name=".WisataScreen.DetailWisataScreen"
             android:exported="false" />
         <activity
-            android:name=".MenuRentalScreen"
+            android:name=".RentalScreen.MenuRentalScreen"
             android:exported="false" />
         <activity
-            android:name=".MenuHotelScreen"
+            android:name=".HotelScreen.MenuHotelScreen"
             android:exported="false" />
         <activity
-            android:name=".MenuWisataScreen"
+            android:name=".WisataScreen.MenuWisataScreen"
             android:exported="false" />
         <activity android:name=".ThridScreen" />
         <activity
             android:name=".FirstScreen"
             android:exported="false" />
         <activity
-            android:name=".MainProfileScreen"
+            android:name=".SettingScreen.MainProfileScreen"
             android:exported="false" />
         <activity
             android:name=".MainMenuScreen"
@@ -68,12 +107,12 @@
             android:name=".SecondScreen"
             android:exported="false" />
         <activity
-            android:name=".RegisterScreen"
+            android:name=".SettingScreen.RegisterScreen"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginScreen"
+            android:name=".SettingScreen.LoginScreen"
             android:configChanges="orientation"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -91,17 +130,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="com.androidtutorialpoint.mymapsappsdirection.permission.MAPS_RECEIVE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

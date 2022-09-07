@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    tools:context=".ETicket.ETicketScreen">
+
+    <Button
+        android:id="@+id/backtoscroll"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/icon_cancel_dark"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/judulScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:text="E-Tiket"
+        android:textColor="@color/darkMode"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/backtoscroll"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/backtoscroll" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="70dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/form_control"
+        app:layout_constraintTop_toBottomOf="@id/judulScreen"
+        android:id="@+id/bgQRcode"
+        android:layout_width="match_parent"
+        android:layout_height="500dp">
+
+        <TextView
+            android:text="Kode Pemesanan"
+            android:textColor="@color/accent"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="@id/kodeBooking"
+           app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/judulKode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="QWERTYUIO"
+            android:layout_marginLeft="20dp"
+            android:textSize="28sp"
+            android:textColor="@color/darkMode"
+            android:fontFamily="@font/roboto_medium"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/judulKode"
+            android:id="@+id/kodeBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@color/colorGarisWhite"
+            android:layout_marginTop="10dp"
+            android:id="@+id/garis1"
+            app:layout_constraintTop_toBottomOf="@id/kodeBooking"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"/>
+
+        <ImageView
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/garis1"
+            android:id="@+id/kodeQR"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"/>
+
+        <TextView
+            android:textAlignment="center"
+            android:text="Pindai Kode QR diatas, pastikan tidak membagaikan kode ini kepada siapapun."
+            android:textColor="@color/accent"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="10dp"
+            app:layout_constraintRight_toRightOf="@id/kodeQR"
+            app:layout_constraintLeft_toLeftOf="@id/kodeQR"
+            app:layout_constraintTop_toBottomOf="@id/kodeQR"
+            android:id="@+id/subKOde"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

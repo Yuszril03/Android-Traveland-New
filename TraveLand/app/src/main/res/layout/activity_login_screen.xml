@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:id="@+id/layoutData"
-    tools:context=".LoginScreen">
+    tools:context=".SettingScreen.LoginScreen">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="508dp"

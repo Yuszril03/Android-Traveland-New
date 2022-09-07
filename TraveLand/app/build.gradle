@@ -78,6 +78,9 @@ dependencies {
 //    implementation 'org.osmdroid:osmdroid-android:6.1.13-SNAPSHOT:debug@aar'
 //    implementation files('libs/osmdroid-android-6.1.13.jar')
 
+    //QR CODE
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -23,10 +23,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.risqi.traveland.RatingScreen.ReviewRatingScreen;
 import com.risqi.traveland.SQLite.DataFirstApp;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.SQLite.DataVersion;
+import com.risqi.traveland.SettingScreen.VersionScreen;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -146,6 +148,7 @@ public class SplashScreen extends AppCompatActivity {
                             public void run() {
                                 Intent intent = new Intent(SplashScreen.this, VersionScreen.class);
                                 intent.putExtra("LinkUpdate", finalLinkVersi);
+                                intent.putExtra("Before", "SplasScreen");
                                 startActivity(intent);
                                 Animatoo.animateFade(SplashScreen.this);
                                 onStop();

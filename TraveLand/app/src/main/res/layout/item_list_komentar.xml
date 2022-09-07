@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/imageUser"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@color/secondary"
+        app:riv_corner_radius="20dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="false"
+        app:riv_tile_mode="repeat" />
+    <TextView
+        android:id="@+id/namaUser"
+        app:layout_constraintTop_toTopOf="@id/imageUser"
+        app:layout_constraintBottom_toBottomOf="@id/imageUser"
+        app:layout_constraintLeft_toRightOf="@id/imageUser"
+        android:layout_marginLeft="5dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/darkMode"
+        android:text="Nama User"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/starData"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/namaUser"
+        app:layout_constraintLeft_toLeftOf="@id/namaUser"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintLeft_toLeftOf="@id/namaUser"
+        app:layout_constraintTop_toBottomOf="@id/starData"
+        android:id="@+id/bgkomenUser"
+        android:background="@drawable/background_komentar_user"
+        android:layout_width="350dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/darkMode"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto"
+            android:text="Isi Text"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:maxWidth="300dp"
+            android:id="@+id/komentarUser"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:textColor="@color/accent"
+        android:textSize="14sp"
+        android:fontFamily="@font/roboto"
+        android:text="Isi Text"
+        android:layout_marginTop="5dp"
+        android:id="@+id/tanggalKomen"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/bgkomenUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintLeft_toLeftOf="@id/namaUser"
+        app:layout_constraintTop_toBottomOf="@id/bgkomenUser"
+        android:id="@+id/bgkomeMitra"
+        android:background="@drawable/background_komentar_mitra"
+        android:layout_width="340dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="#975B02"
+            android:textSize="16sp"
+            android:fontFamily="@font/roboto"
+            android:text="Respon Mitra : "
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:maxWidth="300dp"
+            android:id="@+id/Judulmitra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="@color/darkMode"
+                android:text="Isi Text"
+                android:textSize="16sp"
+                android:fontFamily="@font/roboto"
+                android:maxWidth="300dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/Judulmitra"
+                app:layout_constraintLeft_toLeftOf="@id/Judulmitra"
+                android:id="@+id/KomentarMitra"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:background="@color/colorGarisWhite"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/bgkomeMitra"
+        android:id="@+id/garis"
+        android:layout_width="370dp"
+        android:layout_height="2dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,7 @@ import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
-import com.risqi.traveland.DetailWisataScreen;
+import com.risqi.traveland.WisataScreen.DetailWisataScreen;
 import com.risqi.traveland.Firebase.MasterDataWisata;
 import com.risqi.traveland.R;
 import com.risqi.traveland.SQLite.DataMode;
@@ -73,13 +73,13 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
         mod.close();
         if (modeApps.equals("Malam")) {
             holder. backgrooundMain.setBackgroundResource(R.drawable.background_list_dark);
-            holder. imgChild.setBackgroundResource(R.drawable.icon_person_white);
+//            holder. imgChild.setBackgroundResource(R.drawable.icon_person_white);
             holder.JudulWisata.setTextColor(context.getResources().getColor(R.color.white));
             holder.hargaParent.setTextColor(context.getResources().getColor(R.color.white));
             holder.AlamatWisata.setTextColor(context.getResources().getColor(R.color.darkTxt));
         } else {
             holder. backgrooundMain.setBackgroundResource(R.drawable.background_list_white);
-            holder. imgChild.setBackgroundResource(R.drawable.icon_person_dark);
+//            holder. imgChild.setBackgroundResource(R.drawable.icon_person_dark);
             holder.JudulWisata.setTextColor(context.getResources().getColor(R.color.darkMode));
             holder.hargaParent.setTextColor(context.getResources().getColor(R.color.darkMode));
             holder.AlamatWisata.setTextColor(context.getResources().getColor(R.color.accent));
@@ -88,7 +88,7 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
         MasterDataWisata masterdatawisata = masterDataWisata.get(position);
 
         holder.JudulWisata.setText(wordCase(masterdatawisata.getNamaWisata()));
-        holder.hargaParent.setText(formatRupiah(Double.parseDouble(masterdatawisata.getHargaDewasa())));
+        holder.hargaParent.setText(formatRupiah(Double.parseDouble(masterdatawisata.getHargaDewasa()))+"/Orang");
         String textTemp = masterdatawisata.getAlamatWisata();
         if(textTemp.length() <=55){
             holder.AlamatWisata.setText(wordCase(masterdatawisata.getAlamatWisata()));
@@ -105,9 +105,9 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
             @Override
             public void onClick(View v) {
                 Intent a = new  Intent(context, DetailWisataScreen.class);
-                a.putExtra("id",idmasterDataWisata1.get(position));
+                a.putExtra("idScreen",idmasterDataWisata1.get(position));
                 context.startActivity(a);
-                Animatoo.animateFade(context);
+                Animatoo.animateSlideRight(context);
                 ((Activity)context).finish();
             }
         });

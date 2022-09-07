@@ -22,7 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.risqi.traveland.DetailRentalScreen;
+import com.risqi.traveland.RentalScreen.DetailRentalScreen;
 import com.risqi.traveland.Firebase.MasterDataRentalDetail;
 import com.risqi.traveland.R;
 

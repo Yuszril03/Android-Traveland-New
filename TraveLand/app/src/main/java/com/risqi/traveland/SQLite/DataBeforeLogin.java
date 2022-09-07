@@ -11,7 +11,8 @@ public class DataBeforeLogin extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "table_before_activity";
     public static final String COL_1 = "id";
     public static final String COL_2 = "screen";
-    public static final int DATABASE_VERTION = 1;
+    public static final String COL_3 = "id_screen";
+    public static final int DATABASE_VERTION = 2;
 
     public DataBeforeLogin(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERTION);
@@ -19,19 +20,20 @@ public class DataBeforeLogin extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table table_before_activity(id text null,screen text null);");
+        sqLiteDatabase.execSQL("create table table_before_activity(id text null,screen text null, id_screen text null);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS"+TABLE_NAME);
-        onCreate(sqLiteDatabase);
+//        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS"+TABLE_NAME);
+//        onCreate(sqLiteDatabase);
     }
-    public boolean insertData(String screen){
+    public boolean insertData(String screen, String id_screen){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1,"1");
         contentValues.put(COL_2,screen);
+        contentValues.put(COL_3,id_screen);
         long result = db.insert(TABLE_NAME,null,contentValues);
         if(result==-1) {
             return false;

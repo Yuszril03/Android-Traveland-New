@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataFirstApp extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "data_traveland_app.db";
+    public static final String DATABASE_NAME = "data_traveland_app_two_two.db";
     public static final String TABLE_NAME = "table_first_app";
     public static final String COL_1 = "id";
     public static final String COL_2 = "status";
-    public static final int DATABASE_VERTION = 1;
+    public static final int DATABASE_VERTION = 2;
 
     public DataFirstApp(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERTION);

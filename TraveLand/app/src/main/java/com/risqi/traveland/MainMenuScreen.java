@@ -31,11 +31,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.DataKegiatan;
+import com.risqi.traveland.HotelScreen.MenuHotelScreen;
+import com.risqi.traveland.OrderingScreen.OrderingScreen;
 import com.risqi.traveland.RecyclerView.KegiatanRecyclerViewAdapter;
 import com.risqi.traveland.RecyclerView.PemberitahuanRecyclerViewAdapter;
+import com.risqi.traveland.RentalScreen.MenuRentalScreen;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
+import com.risqi.traveland.SettingScreen.MainProfileScreen;
 import com.risqi.traveland.TempData.TempDataInformation;
+import com.risqi.traveland.WisataScreen.MenuWisataScreen;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -212,6 +217,12 @@ public class MainMenuScreen extends AppCompatActivity {
     }
     public void rental (View view){
         Intent a = new  Intent(MainMenuScreen.this, MenuRentalScreen.class);
+        startActivity(a);
+        Animatoo.animateFade(MainMenuScreen.this);
+        onStop();
+    }
+    public void pesanan (View view){
+        Intent a = new  Intent(MainMenuScreen.this, OrderingScreen.class);
         startActivity(a);
         Animatoo.animateFade(MainMenuScreen.this);
         onStop();

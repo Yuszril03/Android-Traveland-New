@@ -23,7 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.risqi.traveland.DetailHotelScreen;
+import com.risqi.traveland.HotelScreen.DetailHotelScreen;
 import com.risqi.traveland.Firebase.MasterDataHotelDetail;
 import com.risqi.traveland.R;
 

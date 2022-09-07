@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutUtamaFirst"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".RatingScreen.ReviewRatingScreen">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bgTop"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/border_header_white"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/backtoscroll"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/icon_cancel_dark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/judulScreen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Penilaian Transaksi"
+            android:textColor="@color/darkMode"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/backtoscroll"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/backtoscroll" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/layoutScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:layout_marginTop="70dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutUtama"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:id="@+id/iconSucess"
+                    android:background="@drawable/success"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"/>
+
+                <TextView
+                    android:text="Terima kasih telah memberikan penilaian dan komentar pada mitra kami."
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/darkMode"
+                    android:fontFamily="@font/roboto"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iconSucess"
+                    android:id="@+id/textSuccess"
+                    android:layout_width="330dp"
+                    android:layout_height="wrap_content"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bgMitra"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/background_list_white_v2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textSuccess">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/imageViewWisata"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/icon_star"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:riv_corner_radius="20dip"
+                        app:riv_mutate_background="true"
+                        app:riv_oval="false"
+                        app:riv_tile_mode="repeat" />
+
+                    <TextView
+                        android:id="@+id/judulWisata"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:maxWidth="200dp"
+                        android:text="TextView"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewWisata"
+                        app:layout_constraintTop_toTopOf="@+id/imageViewWisata" />
+
+                    <TextView
+                        android:id="@+id/alamatwisata"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="3dp"
+                        android:fontFamily="@font/roboto"
+                        android:justificationMode="inter_word"
+                        android:maxWidth="180dp"
+                        android:text="TextView"
+                        android:textColor="@color/accent"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@+id/imageViewWisata"
+                        app:layout_constraintTop_toBottomOf="@+id/judulWisata" />
+
+                    <TextView
+                        android:id="@+id/hargaAnak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="18sp"
+                        android:text="Rp.0"
+                        android:textColor="@color/secondary"
+                        app:layout_constraintBottom_toBottomOf="@id/imageViewWisata"
+                        app:layout_constraintLeft_toLeftOf="@id/judulWisata" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/judulRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Penilaian"
+                    android:textColor="@color/darkMode"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="@id/bgMitra"
+                    app:layout_constraintTop_toBottomOf="@id/bgMitra" />
+
+                <Button
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/bintang1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/icon_star_nonfill_primary"
+                    app:layout_constraintRight_toLeftOf="@id/bintang2"
+                    app:layout_constraintTop_toBottomOf="@id/judulRating" />
+
+                <Button
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/bintang2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/icon_star_nonfill_primary"
+                    app:layout_constraintBottom_toBottomOf="@id/bintang1"
+                    app:layout_constraintRight_toLeftOf="@id/bintang3"
+                    app:layout_constraintTop_toTopOf="@id/bintang1" />
+                <Button
+                    android:id="@+id/bintang3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/icon_star_nonfill_primary"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/judulRating" />
+                <Button
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/bintang4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/icon_star_nonfill_primary"
+                    app:layout_constraintBottom_toBottomOf="@id/bintang1"
+                    app:layout_constraintLeft_toRightOf="@id/bintang3"
+                    app:layout_constraintTop_toTopOf="@id/bintang1" />
+                <Button
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/bintang5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/icon_star_nonfill_primary"
+                    app:layout_constraintBottom_toBottomOf="@id/bintang1"
+                    app:layout_constraintLeft_toRightOf="@id/bintang4"
+                    app:layout_constraintTop_toTopOf="@id/bintang1" />
+
+                <TextView
+                    android:id="@+id/judulKomentar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Komentar"
+                    android:textColor="@color/darkMode"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="@id/bgMitra"
+                    app:layout_constraintTop_toBottomOf="@id/bintang1" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintLeft_toLeftOf="@id/judulKomentar"
+                    app:layout_constraintTop_toBottomOf="@id/judulKomentar"
+                    android:id="@+id/bgkomenUser"
+                    android:background="@drawable/background_komentar_user"
+                    android:layout_width="350dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Isi Text"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:maxWidth="300dp"
+                        android:id="@+id/komentarUser"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintLeft_toLeftOf="@id/judulKomentar"
+                    app:layout_constraintTop_toBottomOf="@id/bgkomenUser"
+                    android:id="@+id/bgkomeMitra"
+                    android:background="@drawable/background_komentar_mitra"
+                    android:layout_width="340dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="#975B02"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Respon Mitra : "
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:maxWidth="300dp"
+                        android:id="@+id/Judulmitra"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textColor="@color/darkMode"
+                        android:text="Isi Text"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/roboto"
+                        android:maxWidth="300dp"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintTop_toBottomOf="@id/Judulmitra"
+                        app:layout_constraintLeft_toLeftOf="@id/Judulmitra"
+                        android:id="@+id/KomentarMitra"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
