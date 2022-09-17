@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,11 +14,21 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.risqi.traveland.Firebase.TransactionWIisata;
 import com.risqi.traveland.R;
 import com.risqi.traveland.SQLite.DataMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class KomentarRecyclerViewAdapter extends RecyclerView.Adapter<KomentarRecyclerViewAdapter.NameViewHolder> {
 
@@ -26,15 +37,20 @@ public class KomentarRecyclerViewAdapter extends RecyclerView.Adapter<KomentarRe
         RecyclerView recyclerBintang;
         View garis;
         ConstraintLayout bgkomeMitra;
-        TextView tanggalKomen,namaUser;
+        TextView tanggalKomen,namaUser,komentarUser,KomentarMitra;
+        ImageView imageUser;
+
 
         public NameViewHolder(@NonNull View itemView) {
             super(itemView);
             recyclerBintang = (RecyclerView) itemView.findViewById(R.id.starData);
             garis = (View) itemView.findViewById(R.id.garis);
             bgkomeMitra = (ConstraintLayout) itemView.findViewById(R.id.bgkomeMitra);
+            imageUser = (ImageView) itemView.findViewById(R.id.imageUser);
             tanggalKomen = (TextView) itemView.findViewById(R.id.tanggalKomen);
             namaUser = (TextView) itemView.findViewById(R.id.namaUser);
+            komentarUser = (TextView) itemView.findViewById(R.id.komentarUser);
+            KomentarMitra = (TextView) itemView.findViewById(R.id.KomentarMitra);
 
         }
     }
@@ -49,11 +65,8 @@ public class KomentarRecyclerViewAdapter extends RecyclerView.Adapter<KomentarRe
 
     @Override
     public void onBindViewHolder(@NonNull KomentarRecyclerViewAdapter.NameViewHolder holder, int position) {
-//        if(dataBintang.get(position).equals("Fill")){
-//            holder.starr.setBackgroundResource(R.drawable.icon_star_primary);
-//        }else{
-//            holder.starr.setBackgroundResource(R.drawable.icon_star_nonfill_primary);
-//        }
+
+        TransactionWIisata transactionWIisatas = datakomentar.get(position);
 
         //MODE
         Cursor mod = dataMode.getDataOne();
@@ -74,6 +87,30 @@ public class KomentarRecyclerViewAdapter extends RecyclerView.Adapter<KomentarRe
             holder.tanggalKomen.setTextColor(context.getResources().getColor(R.color.accent));
         }
 
+        database1 = FirebaseDatabase.getInstance().getReference();
+        database1.child("Master-Data-Customer").child(transactionWIisatas.getIdCutomer()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Map<String, Object> customer = (Map<String, Object>) task.getResult().getValue();
+                holder.namaUser.setText(customer.get("NamaCustomer").toString());
+                if(customer.get("fotoCustomer").equals("")){
+
+                }else {
+                    Glide.with(context).clear(holder.imageUser);
+                    Glide.with(context)
+                            .load(customer.get("fotoCustomer").toString())
+//                    .transform(new MultiTransformation(new FitCenter()))
+                            .apply(new RequestOptions()
+
+                                    .priority(Priority.HIGH)
+                                    .centerCrop())
+                            .into(holder.imageUser);
+                }
+            }
+        });
+
+
+
         bintangRecyclerViewAdapter = new BintangRecyclerViewAdapter(context, fillBintang);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context.getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
 
@@ -82,16 +119,13 @@ public class KomentarRecyclerViewAdapter extends RecyclerView.Adapter<KomentarRe
         holder.recyclerBintang.setAdapter(bintangRecyclerViewAdapter);
         fillBintang.clear();
 
-        if(position%2==0){
-            holder.bgkomeMitra.setMaxHeight(0);
-        }
-
-        if(position==(datakomentar.size()-1)){
-            holder.garis.setVisibility(View.GONE);
+        int rate =0;
+        if(!transactionWIisatas.getRating().equals("")){
+            rate = Integer.parseInt(transactionWIisatas.getRating());
         }
 
         for (int i = 1; i <= 5; i++) {
-            if(i>4){
+            if(i>rate){
                 fillBintang.add("NonFill");
             }else{
                 fillBintang.add("Fill");
@@ -99,6 +133,23 @@ public class KomentarRecyclerViewAdapter extends RecyclerView.Adapter<KomentarRe
 
         }
         bintangRecyclerViewAdapter.notifyDataSetChanged();
+
+        if(transactionWIisatas.getUlasanCustomer().equals("")){
+            holder.komentarUser.setText("Tidak ada ulasan.");
+        }else{
+            holder.komentarUser.setText(transactionWIisatas.getUlasanCustomer().toString());
+        }
+        holder.KomentarMitra.setText(transactionWIisatas.getUlasanMitra().toString());
+        if(transactionWIisatas.getUlasanMitra().equals("")){
+//            holder.bgkomeMitra.setMaxHeight(0);
+            holder.bgkomeMitra.setVisibility(View.GONE);
+        }else{
+            holder.bgkomeMitra.setVisibility(View.VISIBLE);
+        }
+
+        if(position==(datakomentar.size()-1)){
+            holder.garis.setVisibility(View.GONE);
+        }
 
     }
 
@@ -108,7 +159,8 @@ public class KomentarRecyclerViewAdapter extends RecyclerView.Adapter<KomentarRe
     }
 
     private Context context;
-    private List<String> datakomentar;
+    private List<TransactionWIisata> datakomentar;
+    private DatabaseReference database1;
 
     //MODe
     DataMode dataMode;
@@ -117,7 +169,7 @@ public class KomentarRecyclerViewAdapter extends RecyclerView.Adapter<KomentarRe
     private BintangRecyclerViewAdapter bintangRecyclerViewAdapter;
     private List<String> fillBintang = new ArrayList<>();
 
-    public KomentarRecyclerViewAdapter(Context context, List<String> datakomentar) {
+    public KomentarRecyclerViewAdapter(Context context, List<TransactionWIisata> datakomentar) {
         this.context = context;
         this.datakomentar = datakomentar;
         dataMode = new DataMode(context);

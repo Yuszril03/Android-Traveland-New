@@ -51,6 +51,7 @@
                     app:layout_constraintTop_toTopOf="@+id/textView14" />
 
                 <Button
+                    android:visibility="gone"
                     android:id="@+id/bookmarklist"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -90,6 +91,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
+                        android:visibility="gone"
                         android:id="@+id/filterData"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -226,6 +228,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:background="@null"
+                    android:id="@+id/minHarga"
                     android:fontFamily="@font/roboto"
                     android:hint="Minimal"
                     android:inputType="number"
@@ -255,6 +258,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:background="@null"
+                    android:id="@+id/maxHarga"
                     android:fontFamily="@font/roboto"
                     android:hint="Maksimal"
                     android:inputType="number"

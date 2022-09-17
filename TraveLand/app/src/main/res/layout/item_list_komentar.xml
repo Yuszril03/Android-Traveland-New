@@ -65,7 +65,7 @@
         android:textColor="@color/accent"
         android:textSize="14sp"
         android:fontFamily="@font/roboto"
-        android:text="Isi Text"
+        android:text=""
         android:layout_marginTop="5dp"
         android:id="@+id/tanggalKomen"
         app:layout_constraintTop_toTopOf="parent"

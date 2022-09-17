@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
-import com.risqi.traveland.WisataScreen.ProofPaymentWisataScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.SQLite.DataMode;
+import com.risqi.traveland.WisataScreen.DetailTransactionWisataScreen;
 
 public class NotifTransactionSuccessScreen extends AppCompatActivity {
 
@@ -31,7 +31,7 @@ public class NotifTransactionSuccessScreen extends AppCompatActivity {
         initialize();
         setDataMode();
         getDataInten();
-//        setDataNext();
+        setDataNext();
 
     }
 
@@ -56,10 +56,10 @@ public class NotifTransactionSuccessScreen extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent a = new Intent(NotifTransactionSuccessScreen.this, ProofPaymentWisataScreen.class);
+                    Intent a = new Intent(NotifTransactionSuccessScreen.this, DetailTransactionWisataScreen.class);
                     a.putExtra("idScreen", "" + idWisata);
                     startActivity(a);
-                    Animatoo.animateSlideLeft(NotifTransactionSuccessScreen.this);
+                    Animatoo.animateSlideRight(NotifTransactionSuccessScreen.this);
                     onStop();
                 }
             }, 2000);
