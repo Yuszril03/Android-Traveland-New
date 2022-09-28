@@ -2,61 +2,105 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/background_list_white"
     android:layout_width="match_parent"
+    android:id="@+id/backgrooundMain"
     android:layout_height="wrap_content"
     android:layout_marginLeft="15dp"
-    android:layout_marginTop="5dp"
     android:layout_marginRight="15dp"
-    android:layout_marginBottom="13dp"
-    android:background="@drawable/form_control">
+    android:layout_marginBottom="5dp">
 
-    <ImageView
-        android:id="@+id/imageViewHotel"
-        android:layout_width="135dp"
-        android:layout_height="135dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/border_image_list_wisata"
-        android:src="@drawable/ic_no_image"
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imageViewWisata"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/ic_no_image"
+        app:riv_corner_radius="20dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="false"
+        app:riv_tile_mode="repeat"/>
     <TextView
-        android:id="@+id/namahotel"
+        android:id="@+id/judulWisata"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxWidth="200dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="11dp"
         android:fontFamily="@font/roboto_medium"
-        android:maxWidth="220dp"
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/imageViewHotel"
+        app:layout_constraintStart_toEndOf="@+id/imageViewWisata"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/alamathotel"
-        android:layout_width="wrap_content"
+        android:id="@+id/alamatwisata"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:maxWidth="180dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
-        android:fontFamily="@font/roboto_medium"
-        android:maxWidth="220dp"
+        android:justificationMode="inter_word"
+        android:fontFamily="@font/roboto"
         android:text="TextView"
-        android:textColor="@color/gray_btn_bg_color"
+        android:textColor="@color/accent"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/imageViewHotel"
-        app:layout_constraintTop_toBottomOf="@+id/namahotel" />
+        app:layout_constraintStart_toEndOf="@+id/imageViewWisata"
+        app:layout_constraintTop_toBottomOf="@+id/judulWisata" />
+
+    <ImageView
+        app:layout_constraintLeft_toRightOf="@id/imageViewWisata"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="5dp"
+
+        android:id="@+id/imgChild"
+        android:layout_width="0dp"
+        android:layout_height="20dp"/>
+
+    <TextView
+        android:id="@+id/hargaAnak"
+        app:layout_constraintLeft_toRightOf="@id/imgChild"
+        app:layout_constraintTop_toTopOf="@id/imgChild"
+        app:layout_constraintBottom_toBottomOf="@id/imgChild"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/darkMode"
+        android:text="Rp.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <ImageView
+        android:background="@drawable/icon_star_primary"
+        android:layout_marginRight="5dp"
+        app:layout_constraintTop_toTopOf="@id/bintang"
+        app:layout_constraintBottom_toBottomOf="@id/bintang"
+        app:layout_constraintRight_toLeftOf="@id/bintang"
+        android:id="@+id/iconStar"
+        android:layout_width="15dp"
+        android:layout_height="15dp"/>
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/bintang"
+        android:text="4.5"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <Button
-        android:id="@+id/btnlisthotel"
-        android:layout_width="921dp"
-        android:layout_height="151dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
+        android:id="@+id/btnlistwisata"
+        android:layout_width="374dp"
+        android:layout_height="130dp"
+        android:layout_marginBottom="4dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

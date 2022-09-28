@@ -35,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.DataLoginCustomer;
 import com.risqi.traveland.Firebase.MasterDataAccountCustomer;
 import com.risqi.traveland.Firebase.MasterDataCustomer;
+import com.risqi.traveland.HotelScreen.DetailHotelScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
@@ -67,7 +68,7 @@ public class LoginScreen extends AppCompatActivity {
     private String textDangerEmail, textDangerKataSandi;
 
     private int ShowHide = 0;
-    private String activityBefore,idDetail;
+    private String activityBefore,idDetail,idMaster;
 
     private DataMode dataMode;
     private DataLoginUser dataLoginUser;
@@ -103,6 +104,14 @@ public class LoginScreen extends AppCompatActivity {
                 }else if(activityBefore.equals("DetailWisata")){
                     Intent intent = new Intent(LoginScreen.this, DetailWisataScreen.class);
                     intent.putExtra("idScreen",idDetail);
+                    startActivity(intent);
+                    Animatoo.animateFade(LoginScreen.this);
+                    onStop();
+                }else if(activityBefore.equals("DetailHotel")){
+                    Intent intent = new Intent(LoginScreen.this, DetailHotelScreen.class);
+                    String [] arrayData =  idDetail.split("-");
+                    intent.putExtra("idMaster",arrayData[1]);
+                    intent.putExtra("idDetail",arrayData[0]);
                     startActivity(intent);
                     Animatoo.animateFade(LoginScreen.this);
                     onStop();
@@ -292,6 +301,14 @@ public class LoginScreen extends AppCompatActivity {
             startActivity(intent);
             Animatoo.animateFade(LoginScreen.this);
             onStop();
+        }else if(activityBefore.equals("DetailHotel")){
+            Intent intent = new Intent(LoginScreen.this, DetailHotelScreen.class);
+            String [] arrayData =  idDetail.split("-");
+            intent.putExtra("idMaster",arrayData[1]);
+            intent.putExtra("idDetail",arrayData[0]);
+            startActivity(intent);
+            Animatoo.animateFade(LoginScreen.this);
+            onStop();
         }
     }
 
@@ -472,6 +489,14 @@ public class LoginScreen extends AppCompatActivity {
                                                     startActivity(intent);
                                                     Animatoo.animateFade(LoginScreen.this);
                                                     onStop();
+                                                }else if(activityBefore.equals("DetailHotel")){
+                                                    Intent intent = new Intent(LoginScreen.this, DetailHotelScreen.class);
+                                                    String [] arrayData =  idDetail.split("-");
+                                                    intent.putExtra("idMaster",arrayData[1]);
+                                                    intent.putExtra("idDetail",arrayData[0]);
+                                                    startActivity(intent);
+                                                    Animatoo.animateFade(LoginScreen.this);
+                                                    onStop();
                                                 }
                                             }
                                         })
@@ -509,6 +534,14 @@ public class LoginScreen extends AppCompatActivity {
                                                 else if(activityBefore.equals("DetailWisata")){
                                                     Intent intent = new Intent(LoginScreen.this, DetailWisataScreen.class);
                                                     intent.putExtra("idScreen",idDetail);
+                                                    startActivity(intent);
+                                                    Animatoo.animateFade(LoginScreen.this);
+                                                    onStop();
+                                                }else if(activityBefore.equals("DetailHotel")){
+                                                    Intent intent = new Intent(LoginScreen.this, DetailHotelScreen.class);
+                                                    String [] arrayData =  idDetail.split("-");
+                                                    intent.putExtra("idMaster",arrayData[1]);
+                                                    intent.putExtra("idDetail",arrayData[0]);
                                                     startActivity(intent);
                                                     Animatoo.animateFade(LoginScreen.this);
                                                     onStop();

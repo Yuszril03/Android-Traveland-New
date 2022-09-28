@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutUtama"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whitemode2"
+    tools:context=".HotelScreen.TransactionHotelScreen">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backtoscroll"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/border_menu_wisata"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btnbackscroller"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/icon_left_line_dark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleScroller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="Pemesanan Hotel"
+            android:textColor="@color/darkMode"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        app:layout_constraintTop_toBottomOf="@+id/backtoscroll">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/textPersonal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Data Personal"
+                    android:textColor="@color/darkMode"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bgPersonal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/background_payment_white"
+                    app:layout_constraintLeft_toLeftOf="@id/textPersonal"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textPersonal">
+
+                    <TextView
+                        android:id="@+id/judulNama"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Nama"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/Nama"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:maxWidth="310dp"
+                        android:text="Nama Pengguna"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintLeft_toLeftOf="@id/judulNama"
+                        app:layout_constraintTop_toBottomOf="@id/judulNama" />
+
+                    <TextView
+                        android:id="@+id/judulTelefon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Nomor Telefon"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/Nama" />
+
+                    <TextView
+                        android:id="@+id/Telefon"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="0895617828630"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@id/judulTelefon"
+                        app:layout_constraintTop_toBottomOf="@id/judulTelefon" />
+
+                    <TextView
+                        android:id="@+id/judulEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Email"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toRightOf="@id/judulTelefon"
+                        app:layout_constraintTop_toBottomOf="@id/Nama" />
+
+                    <TextView
+                        android:id="@+id/Email"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:maxWidth="150dp"
+                        android:text="0895617828630"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@id/judulEmail"
+                        app:layout_constraintTop_toBottomOf="@id/judulEmail" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textWisata"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Data Pemesanan"
+                    android:textColor="@color/darkMode"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bgPersonal" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bgWisata"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/background_payment_white"
+                    app:layout_constraintLeft_toLeftOf="@id/textPersonal"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textWisata">
+
+                    <TextView
+                        android:id="@+id/tempDate"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:textColor="@null"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/judulWisata"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Nama Hotel"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/NamaWisata"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:maxWidth="310dp"
+                        android:text="Nama Hotel"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintLeft_toLeftOf="@id/judulWisata"
+                        app:layout_constraintTop_toBottomOf="@id/judulWisata" />
+
+                    <TextView
+                        android:id="@+id/JudulAlamatWisata"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Alamat Hotel"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="@id/NamaWisata"
+                        app:layout_constraintTop_toBottomOf="@id/NamaWisata" />
+
+                    <TextView
+                        android:id="@+id/AlamatWisata"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_medium"
+                        android:maxWidth="310dp"
+                        android:text="Alamat Hotel"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintLeft_toLeftOf="@id/JudulAlamatWisata"
+                        app:layout_constraintTop_toBottomOf="@id/JudulAlamatWisata" />
+
+                    <TextView
+                        android:id="@+id/judulAnakKecil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Jenis Kamar"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/AlamatWisata" />
+
+                    <TextView
+                        android:id="@+id/hargaAnakText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Rp.10000"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintLeft_toLeftOf="@id/judulAnakKecil"
+                        app:layout_constraintTop_toBottomOf="@id/judulAnakKecil" />
+
+
+                    <TextView
+                        android:id="@+id/judulDewasa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Harga Kamar Per Malam"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="@id/judulAnakKecil"
+                        app:layout_constraintTop_toBottomOf="@id/hargaAnakText" />
+
+                    <Button
+                        android:id="@+id/minusDewasa"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/icon_circle_minus"
+                        app:layout_constraintRight_toLeftOf="@id/jumlahDewasa"
+                        app:layout_constraintTop_toBottomOf="@id/judulDewasa" />
+
+                    <TextView
+                        android:id="@+id/jumlahDewasa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="1"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@id/minusDewasa"
+                        app:layout_constraintRight_toLeftOf="@id/PlusDewasa"
+                        app:layout_constraintTop_toTopOf="@id/minusDewasa" />
+
+                    <Button
+                        android:id="@+id/PlusDewasa"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/icon_circle_plus"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/judulDewasa" />
+
+
+                    <TextView
+
+                        android:id="@+id/hargaDewasaText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Rp.10000"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintLeft_toLeftOf="@id/judulDewasa"
+                        app:layout_constraintTop_toBottomOf="@id/judulDewasa" />
+
+                    <TextView
+                        android:id="@+id/judulCheckIn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Check-In"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="@id/judulAnakKecil"
+                        app:layout_constraintTop_toBottomOf="@id/hargaDewasaText" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/bgChechin"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/form_control_10dp"
+                        app:layout_constraintLeft_toLeftOf="@id/judulAnakKecil"
+                        app:layout_constraintTop_toBottomOf="@id/judulCheckIn">
+
+                        <ImageView
+                            android:id="@+id/imageView85"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icon_date" />
+
+                        <EditText
+                            android:id="@+id/editTanggalChechIn"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:fontFamily="@font/roboto"
+                            android:hint="2022-09-13"
+                            android:textColor="@color/darkMode"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView85"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/judulCheckOut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Check-Out"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="@id/bgChechout"
+                        app:layout_constraintTop_toBottomOf="@id/hargaDewasaText" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/bgChechout"
+                        android:layout_width="150dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/form_control_10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="@id/PlusDewasa"
+                        app:layout_constraintTop_toBottomOf="@id/judulCheckIn">
+
+                        <ImageView
+                            android:id="@+id/imageView86"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginStart="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icon_date" />
+
+                        <EditText
+                            android:id="@+id/editTanggalChechOut"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="10dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:fontFamily="@font/roboto"
+                            android:hint="2022-09-13"
+                            android:textColor="@color/darkMode"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView86"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textPembayaran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Pembayaran"
+                    android:textColor="@color/darkMode"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bgWisata" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bgPembayaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/background_payment_white"
+
+                    app:layout_constraintLeft_toLeftOf="@id/textPersonal"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textPembayaran">
+
+                    <TextView
+                        android:id="@+id/namaPembayaran"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:maxWidth="300dp"
+                        android:text="Pilih Pembayaran"
+                        android:textColor="@color/darkMode"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/arrowpayment"
+                        android:layout_width="20dp"
+                        android:layout_height="22dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/icon_right_arrow_light"
+                        app:layout_constraintBottom_toBottomOf="@+id/namaPembayaran"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/namaPembayaran" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textRincian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Rincian Pemesanan"
+                    android:textColor="@color/darkMode"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/bgPembayaran" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/bgRincian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/background_payment_white"
+
+                    app:layout_constraintLeft_toLeftOf="@id/textPersonal"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textRincian">
+
+                    <TextView
+                        android:id="@+id/totalTextAnak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Total Penyewaan"
+                        android:textColor="@color/accent"
+                        android:textSize="18sp"
+                        android:visibility="gone"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/totalAnak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Total Harga Anak"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/totalTextAnak"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/totalTextAnak" />
+
+                    <TextView
+                        android:id="@+id/totalTextDewasa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Total Penyewaan"
+                        android:textColor="@color/accent"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/totalTextAnak" />
+
+                    <TextView
+                        android:id="@+id/totalDewasa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Total Harga Anak"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/totalAnak" />
+
+                    <View
+                        android:id="@+id/linePayment"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/colorGarisWhite"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/totalTextDewasa" />
+
+                    <TextView
+                        android:id="@+id/Totaltext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Total Pembayaran"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linePayment" />
+
+                    <TextView
+                        android:id="@+id/totalPembayaran"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Rp.1000"
+                        android:textColor="@color/darkMode"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linePayment" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/PesanSekarang"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/button_primary"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Pesan Kamar"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/bgRincian" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutPaymentt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#54000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:visibility="gone">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bgpaymentmain"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@drawable/background_popup_payment_white"
+
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/closePembayaran"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/icon_cancel_dark"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textpopup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Pilih Pembayaran"
+                android:textColor="@color/darkMode"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/closePembayaran"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/closePembayaran" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/jenisPayment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="60dp"
+                app:layout_constraintBottom_toTopOf="@+id/buttonPayment"
+                app:layout_constraintTop_toBottomOf="@id/textpopup" />
+
+            <Button
+                android:id="@+id/buttonPayment"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_primary"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Simpan"
+                android:textColor="@color/darkMode"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

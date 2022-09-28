@@ -1,12 +1,14 @@
 package com.risqi.traveland.HotelScreen;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,21 +23,31 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.risqi.traveland.Firebase.MasterDataHotel;
 import com.risqi.traveland.Firebase.MasterDataHotelDetail;
 import com.risqi.traveland.MainMenuScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.RecyclerView.HotelRecyclerViewAdapter;
+import com.risqi.traveland.SQLite.DataMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuHotelScreen extends AppCompatActivity {
 
+    //Other
+    private DataMode dataMode;
+
+    //RecyclerView And Database
     private List<MasterDataHotelDetail> masterDataHotelDetaill = new ArrayList<>();
     private List<String> idmasterDataHotelDetail = new ArrayList<>();
-    private DatabaseReference Reff;
+    private DatabaseReference Reff,database1,database2;
     RecyclerView recyclerViewHotel;
     private HotelRecyclerViewAdapter hotelRecyclerViewAdapter;
+
+    //Main
+    private ConstraintLayout layoutUtama;
+    private TextView textHotel2;
     private EditText textCari;
     private TextWatcher taTextWatcher =null;
     private ConstraintLayout constraintLayout;
@@ -44,7 +56,32 @@ public class MenuHotelScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_hotel);
         initialize();
+        setMode();
         setHotel("");
+        pencarianData();
+
+
+    }
+
+    private void setMode() {
+        //MODE
+        Cursor mod = dataMode.getDataOne();
+        mod.moveToFirst();
+        String modeApps = "";
+        while (!mod.isAfterLast()) {
+//            Toast.makeText(this, "" + mod.getString(mod.getColumnIndexOrThrow("mode")), Toast.LENGTH_SHORT).show();
+            modeApps = mod.getString(mod.getColumnIndexOrThrow("mode"));
+
+            mod.moveToNext();
+        }
+        mod.close();
+        if (modeApps.equals("Malam")) {
+            layoutUtama.setBackgroundResource(R.color.darkMode2);
+            textHotel2.setTextColor(getResources().getColor(R.color.white));
+        }
+    }
+
+    private void pencarianData() {
         taTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -53,26 +90,29 @@ public class MenuHotelScreen extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(TextUtils.isEmpty(textCari.getText())){
-                    setHotel("");
-                }else{
-                    setHotel(textCari.getText().toString());
-                }
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if(TextUtils.isEmpty(textCari.getText())){
+                    setHotel("");
+                }else{
+                    setHotel(textCari.getText().toString().toLowerCase());
+                }
             }
         };
         textCari.addTextChangedListener(taTextWatcher);
-
     }
 
     private void initialize() {
         recyclerViewHotel = findViewById(R.id.vwHotel);
-        textCari = findViewById(R.id.editSearchhotel);
+        textCari = findViewById(R.id.editSearch);
+        textHotel2 = findViewById(R.id.textHotel2);
+        layoutUtama = findViewById(R.id.layoutUtama);
         constraintLayout = findViewById(R.id.constrainthotelnodata);
+
+        dataMode = new DataMode(this);
     }
 
     private void setHotel(String cari){
@@ -88,28 +128,53 @@ public class MenuHotelScreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 masterDataHotelDetaill.clear();
                 idmasterDataHotelDetail.clear();
+
                 if(cari.equals("")){
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
                         MasterDataHotelDetail masterdatahoteldetail = postSnapshot.getValue(MasterDataHotelDetail.class);
                         masterDataHotelDetaill.add(masterdatahoteldetail);
                         idmasterDataHotelDetail.add(postSnapshot.getKey());
                     }
+                    if(masterDataHotelDetaill.isEmpty()){
+                        constraintLayout.setVisibility(View.VISIBLE);
+                    }else {
+                        constraintLayout.setVisibility(View.INVISIBLE);
+                    }
+                    hotelRecyclerViewAdapter.notifyDataSetChanged();
                 }else{
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
                         MasterDataHotelDetail masterdatahoteldetail = postSnapshot.getValue(MasterDataHotelDetail.class);
-                        if(masterdatahoteldetail.getNamaKamar().contains(cari)){
-                            masterDataHotelDetaill.add(masterdatahoteldetail);
-                            idmasterDataHotelDetail.add(postSnapshot.getKey());
-                        }
+
+                        database1 = FirebaseDatabase.getInstance().getReference("Master-Data-Hotel").child(masterdatahoteldetail.getIdHotel());
+                        database1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshotHotel) {
+                                MasterDataHotel dataHotel = snapshotHotel.getValue(MasterDataHotel.class);
+                                String judul = masterdatahoteldetail.getNamaKamar()+"-"+dataHotel.getNamaHotel();
+                                if (judul.toLowerCase().contains(cari)) {
+                                    masterDataHotelDetaill.add(masterdatahoteldetail);
+                                    idmasterDataHotelDetail.add(postSnapshot.getKey());
+                                }
+
+                                if(masterDataHotelDetaill.isEmpty()){
+                                    constraintLayout.setVisibility(View.VISIBLE);
+                                }else {
+                                    constraintLayout.setVisibility(View.INVISIBLE);
+                                }
+                                hotelRecyclerViewAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError errorHotel) {
+
+                            }
+                        });
+
+
 
                     }
                 }
-                if(masterDataHotelDetaill.isEmpty()){
-                    constraintLayout.setVisibility(View.VISIBLE);
-                }else {
-                    constraintLayout.setVisibility(View.INVISIBLE);
-                }
-                hotelRecyclerViewAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -123,6 +188,14 @@ public class MenuHotelScreen extends AppCompatActivity {
         Intent a = new  Intent(MenuHotelScreen.this, MainMenuScreen.class);
         startActivity(a);
         Animatoo.animateFade(MenuHotelScreen.this);
-        finish();
+        onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent a = new  Intent(MenuHotelScreen.this, MainMenuScreen.class);
+        startActivity(a);
+        Animatoo.animateFade(MenuHotelScreen.this);
+        onStop();
     }
 }

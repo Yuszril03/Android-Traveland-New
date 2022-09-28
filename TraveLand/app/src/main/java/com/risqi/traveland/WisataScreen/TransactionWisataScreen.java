@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -689,7 +692,7 @@ public class TransactionWisataScreen extends AppCompatActivity {
     private class PaymentRecyclerViewAdapter extends RecyclerView.Adapter<PaymentRecyclerViewAdapter.NameViewHolder> {
         public class NameViewHolder extends RecyclerView.ViewHolder {
             TextView namaBank;
-            ImageView checkList;
+            ImageView checkList,imageBank;
             ConstraintLayout layoutPayment;
             View line;
 
@@ -698,6 +701,7 @@ public class TransactionWisataScreen extends AppCompatActivity {
                 namaBank = (TextView) itemView.findViewById(R.id.namaBank);
                 namaBank = (TextView) itemView.findViewById(R.id.namaBank);
                 checkList = (ImageView) itemView.findViewById(R.id.checkList);
+                imageBank = (ImageView) itemView.findViewById(R.id.imageBank);
                 layoutPayment = (ConstraintLayout) itemView.findViewById(R.id.layoutPayment);
                 line = (View) itemView.findViewById(R.id.line);
 
@@ -731,6 +735,20 @@ public class TransactionWisataScreen extends AppCompatActivity {
                 holder.line.setBackgroundResource(R.color.colorGarisDark);
             }
             holder.namaBank.setText(databbanks.getNamaBank());
+            if(databbanks.getGambarBank().equals("")){
+
+            }else{
+                Glide.with(TransactionWisataScreen.this).clear(holder.imageBank);
+                Glide.with(TransactionWisataScreen.this)
+                        .load(databbanks.getGambarBank())
+                        .fitCenter()
+//                    .transform(new MultiTransformation(new FitCenter()))
+                        .apply(new RequestOptions()
+//                                    .override(300, 600)
+                                .priority(Priority.HIGH)
+                                .centerCrop())
+                        .into(holder.imageBank);
+            }
             if (idPayment.equals("")) {
                 holder.checkList.setVisibility(View.GONE);
             } else {

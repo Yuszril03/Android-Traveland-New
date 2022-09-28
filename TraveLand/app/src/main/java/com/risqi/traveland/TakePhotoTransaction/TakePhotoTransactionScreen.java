@@ -28,7 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.risqi.traveland.Firebase.MasterDataHotelDetail;
+import com.risqi.traveland.Firebase.TransactionHotel;
 import com.risqi.traveland.Firebase.TransactionWIisata;
+import com.risqi.traveland.HotelScreen.DetailTransactionHotelScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.WisataScreen.DetailTransactionWisataScreen;
@@ -64,13 +67,16 @@ public class TakePhotoTransactionScreen extends AppCompatActivity {
     //Other
     private StorageReference mStorageRef;
     private TransactionWIisata transactionWIisata;
+    private TransactionHotel transHotels;
+    private MasterDataHotelDetail masterDataHotelDetail;
     private DatabaseReference database1, database2;
-    private Task databaseupdate;
+    private Task databaseupdate,updateMaster;
     private DataMode dataMode;
-    private String idWisata = "";
+    private String idWisata = "",idDetail;
     private String jenisScreen = "";
     private Uri image_uri, image_null;
     private SweetAlertDialog pDialog;
+    private int jumlahKamarOrder,jumlahKamarAsli;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +148,49 @@ public class TakePhotoTransactionScreen extends AppCompatActivity {
                             }).show();
                 }
             });
+        }else if (jenisScreen.equals("Hotel")) {
+            buttonSUbmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new SweetAlertDialog(TakePhotoTransactionScreen.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Apakah Anda Yakin")
+                            .setContentText("Untuk menyimpan bukti transaksi!")
+                            .setConfirmText("Iya!")
+                            .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
+                            .setCancelText("Tidak")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                    pDialog.setTitleText("Memuat Data...");
+                                    pDialog.setCancelable(false);
+                                    pDialog.show();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (takeImage.getVisibility() == View.VISIBLE) {
+                                                pDialog.dismiss();
+                                                new SweetAlertDialog(TakePhotoTransactionScreen.this, SweetAlertDialog.ERROR_TYPE)
+                                                        .setTitleText("Opps")
+                                                        .setContentText("Mohon untuk unggah bukti pembayaran")
+                                                        .setConfirmText("Okey")
+                                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                            @Override
+                                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                sweetAlertDialog.dismissWithAnimation();
+                                                            }
+                                                        })
+                                                        .show();
+                                            } else {
+                                                FileuploaderWisata();
+                                            }
+                                        }
+                                    }, 2000);
+
+                                }
+                            }).show();
+                }
+            });
         }
     }
 
@@ -170,31 +219,72 @@ public class TakePhotoTransactionScreen extends AppCompatActivity {
 //                        textImage.setText(uri.toString());
 //                        textDateTime.setText(dateTime);
 
+                        if (jenisScreen.equals("Wisata")) {
+                            HashMap updatesData = transactionWIisata.updateBuktiPembayaran("3", uri.toString());
+                            databaseupdate = FirebaseDatabase.getInstance().getReference().child("Transaction-Wisata").child(idWisata).updateChildren(updatesData);
+                            databaseupdate.addOnCompleteListener(new OnCompleteListener() {
+                                @Override
+                                public void onComplete(@NonNull Task task) {
+                                    pDialog.dismiss();
+                                    new SweetAlertDialog(TakePhotoTransactionScreen.this, SweetAlertDialog.SUCCESS_TYPE)
+                                            .setTitleText("Berhasil")
+                                            .setContentText("Berhasil mengunggah bukti pembayaran")
+                                            .setConfirmText("Okey")
+                                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                    sweetAlertDialog.dismissWithAnimation();
+                                                    Intent a = new Intent(TakePhotoTransactionScreen.this, DetailTransactionWisataScreen.class);
+                                                    a.putExtra("idScreen", idWisata);
+                                                    startActivity(a);
+                                                    Animatoo.animateSlideDown(TakePhotoTransactionScreen.this);
+                                                    onStop();
+                                                }
+                                            })
+                                            .show();
+                                }
+                            });
+                        }else  if (jenisScreen.equals("Hotel")) {
 
-                        HashMap updatesData = transactionWIisata.updateBuktiPembayaran("3", uri.toString());
-                        databaseupdate = FirebaseDatabase.getInstance().getReference().child("Transaction-Wisata").child(idWisata).updateChildren(updatesData);
-                        databaseupdate.addOnCompleteListener(new OnCompleteListener() {
-                            @Override
-                            public void onComplete(@NonNull Task task) {
-                                pDialog.dismiss();
-                                new SweetAlertDialog(TakePhotoTransactionScreen.this, SweetAlertDialog.SUCCESS_TYPE)
-                                        .setTitleText("Berhasil")
-                                        .setContentText("Berhasil mengunggah bukti pembayaran")
-                                        .setConfirmText("Okey")
-                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                sweetAlertDialog.dismissWithAnimation();
-                                                Intent a = new Intent(TakePhotoTransactionScreen.this, DetailTransactionWisataScreen.class);
-                                                a.putExtra("idScreen", idWisata);
-                                                startActivity(a);
-                                                Animatoo.animateSlideDown(TakePhotoTransactionScreen.this);
-                                                onStop();
-                                            }
-                                        })
-                                        .show();
-                            }
-                        });
+                            int jumlahKamarA = jumlahKamarAsli+jumlahKamarOrder;
+
+                            HashMap updatesDataMAster = masterDataHotelDetail.updateJumlahKamar(""+jumlahKamarA);
+                            updateMaster = FirebaseDatabase.getInstance().getReference().child("Master-Data-Hotel-Detail").child(idDetail).updateChildren(updatesDataMAster);
+                            updateMaster.addOnCompleteListener(new OnCompleteListener() {
+                                @Override
+                                public void onComplete(@NonNull Task taskKamar) {
+
+                                    HashMap updatesData = transHotels.updateBuktiPembayaran("3", uri.toString());
+                                    databaseupdate = FirebaseDatabase.getInstance().getReference().child("Transaction-Hotel").child(idWisata).updateChildren(updatesData);
+                                    databaseupdate.addOnCompleteListener(new OnCompleteListener() {
+                                        @Override
+                                        public void onComplete(@NonNull Task task) {
+                                            pDialog.dismiss();
+                                            new SweetAlertDialog(TakePhotoTransactionScreen.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                    .setTitleText("Berhasil")
+                                                    .setContentText("Berhasil mengunggah bukti pembayaran")
+                                                    .setConfirmText("Okey")
+                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                        @Override
+                                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                            sweetAlertDialog.dismissWithAnimation();
+                                                            Intent a = new Intent(TakePhotoTransactionScreen.this, DetailTransactionHotelScreen.class);
+                                                            a.putExtra("idScreen", idWisata);
+                                                            startActivity(a);
+                                                            Animatoo.animateSlideDown(TakePhotoTransactionScreen.this);
+                                                            onStop();
+                                                        }
+                                                    })
+                                                    .show();
+                                        }
+                                    });
+
+                                }
+                            });
+
+
+                        }
+
 
                     }
                 });
@@ -211,6 +301,28 @@ public class TakePhotoTransactionScreen extends AppCompatActivity {
                     Map<String, Object> transaksiWisata = (Map<String, Object>) task.getResult().getValue();
                     setDataBank(transaksiWisata.get("JenisPembayaran").toString());
                     total.setText("Rp." + transaksiWisata.get("TotalSemua").toString());
+
+                }
+            });
+        }else if (jenisScreen.equals("Hotel")) {
+            database1 = FirebaseDatabase.getInstance().getReference();
+            database1.child("Transaction-Hotel").child(idWisata).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    Map<String, Object> transaksiHOtelss= (Map<String, Object>) task.getResult().getValue();
+                    jumlahKamarOrder = Integer.parseInt(transaksiHOtelss.get("JumlahKamar").toString());
+                    idDetail= transaksiHOtelss.get("IdKamar").toString();
+                    database2 = FirebaseDatabase.getInstance().getReference();
+                    database2.child("Master-Data-Hotel-Detail").child(transaksiHOtelss.get("IdKamar").toString()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> taskKamar) {
+                            Map<String, Object> kamarHotel= (Map<String, Object>) taskKamar.getResult().getValue();
+                            jumlahKamarAsli = Integer.parseInt(kamarHotel.get("JumlahKamar").toString());
+                        }
+                    });
+
+                    setDataBank(transaksiHOtelss.get("JenisPembayaran").toString());
+                    total.setText("Rp." + transaksiHOtelss.get("TotalSemua").toString());
 
                 }
             });
@@ -284,6 +396,12 @@ public class TakePhotoTransactionScreen extends AppCompatActivity {
                                     startActivity(a);
                                     Animatoo.animateSlideDown(TakePhotoTransactionScreen.this);
                                     onStop();
+                                }else if (jenisScreen.equals("Hotel")) {
+                                    Intent a = new Intent(TakePhotoTransactionScreen.this, DetailTransactionHotelScreen.class);
+                                    a.putExtra("idScreen", idWisata);
+                                    startActivity(a);
+                                    Animatoo.animateSlideDown(TakePhotoTransactionScreen.this);
+                                    onStop();
                                 }
                             }
                         }).show();
@@ -304,6 +422,12 @@ public class TakePhotoTransactionScreen extends AppCompatActivity {
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         if (jenisScreen.equals("Wisata")) {
                             Intent a = new Intent(TakePhotoTransactionScreen.this, DetailTransactionWisataScreen.class);
+                            a.putExtra("idScreen", idWisata);
+                            startActivity(a);
+                            Animatoo.animateSlideDown(TakePhotoTransactionScreen.this);
+                            onStop();
+                        }else if (jenisScreen.equals("Hotel")) {
+                            Intent a = new Intent(TakePhotoTransactionScreen.this, DetailTransactionHotelScreen.class);
                             a.putExtra("idScreen", idWisata);
                             startActivity(a);
                             Animatoo.animateSlideDown(TakePhotoTransactionScreen.this);
@@ -395,6 +519,8 @@ public class TakePhotoTransactionScreen extends AppCompatActivity {
         //Other
         dataMode = new DataMode(this);
         transactionWIisata = new TransactionWIisata();
+        masterDataHotelDetail = new MasterDataHotelDetail();
+        transHotels= new TransactionHotel();
         pDialog = new SweetAlertDialog(TakePhotoTransactionScreen.this, SweetAlertDialog.PROGRESS_TYPE);
     }
 }

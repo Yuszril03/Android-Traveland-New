@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.risqi.traveland.HotelScreen.DetailTransactionHotelScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.WisataScreen.DetailTransactionWisataScreen;
@@ -95,6 +96,27 @@ public class ReviewRatingScreen extends AppCompatActivity {
                     }
                 }
             });
+        }else if (jenisScreen.equals("Hotel")) {
+            database1 = FirebaseDatabase.getInstance().getReference();
+            database1.child("Transaction-Hotel").child(idWisata).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    Map<String, Object> transaksiHOtels = (Map<String, Object>) task.getResult().getValue();
+                    setDataHotel(transaksiHOtels.get("IdMitra").toString(),transaksiHOtels.get("IdKamar").toString());
+                    setBIntang(Integer.parseInt(transaksiHOtels.get("Rating").toString()));
+                    if(transaksiHOtels.get("UlasanCustomer").toString().equals("")){
+                        komentarUser.setText("Tidak ada komentar yang diberikan.");
+                    }else{
+                        komentarUser.setText(wordCase(transaksiHOtels.get("UlasanCustomer").toString()));
+                        if(transaksiHOtels.get("UlasanMitra").toString().equals("")){
+                            bgkomeMitra.setVisibility(View.GONE);
+                        }else{
+                            bgkomeMitra.setVisibility(View.VISIBLE);
+                            KomentarMitra.setText(wordCase(transaksiHOtels.get("UlasanMitra").toString()));
+                        }
+                    }
+                }
+            });
         }
     }
 
@@ -130,6 +152,49 @@ public class ReviewRatingScreen extends AppCompatActivity {
             bintang4.setBackgroundResource(R.drawable.icon_star_primary);
             bintang5.setBackgroundResource(R.drawable.icon_star_primary);
         }
+    }
+
+    private void setDataHotel(String idMitra, String idKamar) {
+        database2 = FirebaseDatabase.getInstance().getReference();
+        database2.child("Master-Data-Hotel-Detail").child(idKamar).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> taskKamar) {
+                Map<String, Object> detailKamar = (Map<String, Object>) taskKamar.getResult().getValue();
+
+                hargaAnak.setText("Rp."+detailKamar.get("HargaKamar").toString());
+                Glide.with(ReviewRatingScreen.this).clear(imageViewWisata);
+                Glide.with(ReviewRatingScreen.this)
+                        .load(detailKamar.get("fotoKamar").toString())
+//                    .transform(new MultiTransformation(new FitCenter()))
+                        .apply(new RequestOptions()
+
+                                .priority(Priority.HIGH)
+                                .centerCrop())
+                        .into(imageViewWisata);
+
+                database1 = FirebaseDatabase.getInstance().getReference();
+                database1.child("Master-Data-Hotel").child(idMitra).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> taskHotel) {
+                        Map<String, Object> detailHotel= (Map<String, Object>) taskHotel.getResult().getValue();
+
+                        String judul = wordCase(detailKamar.get("NamaKamar").toString()+" - "+detailHotel.get("NamaHotel").toString());
+                        judulWisata.setText(judul);
+                        String textTemp = wordCase(detailHotel.get("AlamatHotel").toString());
+                        if(textTemp.length() <=55){
+                            alamatwisata.setText(textTemp);
+                        }else{
+                            String resultAlamat="";
+                            String [] arrayAlamat = textTemp.split("");
+                            for(int i =0; i<52;i++){
+                                resultAlamat=resultAlamat+""+arrayAlamat[i];
+                            }
+                            alamatwisata.setText(wordCase(resultAlamat));
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void setDataWisata(String idMitra) {
@@ -197,6 +262,12 @@ public class ReviewRatingScreen extends AppCompatActivity {
                     startActivity(a);
                     Animatoo.animateSlideDown(ReviewRatingScreen.this);
                     onStop();
+                }else  if (jenisScreen.equals("Hotel")) {
+                    Intent a = new Intent(ReviewRatingScreen.this, DetailTransactionHotelScreen.class);
+                    a.putExtra("idScreen", idWisata);
+                    startActivity(a);
+                    Animatoo.animateSlideDown(ReviewRatingScreen.this);
+                    onStop();
                 }
             }
         });
@@ -206,6 +277,12 @@ public class ReviewRatingScreen extends AppCompatActivity {
     public void onBackPressed() {
         if (jenisScreen.equals("Wisata")) {
             Intent a = new Intent(ReviewRatingScreen.this, DetailTransactionWisataScreen.class);
+            a.putExtra("idScreen", idWisata);
+            startActivity(a);
+            Animatoo.animateSlideDown(ReviewRatingScreen.this);
+            onStop();
+        }else  if (jenisScreen.equals("Hotel")) {
+            Intent a = new Intent(ReviewRatingScreen.this, DetailTransactionHotelScreen.class);
             a.putExtra("idScreen", idWisata);
             startActivity(a);
             Animatoo.animateSlideDown(ReviewRatingScreen.this);

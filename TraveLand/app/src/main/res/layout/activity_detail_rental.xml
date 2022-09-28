@@ -2,12 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/backgrooundMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".RentalScreen.DetailRentalScreen">
 
     <ScrollView
+        android:id="@+id/scrollable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="75dp"
@@ -39,17 +41,17 @@
                         android:id="@+id/imageviewrentaldetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/nonwisata"
+                        android:background="#FFF"
                         app:riv_corner_radius="20dip"
                         app:riv_mutate_background="true"
                         app:riv_oval="false"
-                        app:riv_tile_mode="repeat"/>
+                        app:riv_tile_mode="repeat" />
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/imageviewrentaldetail1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#A8000000"
+                        android:background="#0D000000"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -59,7 +61,7 @@
                         app:riv_corner_radius="20dip"
                         app:riv_mutate_background="true"
                         app:riv_oval="false"
-                        app:riv_tile_mode="repeat"/>
+                        app:riv_tile_mode="repeat" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/background1"
@@ -68,52 +70,27 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:background="@drawable/backgroud_back_detail"
-                        android:padding="7dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <Button
                             android:id="@+id/back"
-                            android:onClick="backtomenurental"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/icon_back_white" />
+                            android:background="@drawable/icon_circle_dark"
+                            android:onClick="backtomenurental" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView
-                        android:id="@+id/judulmobil"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/roboto_bold"
-                        android:maxWidth="300dp"
-                        android:text="Judul mobil dddddddddddddd Yang Populer"
-                        android:textColor="@color/white"
-                        android:textSize="25sp"
-                        app:layout_constraintBottom_toTopOf="@id/hargamobil"
-                        app:layout_constraintLeft_toLeftOf="@id/background1" />
-
-                    <TextView
-                        android:id="@+id/hargamobil"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="30dp"
-                        android:maxWidth="270dp"
-                        android:text="Rp.10000 "
-                        android:textColor="@color/white"
-                        android:textSize="18dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="@id/judulmobil" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
+                        android:layout_marginBottom="20dp"
                         android:background="@drawable/backgroud_back_detail"
-                        app:layout_constraintBottom_toBottomOf="@id/hargamobil"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/hargamobil">
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent">
 
                         <ImageView
                             android:id="@+id/star"
@@ -122,7 +99,7 @@
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:background="@drawable/icon_star"
+                            android:background="@drawable/icon_star_primary"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -130,10 +107,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
+                            android:layout_marginStart="5dp"
                             android:layout_marginRight="10dp"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="4.5"
-                            android:textColor="@color/darkMode"
+                            android:textColor="@color/secondary"
                             app:layout_constraintBottom_toBottomOf="@id/star"
                             app:layout_constraintLeft_toRightOf="@id/star"
                             app:layout_constraintRight_toRightOf="parent"
@@ -143,6 +121,35 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+                <TextView
+                    android:id="@+id/judulmobil"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:maxWidth="320dp"
+                    android:text="Judul mobil dddddddddddddd Yang Populer"
+                    android:textColor="@color/darkMode"
+                    android:textSize="25sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    app:layout_constraintLeft_toLeftOf="@id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/atas" />
+
+                <TextView
+                    android:id="@+id/hargamobil"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:maxWidth="270dp"
+                    android:text="Rp.10000 "
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/accent"
+                    android:textSize="18dp"
+                    app:layout_constraintLeft_toLeftOf="@id/judulmobil"
+                    app:layout_constraintTop_toBottomOf="@+id/judulmobil" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/profilerental"
                     android:layout_width="wrap_content"
@@ -150,8 +157,21 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
                     app:layout_constraintLeft_toLeftOf="@+id/atas"
-                    app:layout_constraintTop_toBottomOf="@+id/atas">
-
+                    app:layout_constraintTop_toBottomOf="@+id/hargamobil">
+                    <ImageView
+                        android:id="@+id/imageprofilehotel2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/background_empty_dark"
+                        app:civ_border_color="#F3F3F3"
+                        app:civ_border_width="2dp"
+                        app:civ_shadow="true"
+                        app:civ_shadow_radius="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
                     <ImageView
                         android:id="@+id/imageprofilerental"
                         android:layout_width="50dp"
@@ -165,7 +185,7 @@
                         app:civ_shadow_radius="10dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/namamitrarental"
@@ -190,10 +210,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto"
                     android:text="Deskripsi Rental"
-                    android:textColor="@color/darkMode"
-                    android:textSize="22sp"
+                    android:textColor="@color/accent"
+                    android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="@+id/atas"
                     app:layout_constraintTop_toBottomOf="@+id/profilerental" />
 
@@ -206,7 +226,7 @@
                     android:justificationMode="inter_word"
                     android:maxWidth="340dp"
                     android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
-                    android:textColor="@color/accent"
+                    android:textColor="@color/darkMode"
                     android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@id/deskripsirental"
                     app:layout_constraintTop_toBottomOf="@id/deskripsirental" />
@@ -217,10 +237,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto"
                     android:text="Ukuran Kendaraan"
-                    android:textColor="@color/darkMode"
-                    android:textSize="22sp"
+                    android:textColor="@color/accent"
+                    android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="@+id/atas"
                     app:layout_constraintTop_toBottomOf="@+id/isideskripsirental" />
 
@@ -233,7 +253,7 @@
                     android:justificationMode="inter_word"
                     android:maxWidth="340dp"
                     android:text="XL"
-                    android:textColor="@color/accent"
+                    android:textColor="@color/darkMode"
                     android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@id/judulukuran"
                     app:layout_constraintTop_toBottomOf="@id/judulukuran" />
@@ -242,14 +262,14 @@
                     android:id="@+id/juduljumlahkursi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto"
                     android:text="Jumlah Kursi"
-                    android:textColor="@color/darkMode"
-                    android:textSize="22sp"
-                    app:layout_constraintLeft_toLeftOf="@+id/atas"
-                    app:layout_constraintTop_toBottomOf="@+id/isiukuran" />
+                    android:textColor="@color/accent"
+                    android:textSize="18sp"
+                    app:layout_constraintRight_toRightOf="@+id/atas"
+                    app:layout_constraintTop_toBottomOf="@+id/isideskripsirental" />
 
                 <TextView
                     android:id="@+id/isiJumlahKursi"
@@ -260,7 +280,7 @@
                     android:justificationMode="inter_word"
                     android:maxWidth="340dp"
                     android:text="8 kursi"
-                    android:textColor="@color/accent"
+                    android:textColor="@color/darkMode"
                     android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@id/juduljumlahkursi"
                     app:layout_constraintTop_toBottomOf="@id/juduljumlahkursi" />
@@ -271,12 +291,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto"
                     android:text="Deskripsi Kendaraan"
-                    android:textColor="@color/darkMode"
-                    android:textSize="22sp"
+                    android:textColor="@color/accent"
+                    android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="@+id/atas"
-                    app:layout_constraintTop_toBottomOf="@+id/isiJumlahKursi" />
+                    app:layout_constraintTop_toBottomOf="@+id/isiukuran" />
 
                 <TextView
                     android:id="@+id/isiDeskripsi"
@@ -287,7 +307,7 @@
                     android:justificationMode="inter_word"
                     android:maxWidth="340dp"
                     android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
-                    android:textColor="@color/accent"
+                    android:textColor="@color/darkMode"
                     android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@id/judulDeskripsi"
                     app:layout_constraintTop_toBottomOf="@id/judulDeskripsi" />
@@ -298,12 +318,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto"
                     android:text="Lokasi"
-                    android:textColor="@color/darkMode"
-                    android:textSize="22sp"
+                    android:textColor="@color/accent"
+                    android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="@+id/atas"
                     app:layout_constraintTop_toBottomOf="@+id/isiDeskripsi" />
+
+                <TextView
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/roboto"
+                    android:layout_marginRight="20dp"
+                    android:id="@+id/lihatpeta"
+                    android:textSize="18sp"
+                    app:layout_constraintTop_toTopOf="@id/judulMap"
+                    app:layout_constraintBottom_toBottomOf="@id/judulMap"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="Lihat Peta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <org.osmdroid.views.MapView
                     android:id="@+id/map"
@@ -322,26 +355,106 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:fontFamily="@font/roboto_bold"
+                    android:fontFamily="@font/roboto"
                     android:text="Komentar"
-                    android:textColor="@color/darkMode"
-                    android:textSize="22sp"
+                    android:textColor="@color/accent"
+                    android:textSize="18sp"
                     app:layout_constraintLeft_toLeftOf="@+id/atas"
-                    app:layout_constraintTop_toBottomOf="@+id/map"/>
+                    app:layout_constraintTop_toBottomOf="@+id/map" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerBintang"
+                    app:layout_constraintLeft_toLeftOf="@id/judulkomen"
+                    app:layout_constraintTop_toBottomOf="@id/judulkomen"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/roboto"
+                    android:text="4.0/5"
+                    android:textSize="18sp"
+                    android:id="@+id/textPenilaian"
+                    app:layout_constraintTop_toTopOf="@id/recyclerBintang"
+                    app:layout_constraintBottom_toBottomOf="@id/recyclerBintang"
+                    app:layout_constraintLeft_toRightOf="@id/recyclerBintang"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/accent"
+                    android:fontFamily="@font/roboto"
+                    android:text="(20 Ulasan)"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="5dp"
+                    app:layout_constraintLeft_toRightOf="@id/textPenilaian"
+                    app:layout_constraintBottom_toBottomOf="@id/recyclerBintang"
+                    app:layout_constraintTop_toTopOf="@id/recyclerBintang"
+                    android:id="@+id/jumlahUlasan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/roboto"
+                    android:text="Lihat semua"
+                    android:textSize="18sp"
+                    android:layout_marginRight="20dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/textPenilaian"
+                    app:layout_constraintTop_toTopOf="@id/judulkomen"
+                    android:id="@+id/lihatsemuaUlasan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvGroceries"
-                    android:layout_width="154dp"
-                    android:layout_height="178dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintLeft_toLeftOf="@id/judulkomen"
-                    app:layout_constraintTop_toBottomOf="@id/judulkomen" />
+                    app:layout_constraintTop_toBottomOf="@id/recyclerBintang" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/backtoscroll"
+        android:visibility="gone"
+        android:background="@drawable/bacground_back_scroller_white"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <Button
+            android:id="@+id/btnbackscroller"
+            android:background="@drawable/icon_left_line_dark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+        <TextView
+            android:id="@+id/titleScroller"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/darkMode"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="Detail Rental"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/buttonPesan"
@@ -359,5 +472,263 @@
         android:textColor="@color/darkMode"
         android:textSize="18dp"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutDetailPenilaian"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:id="@+id/atasPenilaian"
+            android:background="@color/whitemode2"
+            android:layout_height="60dp">
+            <Button
+                android:id="@+id/btnbackpenilian"
+                android:background="@drawable/icon_left_line_dark"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="20dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+            <TextView
+                android:id="@+id/titlePenilaian"
+                android:fontFamily="@font/roboto_bold"
+                android:textColor="@color/darkMode"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:text="Penilaian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <View
+                android:id="@+id/garisPoopUPNilai"
+                android:background="@color/whitemode2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <HorizontalScrollView
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/filterBintang"
+            app:layout_constraintTop_toBottomOf="@id/atasPenilaian"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:scrollbars="none"
+
+            android:layout_height="50dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/buttonAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/bgBintang5"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:background="@drawable/background_select_bintang_white"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_height="30dp">
+                        <ImageView
+                            android:id="@+id/start5"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:background="@drawable/icon_star_primary"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"/>
+                        <TextView
+                            android:id="@+id/textStart5"
+                            android:text="5 (200)"
+                            android:layout_marginLeft="5dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/start5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/bgBintang4"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/bgBintang5"
+                        android:background="@drawable/background_select_bintang_white"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_height="30dp">
+                        <ImageView
+                            android:id="@+id/start4"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:background="@drawable/icon_star_primary"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"/>
+                        <TextView
+                            android:id="@+id/textStart4"
+                            android:text="4 (1)"
+                            android:layout_marginLeft="5dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/start4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/bgBintang3"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/bgBintang4"
+                        android:background="@drawable/background_select_bintang_white"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_height="30dp">
+                        <ImageView
+                            android:id="@+id/start3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:background="@drawable/icon_star_primary"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"/>
+                        <TextView
+                            android:id="@+id/textStart3"
+                            android:text="3 (1)"
+                            android:layout_marginLeft="5dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/start3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/bgBintang2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/bgBintang3"
+                        android:background="@drawable/background_select_bintang_white"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_height="30dp">
+                        <ImageView
+                            android:id="@+id/start2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:background="@drawable/icon_star_primary"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"/>
+                        <TextView
+                            android:id="@+id/textStart2"
+                            android:text="2 (1)"
+                            android:layout_marginLeft="5dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/start2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/bgBintang1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/bgBintang2"
+                        android:background="@drawable/background_select_bintang_white"
+                        android:layout_width="wrap_content"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:layout_height="30dp">
+                        <ImageView
+                            android:id="@+id/start1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:background="@drawable/icon_star_primary"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"/>
+                        <TextView
+                            android:id="@+id/textStart1"
+                            android:text="1 (12)"
+                            android:layout_marginLeft="5dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/start1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerKomenterAll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="130dp"
+            android:layout_marginLeft="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/filterBintang" />
+
+        <ImageView
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filterBintang"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/nocomment"
+            android:id="@+id/bgnoComent"
+            android:layout_width="150dp"
+            android:layout_marginTop="-120dp"
+            android:layout_height="150dp"/>
+        <TextView
+            android:text="Belum ada penilaian."
+            android:textColor="@color/darkMode"
+            android:textSize="18sp"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="15dp"
+            app:layout_constraintRight_toRightOf="@id/bgnoComent"
+            app:layout_constraintLeft_toLeftOf="@id/bgnoComent"
+            app:layout_constraintTop_toBottomOf="@id/bgnoComent"
+            android:id="@+id/textnoCOmment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

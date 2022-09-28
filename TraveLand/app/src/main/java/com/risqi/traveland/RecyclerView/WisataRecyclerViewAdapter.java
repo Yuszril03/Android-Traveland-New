@@ -20,13 +20,8 @@ import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.MasterDataWisata;
-import com.risqi.traveland.Firebase.TransactionWIisata;
 import com.risqi.traveland.R;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.WisataScreen.DetailWisataScreen;
@@ -94,52 +89,52 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
 
         MasterDataWisata masterdatawisata = masterDataWisata.get(position);
 
-        database1 = FirebaseDatabase.getInstance().getReference("Transaction-Wisata");
-        database1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int valueRating1 = 0;
-                int valueRating2 = 0;
-                int valueRating3 = 0;
-                int valueRating4 = 0;
-                int valueRating5 = 0;
-                for (DataSnapshot postData : snapshot.getChildren()) {
-                    TransactionWIisata wisata = postData.getValue(TransactionWIisata.class);
-                    if (wisata.getIdMitra().equals(idmasterDataWisata1.get(position))) {
-                        if(wisata.getStatusTransaksi().equals("4")){
-                            if(!wisata.getRating().equals("")){
-                                if (wisata.getRating().equals("1")) {
-                                    valueRating1++;
-                                } else if (wisata.getRating().equals("2")) {
-                                    valueRating2++;
-                                } else if (wisata.getRating().equals("3")) {
-                                    valueRating3++;
-                                } else if (wisata.getRating().equals("4")) {
-                                    valueRating4++;
-                                } else if (wisata.getRating().equals("5")) {
-                                    valueRating5++;
-                                }
-                            }
-                        }
-
-                    }
-                }
-                int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
-                int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
-                if (totalRating > 0) {
-                    holder.bintang.setText("" + (totalRating/totalAllRating)+".0");
-                } else {
-                    holder.bintang.setText("0.0");
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+//        database1 = FirebaseDatabase.getInstance().getReference("Transaction-Wisata");
+//        database1.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                int valueRating1 = 0;
+//                int valueRating2 = 0;
+//                int valueRating3 = 0;
+//                int valueRating4 = 0;
+//                int valueRating5 = 0;
+//                for (DataSnapshot postData : snapshot.getChildren()) {
+//                    TransactionWIisata wisata = postData.getValue(TransactionWIisata.class);
+//                    if (wisata.getIdMitra().equals(idmasterDataWisata1.get(position))) {
+//                        if(wisata.getStatusTransaksi().equals("4")){
+//                            if(!wisata.getRating().equals("")){
+//                                if (wisata.getRating().equals("1")) {
+//                                    valueRating1++;
+//                                } else if (wisata.getRating().equals("2")) {
+//                                    valueRating2++;
+//                                } else if (wisata.getRating().equals("3")) {
+//                                    valueRating3++;
+//                                } else if (wisata.getRating().equals("4")) {
+//                                    valueRating4++;
+//                                } else if (wisata.getRating().equals("5")) {
+//                                    valueRating5++;
+//                                }
+//                            }
+//                        }
+//
+//                    }
+//                }
+//                int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
+//                int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
+//                if (totalRating > 0) {
+//                    holder.bintang.setText("" +ratingWisata.get(position)+".0");
+//                } else {
+//                    holder.bintang.setText("0.0");
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+        holder.bintang.setText(ratingWisata.get(position)+".0");
         holder.JudulWisata.setText(wordCase(masterdatawisata.getNamaWisata()));
         holder.hargaParent.setText(formatRupiah(Double.parseDouble(masterdatawisata.getHargaDewasa())) + "/Orang");
         String textTemp = masterdatawisata.getAlamatWisata();
@@ -207,10 +202,12 @@ public class WisataRecyclerViewAdapter extends RecyclerView.Adapter<WisataRecycl
     private DatabaseReference database1;
     private List<MasterDataWisata> masterDataWisata;
     private List<String> idmasterDataWisata1;
+    private List<Integer> ratingWisata;
 
-    public WisataRecyclerViewAdapter(Context context, List<MasterDataWisata> masterDataWisata, List<String> idmasterDataWisata1) {
+    public WisataRecyclerViewAdapter(Context context, List<MasterDataWisata> masterDataWisata, List<String> idmasterDataWisata1,List<Integer> ratingWisata) {
         this.context = context;
         this.masterDataWisata = masterDataWisata;
         this.idmasterDataWisata1 = idmasterDataWisata1;
+        this.ratingWisata = ratingWisata;
     }
 }

@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.risqi.traveland.Firebase.TransactionHotel;
 import com.risqi.traveland.Firebase.TransactionWIisata;
 import com.risqi.traveland.MainMenuScreen;
 import com.risqi.traveland.R;
@@ -53,7 +54,7 @@ public class OrderingScreen extends AppCompatActivity {
 
     //Transaksi Hotel
     private OrderingHotelRecyclerViewAdapter orderingHotelRecyclerViewAdapter;
-    private List<String> dataHotel = new ArrayList<>();
+    private List<TransactionHotel> dataHotel = new ArrayList<>();
 
     //Transaksi rental
     private OrderingRentalRecyclerViewAdapter orderingRentalRecyclerViewAdapter;
@@ -272,27 +273,57 @@ public class OrderingScreen extends AppCompatActivity {
     }
 
     private void setDataTransaksiHotel() {
-        orderingHotelRecyclerViewAdapter = new OrderingHotelRecyclerViewAdapter(OrderingScreen.this, dataHotel);
+        orderingHotelRecyclerViewAdapter = new OrderingHotelRecyclerViewAdapter(OrderingScreen.this, dataHotel,KeyData);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
         dataTransaksi.setLayoutManager(layoutManager);
         dataTransaksi.setItemAnimator(new DefaultItemAnimator());
         dataTransaksi.setAdapter(orderingHotelRecyclerViewAdapter);
-        dataHotel.clear();
 
-        for (int i = 1; i <= 2; i++) {
-            dataHotel.add("Fill");
+        database1 = FirebaseDatabase.getInstance().getReference("Transaction-Hotel");
+        database1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dataHotel.clear();
+                KeyData.clear();
 
-        }
-        if(dataHotel.size()==0){
-            constraintwisatanodata.setVisibility(View.VISIBLE);
-            textOrderFailed.setText("Belum ada data transaksi");
-        }
-        else{
-            constraintwisatanodata.setVisibility(View.GONE);
-        }
+                for (DataSnapshot postData : snapshot.getChildren()){
+                    TransactionHotel transHotel = postData.getValue(TransactionHotel.class);
+                    if(transHotel.getStatusTransaksi().equals("4")){
 
-        orderingHotelRecyclerViewAdapter.notifyDataSetChanged();
+
+                    }else if(transHotel.getStatusTransaksi().equals("2")){
+
+                    }else{
+                        if(transHotel.getIdCutomer().equals(NIK)){
+                            dataHotel.add(transHotel);
+                            KeyData.add(postData.getKey());
+                        }
+
+                    }
+                }
+
+                if(dataHotel.size()==0){
+                    constraintwisatanodata.setVisibility(View.VISIBLE);
+                    textOrderFailed.setText("Belum ada data transaksi");
+                }
+                else{
+                    constraintwisatanodata.setVisibility(View.GONE);
+                }
+
+                orderingHotelRecyclerViewAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
     }
 
     private void setDataTransaksiRental() {

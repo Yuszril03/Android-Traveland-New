@@ -4,94 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layoutUtama"
     tools:context=".RentalScreen.MenuRentalScreen"
     android:background="@color/whitemode2">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout8"
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/border_menu_wisata"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/btnkembalirental"
-            android:layout_width="25dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="35dp"
-            android:src="@drawable/icon_left_arrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/roboto_bold"
             android:text="Rental"
             android:textColor="@color/darkMode"
-            android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@+id/btnkembalirental"
+            android:textSize="22sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btnbackrental"
-            android:layout_width="25dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="34dp"
-            android:background="@null"
+            android:id="@+id/btnbackhotel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/icon_left_line_dark"
             android:onClick="btnbackrental"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.015"
+            app:layout_constraintBottom_toBottomOf="@+id/textView14"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/textView14" />
 
+        <Button
+            android:visibility="gone"
+            android:id="@+id/bookmarklist"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/icon_bookmark_list"
+            app:layout_constraintBottom_toBottomOf="@+id/textView14"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView14" />
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout7"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/form_control"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout8">
-
-        <EditText
-            android:id="@+id/editSearchrental"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/formpencarian"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:background="@null"
-            android:drawableStart="@drawable/icon_search"
-            android:drawablePadding="3dp"
-            android:hint="Pencarian"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/form_control"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14">
+
+            <EditText
+                android:id="@+id/editSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="40dp"
+                android:background="@null"
+                android:drawableStart="@drawable/icon_search"
+                android:drawablePadding="3dp"
+                android:hint="Pencarian"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/filterData"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/icon_filter_no"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vwRental"
         android:layout_width="408dp"
-        android:layout_height="710dp"
+        android:layout_height="match_parent"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="1dp"
         android:fadeScrollbars="true"
@@ -100,7 +111,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

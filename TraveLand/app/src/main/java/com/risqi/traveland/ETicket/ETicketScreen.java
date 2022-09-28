@@ -1,10 +1,8 @@
 package com.risqi.traveland.ETicket;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +16,7 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.risqi.traveland.HotelScreen.DetailTransactionHotelScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.WisataScreen.DetailTransactionWisataScreen;
 
@@ -53,6 +52,12 @@ public class ETicketScreen extends AppCompatActivity {
                     startActivity(intent);
                     Animatoo.animateSlideDown(ETicketScreen.this);
                     onStop();
+                }else if(jenisScreen.equals("Hotel")){
+                    Intent intent = new Intent(ETicketScreen.this, DetailTransactionHotelScreen.class);
+                    intent.putExtra("idScreen",idWisata);
+                    startActivity(intent);
+                    Animatoo.animateSlideDown(ETicketScreen.this);
+                    onStop();
                 }
             }
         });
@@ -66,6 +71,12 @@ public class ETicketScreen extends AppCompatActivity {
             intent.putExtra("idScreen",idWisata);
             startActivity(intent);
             Animatoo.animateSlideDown(this);
+            onStop();
+        }else if(jenisScreen.equals("Hotel")){
+            Intent intent = new Intent(ETicketScreen.this, DetailTransactionHotelScreen.class);
+            intent.putExtra("idScreen",idWisata);
+            startActivity(intent);
+            Animatoo.animateSlideDown(ETicketScreen.this);
             onStop();
         }
     }

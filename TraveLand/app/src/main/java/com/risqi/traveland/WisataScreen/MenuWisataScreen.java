@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.MasterDataWisata;
+import com.risqi.traveland.Firebase.TransactionWIisata;
 import com.risqi.traveland.MainMenuScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.RecyclerView.WisataRecyclerViewAdapter;
@@ -48,6 +48,7 @@ public class MenuWisataScreen extends AppCompatActivity {
 
     private List<MasterDataWisata> masterDataWisata1 = new ArrayList<>();
     private List<String> idmasterDataWisata1 = new ArrayList<>();
+    private List<Integer> ratingBintang = new ArrayList<>();
     private DatabaseReference Reff, database1;
     RecyclerView recyclerViewWisata;
     private WisataRecyclerViewAdapter wisataRecyclerViewAdapter;
@@ -69,8 +70,6 @@ public class MenuWisataScreen extends AppCompatActivity {
     private ConstraintLayout modalMainBackground, modalBackground;
     private int modalFilter = 0;
     private int internet = 0;
-    private int kondisiFilter = 0;
-    private String dataBintang = "0";
 
 
     @Override
@@ -80,9 +79,8 @@ public class MenuWisataScreen extends AppCompatActivity {
         initialize();
         setMode();
         setWisata("");
-        setDataFilter();
         pencarianData();
-        setFilterMode(0);
+        //setFilterMode(0);
         showFilter();
         hideFilter();
         refreshData();
@@ -91,104 +89,7 @@ public class MenuWisataScreen extends AppCompatActivity {
 
     }
 
-    private void setDataFilter() {
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!TextUtils.isEmpty(minHarga.getText()) && !TextUtils.isEmpty(maxHarga.getText())) {
-                    if (Integer.parseInt(minHarga.getText().toString()) > Integer.parseInt(maxHarga.getText().toString())) {
-                        new SweetAlertDialog(MenuWisataScreen.this, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Opps...")
-                                .setContentText("Harga minimum tidak boleh lebih tinggi dari harga maksimum")
-                                .setConfirmText("Okey")
-                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                    @Override
-                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        sweetAlertDialog.dismissWithAnimation();
-                                    }
-                                })
-                                .show();
-                    } else {
-                        if (bintang1.isChecked()) {
-                            dataBintang = "1";
-                        } else if (bintang2.isChecked()) {
-                            dataBintang = "2";
-                        } else if (bintang3.isChecked()) {
-                            dataBintang = "3";
-                        } else if (bintang4.isChecked()) {
-                            dataBintang = "4";
-                        } else if (bintang5.isChecked()) {
-                            dataBintang = "5";
-                        } else {
-                            dataBintang = "0";
-                        }
-                        kondisiFilter = 1;
-                        textCari.setText("");
-                        setWisata("");
-                        filterData.setBackgroundResource(R.drawable.icon_filter_fill);
-                        setFilterMode(0);
-                    }
-                } else {
-                    if (bintang1.isChecked()) {
-                        dataBintang = "1";
-                    } else if (bintang2.isChecked()) {
-                        dataBintang = "2";
-                    } else if (bintang3.isChecked()) {
-                        dataBintang = "3";
-                    } else if (bintang4.isChecked()) {
-                        dataBintang = "4";
-                    } else if (bintang5.isChecked()) {
-                        dataBintang = "5";
-                    } else {
-                        dataBintang = "0";
-                    }
 
-                    if (dataBintang.equals("0")) {
-                        bintang1.setChecked(false);
-                        bintang2.setChecked(false);
-                        bintang3.setChecked(false);
-                        bintang4.setChecked(false);
-                        bintang5.setChecked(false);
-                        dataBintang = "0";
-                        kondisiFilter = 0;
-                        minHarga.setText("");
-                        maxHarga.setText("");
-                        textCari.setText("");
-                        setWisata("");
-                        filterData.setBackgroundResource(R.drawable.icon_filter_no);
-                        setFilterMode(0);
-                    } else {
-                        kondisiFilter = 1;
-                        textCari.setText("");
-                        setWisata("");
-                        filterData.setBackgroundResource(R.drawable.icon_filter_fill);
-                        setFilterMode(0);
-                    }
-
-                }
-
-
-            }
-        });
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bintang1.setChecked(false);
-                bintang2.setChecked(false);
-                bintang3.setChecked(false);
-                bintang4.setChecked(false);
-                bintang5.setChecked(false);
-                dataBintang = "0";
-                kondisiFilter = 0;
-                minHarga.setText("");
-                maxHarga.setText("");
-                textCari.setText("");
-                setWisata("");
-                filterData.setBackgroundResource(R.drawable.icon_filter_no);
-                setFilterMode(0);
-            }
-        });
-    }
 
 
     private void cekKondisi() {
@@ -215,8 +116,8 @@ public class MenuWisataScreen extends AppCompatActivity {
                             .show();
                 } else if (adaInternet() && internet == 0) {
 
-                    recyclerViewWisata.setVisibility(View.VISIBLE);
-                    constraintLayout.setVisibility(View.GONE);
+//                    recyclerViewWisata.setVisibility(View.VISIBLE);
+//                    constraintLayout.setVisibility(View.GONE);
 
 
                 }
@@ -433,16 +334,16 @@ public class MenuWisataScreen extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (TextUtils.isEmpty(textCari.getText())) {
-                    setWisata("");
-                } else {
-                    setWisata(textCari.getText().toString());
-                }
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if (TextUtils.isEmpty(textCari.getText())) {
+                    setWisata("");
+                } else {
+                    setWisata(textCari.getText().toString().toLowerCase());
+                }
             }
         };
         textCari.addTextChangedListener(textWatcher);
@@ -480,306 +381,174 @@ public class MenuWisataScreen extends AppCompatActivity {
     }
 
     private void setWisata(String cari) {
-        wisataRecyclerViewAdapter = new WisataRecyclerViewAdapter(this, masterDataWisata1, idmasterDataWisata1);
+        wisataRecyclerViewAdapter = new WisataRecyclerViewAdapter(this, masterDataWisata1, idmasterDataWisata1,ratingBintang);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewWisata.setLayoutManager(layoutManager);
         recyclerViewWisata.setItemAnimator(new DefaultItemAnimator());
         recyclerViewWisata.setAdapter(wisataRecyclerViewAdapter);
 
-        Toast.makeText(this, "" + kondisiFilter, Toast.LENGTH_SHORT).show();
-        if (kondisiFilter == 1) {
-            if (TextUtils.isEmpty(minHarga.getText()) && TextUtils.isEmpty(maxHarga.getText())) {
-                Reff = FirebaseDatabase.getInstance().getReference("Master-Data-Wisata");
-                if (dataBintang.equals("0")) {
-                    Reff.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            masterDataWisata1.clear();
-                            idmasterDataWisata1.clear();
-                            if (cari.equals("")) {
-                                for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-                                    MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
+        Reff = FirebaseDatabase.getInstance().getReference("Master-Data-Wisata");
+        Reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                masterDataWisata1.clear();
+                idmasterDataWisata1.clear();
+                ratingBintang.clear();
+
+                if (cari.equals("")) {
+                    for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
+                        MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
+                        if(masterdatawisataa.getStatusWisata()==1){
+
+                            database1 = FirebaseDatabase.getInstance().getReference("Transaction-Wisata");
+                            database1.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapTransaction) {
+                                    int valueRating1 = 0;
+                                    int valueRating2 = 0;
+                                    int valueRating3 = 0;
+                                    int valueRating4 = 0;
+                                    int valueRating5 = 0;
+
+                                    for (DataSnapshot postTransaction : snapTransaction.getChildren()){
+                                        TransactionWIisata wisataaja = postTransaction.getValue(TransactionWIisata.class);
+                                        if (wisataaja.getIdMitra().equals(postSnapshot1.getKey())) {
+                                            if(wisataaja.getStatusTransaksi().equals("4")){
+                                                if (!wisataaja.getRating().equals("")) {
+                                                    if (wisataaja.getRating().equals("1")) {
+                                                        valueRating1++;
+                                                    } else if (wisataaja.getRating().equals("2")) {
+                                                        valueRating2++;
+                                                    } else if (wisataaja.getRating().equals("3")) {
+                                                        valueRating3++;
+                                                    } else if (wisataaja.getRating().equals("4")) {
+                                                        valueRating4++;
+                                                    } else if (wisataaja.getRating().equals("5")) {
+                                                        valueRating5++;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
+                                    int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
+
+
+
+                                    if (totalRating > 0) {
+                                        ratingBintang.add((totalRating / totalAllRating));
+                                    } else {
+                                        ratingBintang.add(0);
+                                    }
+
+//                                    Toast.makeText(MenuWisataScreen.this, ""+ratingBintang.size(), Toast.LENGTH_SHORT).show();
+
                                     masterDataWisata1.add(masterdatawisataa);
                                     idmasterDataWisata1.add(postSnapshot1.getKey());
-                                }
-                            } else {
-                                for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-                                    MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-                                    if (masterdatawisataa.getNamaWisata().contains(cari)) {
-                                        masterDataWisata1.add(masterdatawisataa);
-                                        idmasterDataWisata1.add(postSnapshot1.getKey());
+
+                                    if (ratingBintang.isEmpty() == true) {
+                                        constraintLayout.setVisibility(View.VISIBLE);
+                                    } else {
+                                        constraintLayout.setVisibility(View.INVISIBLE);
                                     }
+                                    wisataRecyclerViewAdapter.notifyDataSetChanged();
+
                                 }
-                            }
 
-                            if (masterDataWisata1.isEmpty()) {
-                                constraintLayout.setVisibility(View.VISIBLE);
-                            } else {
-                                constraintLayout.setVisibility(View.INVISIBLE);
-                            }
-                            wisataRecyclerViewAdapter.notifyDataSetChanged();
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError errorTransaction) {
 
-                        }
+                                }
+                            });
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    });
+
+
+                    }
                 } else {
-                    Reff.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            masterDataWisata1.clear();
-                            idmasterDataWisata1.clear();
-                            if (cari.equals("")) {
-                                for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-                                    MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
+
+                    for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
+                        MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
+                        String judul = masterdatawisataa.getNamaWisata().toLowerCase();
+                        if(masterdatawisataa.getStatusWisata()==1 && judul.contains(cari)){
+
+                            database1 = FirebaseDatabase.getInstance().getReference("Transaction-Wisata");
+                            database1.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapTransaction) {
+                                    int valueRating1 = 0;
+                                    int valueRating2 = 0;
+                                    int valueRating3 = 0;
+                                    int valueRating4 = 0;
+                                    int valueRating5 = 0;
+
+                                    for (DataSnapshot postTransaction : snapTransaction.getChildren()){
+                                        TransactionWIisata wisataaja = postTransaction.getValue(TransactionWIisata.class);
+                                        if (wisataaja.getIdMitra().equals(postSnapshot1.getKey())) {
+                                            if(wisataaja.getStatusTransaksi().equals("4")){
+                                                if (!wisataaja.getRating().equals("")) {
+                                                    if (wisataaja.getRating().equals("1")) {
+                                                        valueRating1++;
+                                                    } else if (wisataaja.getRating().equals("2")) {
+                                                        valueRating2++;
+                                                    } else if (wisataaja.getRating().equals("3")) {
+                                                        valueRating3++;
+                                                    } else if (wisataaja.getRating().equals("4")) {
+                                                        valueRating4++;
+                                                    } else if (wisataaja.getRating().equals("5")) {
+                                                        valueRating5++;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
+                                    int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
+
+
+
+                                    if (totalRating > 0) {
+                                        ratingBintang.add((totalRating / totalAllRating));
+                                    } else {
+                                        ratingBintang.add(0);
+                                    }
+
+//                                    Toast.makeText(MenuWisataScreen.this, ""+ratingBintang.size(), Toast.LENGTH_SHORT).show();
+
                                     masterDataWisata1.add(masterdatawisataa);
                                     idmasterDataWisata1.add(postSnapshot1.getKey());
-                                }
-                            } else {
-                                for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-                                    MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-                                    if (masterdatawisataa.getNamaWisata().contains(cari)) {
-                                        masterDataWisata1.add(masterdatawisataa);
-                                        idmasterDataWisata1.add(postSnapshot1.getKey());
+
+                                    if (ratingBintang.isEmpty() == true) {
+                                        constraintLayout.setVisibility(View.VISIBLE);
+                                    } else {
+                                        constraintLayout.setVisibility(View.INVISIBLE);
                                     }
+                                    wisataRecyclerViewAdapter.notifyDataSetChanged();
+
                                 }
-                            }
 
-                            if (masterDataWisata1.isEmpty()) {
-                                constraintLayout.setVisibility(View.VISIBLE);
-                            } else {
-                                constraintLayout.setVisibility(View.INVISIBLE);
-                            }
-                            wisataRecyclerViewAdapter.notifyDataSetChanged();
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError errorTransaction) {
 
-                        }
+                                }
+                            });
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    });
+
+                    }
                 }
+
+
+
             }
 
-        } else {
-            Reff = FirebaseDatabase.getInstance().getReference("Master-Data-Wisata");
-            Reff.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    masterDataWisata1.clear();
-                    idmasterDataWisata1.clear();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                    if (cari.equals("")) {
-                        for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-                            MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-                            masterDataWisata1.add(masterdatawisataa);
-                            idmasterDataWisata1.add(postSnapshot1.getKey());
-
-
-                        }
-                    } else {
-                        for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-                            MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-                            if (masterdatawisataa.getNamaWisata().contains(cari)) {
-                                masterDataWisata1.add(masterdatawisataa);
-                                idmasterDataWisata1.add(postSnapshot1.getKey());
-                            }
-                        }
-                    }
-
-
-                    if (masterDataWisata1.isEmpty()) {
-                        constraintLayout.setVisibility(View.VISIBLE);
-                    } else {
-                        constraintLayout.setVisibility(View.INVISIBLE);
-                    }
-                    wisataRecyclerViewAdapter.notifyDataSetChanged();
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-
-        // Reff = FirebaseDatabase.getInstance().getReference("Master-Data-Wisata");
-//        Reff.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                masterDataWisata1.clear();
-//                idmasterDataWisata1.clear();
-//                if(kondisiFilter==1){
-//                    Toast.makeText(MenuWisataScreen.this, "Ini", Toast.LENGTH_SHORT).show();
-////                    if(TextUtils.isEmpty(minHarga.getText()) && TextUtils.isEmpty(maxHarga.getText())){
-////                        if(dataBintang.equals("0")){
-////                            if (cari.equals("")) {
-////                                for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-////                                    MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-////                                    masterDataWisata1.add(masterdatawisataa);
-////                                    idmasterDataWisata1.add(postSnapshot1.getKey());
-////                                }
-////                            } else {
-////                                for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-////                                    MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-////                                    if (masterdatawisataa.getNamaWisata().contains(cari)) {
-////                                        masterDataWisata1.add(masterdatawisataa);
-////                                        idmasterDataWisata1.add(postSnapshot1.getKey());
-////                                    }
-////                                }
-////                            }
-////                        }else{
-////                            if (cari.equals("")) {
-//////                                for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-//////                                    MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-//////
-//////                                    database1 = FirebaseDatabase.getInstance().getReference("Transaction-Wisata");
-//////                                    database1.addValueEventListener(new ValueEventListener() {
-//////                                        @Override
-//////                                        public void onDataChange(@NonNull DataSnapshot snapshotTransaksi) {
-//////                                            int valueRating1 = 0;
-//////                                            int valueRating2 = 0;
-//////                                            int valueRating3 = 0;
-//////                                            int valueRating4 = 0;
-//////                                            int valueRating5 = 0;
-////////                                            for (DataSnapshot postTransaksi : snapshotTransaksi.getChildren()){
-////////                                                TransactionWIisata transactionWIisataData = postTransaksi.getValue(TransactionWIisata.class);
-////////                                                if (transactionWIisataData.getIdMitra().equals(""+postTransaksi.getKey())) {
-////////
-////////                                                    if (transactionWIisataData.getStatusTransaksi().equals("4") && !transactionWIisataData.getRating().equals("")) {
-//////////                                                        jumlahUlasanALL++;
-////////                                                        if (transactionWIisataData.getRating().equals("1")) {
-////////                                                            valueRating1++;
-////////                                                        } else if (transactionWIisataData.getRating().equals("2")) {
-////////                                                            valueRating2++;
-////////                                                        } else if (transactionWIisataData.getRating().equals("3")) {
-////////                                                            valueRating3++;
-////////                                                        } else if (transactionWIisataData.getRating().equals("4")) {
-////////                                                            valueRating4++;
-////////                                                        } else if (transactionWIisataData.getRating().equals("5")) {
-////////                                                            valueRating5++;
-////////                                                        }
-////////                                                    }
-////////
-////////                                                }
-////////                                            }
-////////
-////////                                            int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
-////////                                            int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
-//////////                                            if (totalRating > 0) {
-//////////                                                if((totalRating / totalAllRating) == Integer.parseInt(dataBintang)){
-//////////                                                    masterDataWisata1.add(masterdatawisataa);
-//////////                                                    idmasterDataWisata1.add(postSnapshot1.getKey());
-//////////                                                }
-//////////                                            }
-//////
-//////
-//////                                        }
-//////
-//////                                        @Override
-//////                                        public void onCancelled(@NonNull DatabaseError error) {
-//////
-//////                                        }
-//////                                    });
-//////
-//////
-//////                                }
-////                            } else {
-////                                for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-////                                    MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-////
-////                                    database1 = FirebaseDatabase.getInstance().getReference("Transaction-Wisata");
-////                                    database1.addValueEventListener(new ValueEventListener() {
-////                                        @Override
-////                                        public void onDataChange(@NonNull DataSnapshot snapshotTransaksi) {
-////                                            int valueRating1 = 0;
-////                                            int valueRating2 = 0;
-////                                            int valueRating3 = 0;
-////                                            int valueRating4 = 0;
-////                                            int valueRating5 = 0;
-////                                            for (DataSnapshot postTransaksi : snapshotTransaksi.getChildren()){
-////                                                TransactionWIisata transactionWIisataData = postTransaksi.getValue(TransactionWIisata.class);
-////                                                if (transactionWIisataData.getIdMitra().equals(postTransaksi.getKey())) {
-////
-////                                                    if (transactionWIisataData.getStatusTransaksi().equals("4") && !transactionWIisataData.getRating().equals("")) {
-//////                                                        jumlahUlasanALL++;
-////                                                        if (transactionWIisataData.getRating().equals("1")) {
-////                                                            valueRating1++;
-////                                                        } else if (transactionWIisataData.getRating().equals("2")) {
-////                                                            valueRating2++;
-////                                                        } else if (transactionWIisataData.getRating().equals("3")) {
-////                                                            valueRating3++;
-////                                                        } else if (transactionWIisataData.getRating().equals("4")) {
-////                                                            valueRating4++;
-////                                                        } else if (transactionWIisataData.getRating().equals("5")) {
-////                                                            valueRating5++;
-////                                                        }
-////                                                    }
-////
-////                                                }
-////                                            }
-////
-////                                            int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
-////                                            int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
-////
-////                                            if(totalRating == Integer.parseInt(dataBintang) && masterdatawisataa.getNamaWisata().contains(cari)){
-////                                                masterDataWisata1.add(masterdatawisataa);
-////                                                idmasterDataWisata1.add(postSnapshot1.getKey());
-////                                            }
-////
-////                                        }
-////
-////                                        @Override
-////                                        public void onCancelled(@NonNull DatabaseError error) {
-////
-////                                        }
-////                                    });
-////
-//////                                    if (masterdatawisataa.getNamaWisata().contains(cari)) {
-//////                                        masterDataWisata1.add(masterdatawisataa);
-//////                                        idmasterDataWisata1.add(postSnapshot1.getKey());
-//////                                    }
-////                                }
-////                            }
-////                        }
-////
-////                    }
-//                }else{
-//                    if (cari.equals("")) {
-//                        for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-//                            MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-//                            masterDataWisata1.add(masterdatawisataa);
-//                            idmasterDataWisata1.add(postSnapshot1.getKey());
-//                        }
-//                    } else {
-//                        for (DataSnapshot postSnapshot1 : snapshot.getChildren()) {
-//                            MasterDataWisata masterdatawisataa = postSnapshot1.getValue(MasterDataWisata.class);
-//                            if (masterdatawisataa.getNamaWisata().contains(cari)) {
-//                                masterDataWisata1.add(masterdatawisataa);
-//                                idmasterDataWisata1.add(postSnapshot1.getKey());
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                if (masterDataWisata1.isEmpty()) {
-//                    constraintLayout.setVisibility(View.VISIBLE);
-//                } else {
-//                    constraintLayout.setVisibility(View.INVISIBLE);
-//                }
-//                wisataRecyclerViewAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+            }
+        });
     }
 
     public void btnbackwisata(View view) {

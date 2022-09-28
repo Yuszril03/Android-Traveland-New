@@ -1,10 +1,25 @@
 package com.risqi.traveland.Firebase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+
 public class MasterDataHotelDetail {
     String FasiltasKamar,HargaKamar,JumlahKamar,NamaKamar,TanggalBuat,TanggalUpdate,fotoKamar,IdHotel;
     int StatusKamar;
+    private SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    private Calendar myCalendar = Calendar.getInstance();
     public MasterDataHotelDetail(){
 
+    }
+
+    public HashMap updateJumlahKamar (String Kamar){
+        String dateTime = simpleDateFormat.format(myCalendar.getTime()).toString();
+        HashMap update = new HashMap();
+        update.put("JumlahKamar", Kamar);
+        update.put("TanggalUpdate", dateTime);
+
+        return  update;
     }
 
     public String getFasiltasKamar() {
