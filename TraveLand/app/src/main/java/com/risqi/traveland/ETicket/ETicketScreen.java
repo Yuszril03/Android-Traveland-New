@@ -18,6 +18,7 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.risqi.traveland.HotelScreen.DetailTransactionHotelScreen;
 import com.risqi.traveland.R;
+import com.risqi.traveland.RentalScreen.DetailTransactionRentalScreen;
 import com.risqi.traveland.WisataScreen.DetailTransactionWisataScreen;
 
 public class ETicketScreen extends AppCompatActivity {
@@ -58,6 +59,12 @@ public class ETicketScreen extends AppCompatActivity {
                     startActivity(intent);
                     Animatoo.animateSlideDown(ETicketScreen.this);
                     onStop();
+                }else if(jenisScreen.equals("Rental")){
+                    Intent intent = new Intent(ETicketScreen.this, DetailTransactionRentalScreen.class);
+                    intent.putExtra("idScreen",idWisata);
+                    startActivity(intent);
+                    Animatoo.animateSlideDown(ETicketScreen.this);
+                    onStop();
                 }
             }
         });
@@ -74,6 +81,12 @@ public class ETicketScreen extends AppCompatActivity {
             onStop();
         }else if(jenisScreen.equals("Hotel")){
             Intent intent = new Intent(ETicketScreen.this, DetailTransactionHotelScreen.class);
+            intent.putExtra("idScreen",idWisata);
+            startActivity(intent);
+            Animatoo.animateSlideDown(ETicketScreen.this);
+            onStop();
+        }else if(jenisScreen.equals("Rental")){
+            Intent intent = new Intent(ETicketScreen.this, DetailTransactionRentalScreen.class);
             intent.putExtra("idScreen",idWisata);
             startActivity(intent);
             Animatoo.animateSlideDown(ETicketScreen.this);

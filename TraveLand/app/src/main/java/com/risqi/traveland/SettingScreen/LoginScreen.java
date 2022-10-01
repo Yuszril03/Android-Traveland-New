@@ -37,6 +37,7 @@ import com.risqi.traveland.Firebase.MasterDataAccountCustomer;
 import com.risqi.traveland.Firebase.MasterDataCustomer;
 import com.risqi.traveland.HotelScreen.DetailHotelScreen;
 import com.risqi.traveland.R;
+import com.risqi.traveland.RentalScreen.DetailRentalScreen;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.WisataScreen.DetailWisataScreen;
@@ -109,6 +110,14 @@ public class LoginScreen extends AppCompatActivity {
                     onStop();
                 }else if(activityBefore.equals("DetailHotel")){
                     Intent intent = new Intent(LoginScreen.this, DetailHotelScreen.class);
+                    String [] arrayData =  idDetail.split("-");
+                    intent.putExtra("idMaster",arrayData[1]);
+                    intent.putExtra("idDetail",arrayData[0]);
+                    startActivity(intent);
+                    Animatoo.animateFade(LoginScreen.this);
+                    onStop();
+                }else if(activityBefore.equals("DetailRental")){
+                    Intent intent = new Intent(LoginScreen.this, DetailRentalScreen.class);
                     String [] arrayData =  idDetail.split("-");
                     intent.putExtra("idMaster",arrayData[1]);
                     intent.putExtra("idDetail",arrayData[0]);
@@ -309,6 +318,14 @@ public class LoginScreen extends AppCompatActivity {
             startActivity(intent);
             Animatoo.animateFade(LoginScreen.this);
             onStop();
+        }else if(activityBefore.equals("DetailRental")){
+            Intent intent = new Intent(LoginScreen.this, DetailRentalScreen.class);
+            String [] arrayData =  idDetail.split("-");
+            intent.putExtra("idMaster",arrayData[1]);
+            intent.putExtra("idDetail",arrayData[0]);
+            startActivity(intent);
+            Animatoo.animateFade(LoginScreen.this);
+            onStop();
         }
     }
 
@@ -497,6 +514,14 @@ public class LoginScreen extends AppCompatActivity {
                                                     startActivity(intent);
                                                     Animatoo.animateFade(LoginScreen.this);
                                                     onStop();
+                                                }else if(activityBefore.equals("DetailRental")){
+                                                    Intent intent = new Intent(LoginScreen.this, DetailRentalScreen.class);
+                                                    String [] arrayData =  idDetail.split("-");
+                                                    intent.putExtra("idMaster",arrayData[1]);
+                                                    intent.putExtra("idDetail",arrayData[0]);
+                                                    startActivity(intent);
+                                                    Animatoo.animateFade(LoginScreen.this);
+                                                    onStop();
                                                 }
                                             }
                                         })
@@ -539,6 +564,14 @@ public class LoginScreen extends AppCompatActivity {
                                                     onStop();
                                                 }else if(activityBefore.equals("DetailHotel")){
                                                     Intent intent = new Intent(LoginScreen.this, DetailHotelScreen.class);
+                                                    String [] arrayData =  idDetail.split("-");
+                                                    intent.putExtra("idMaster",arrayData[1]);
+                                                    intent.putExtra("idDetail",arrayData[0]);
+                                                    startActivity(intent);
+                                                    Animatoo.animateFade(LoginScreen.this);
+                                                    onStop();
+                                                }else if(activityBefore.equals("DetailRental")){
+                                                    Intent intent = new Intent(LoginScreen.this, DetailRentalScreen.class);
                                                     String [] arrayData =  idDetail.split("-");
                                                     intent.putExtra("idMaster",arrayData[1]);
                                                     intent.putExtra("idDetail",arrayData[0]);

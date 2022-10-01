@@ -25,9 +25,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.risqi.traveland.Firebase.TransactionHotel;
+import com.risqi.traveland.Firebase.TransactionRental;
 import com.risqi.traveland.Firebase.TransactionWIisata;
 import com.risqi.traveland.HotelScreen.DetailTransactionHotelScreen;
 import com.risqi.traveland.R;
+import com.risqi.traveland.RentalScreen.DetailTransactionRentalScreen;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.WisataScreen.DetailTransactionWisataScreen;
 
@@ -69,6 +71,7 @@ public class RatingScreen extends AppCompatActivity {
     private String jenisScreen = "";
     private TransactionWIisata transactionWIisata2;
     private TransactionHotel transHotel;
+    private TransactionRental transRental;
     private DatabaseReference database1, database2;
     private Task databaseupdate;
     private SweetAlertDialog pDialog;
@@ -184,6 +187,34 @@ public class RatingScreen extends AppCompatActivity {
                                                                 }).show();
                                                     }
                                                 });
+                                            }else  if (jenisScreen.equals("Rental")){
+
+                                                HashMap updateDAta = transRental.updatePenilaian(String.valueOf(star),komentar.getText().toString());
+                                                databaseupdate = FirebaseDatabase.getInstance().getReference().child("Transaction-Rental").child(idWisata).updateChildren(updateDAta);
+                                                databaseupdate.addOnCompleteListener(new OnCompleteListener() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task task) {
+                                                        pDialog.dismiss();
+                                                        new SweetAlertDialog(RatingScreen.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                                .setTitleText("Berhasil")
+                                                                .setContentText("Data berhasil tersimpan!")
+                                                                .setConfirmText("Okey")
+                                                                .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
+                                                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                                    @Override
+                                                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                        sweetAlertDialog.dismissWithAnimation();
+                                                                        if (jenisScreen.equals("Rental")) {
+                                                                            Intent a = new Intent(RatingScreen.this, DetailTransactionRentalScreen.class);
+                                                                            a.putExtra("idScreen", idWisata);
+                                                                            startActivity(a);
+                                                                            Animatoo.animateSlideDown(RatingScreen.this);
+                                                                            onStop();
+                                                                        }
+                                                                    }
+                                                                }).show();
+                                                    }
+                                                });
                                             }
                                         }
                                     }
@@ -274,7 +305,59 @@ public class RatingScreen extends AppCompatActivity {
                     setDataHotel(transaksiHotel.get("IdMitra").toString(),transaksiHotel.get("IdKamar").toString());
                 }
             });
+        }else  if (jenisScreen.equals("Rental")) {
+            database1 = FirebaseDatabase.getInstance().getReference();
+            database1.child("Transaction-Rental").child(idWisata).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    Map<String, Object> transaksiRental = (Map<String, Object>) task.getResult().getValue();
+                    setDataRental(transaksiRental.get("IdMitra").toString(),transaksiRental.get("IdMobil").toString());
+                }
+            });
         }
+    }
+
+    private void setDataRental(String idMitra, String idMobil) {
+        database2 = FirebaseDatabase.getInstance().getReference();
+        database2.child("Master-Data-Rental-Detail").child(idMobil).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> taskMobil) {
+                Map<String, Object> detailMobil = (Map<String, Object>) taskMobil.getResult().getValue();
+                hargaAnak.setText("Rp."+detailMobil.get("HargaSewa").toString());
+                Glide.with(RatingScreen.this).clear(imageViewWisata);
+                Glide.with(RatingScreen.this)
+                        .load(detailMobil.get("fotoKendaraan").toString())
+//                    .transform(new MultiTransformation(new FitCenter()))
+                        .apply(new RequestOptions()
+
+                                .priority(Priority.HIGH)
+                                .centerCrop())
+                        .into(imageViewWisata);
+
+                database1 = FirebaseDatabase.getInstance().getReference();
+                database1.child("Master-Data-Rental").child(idMitra).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> taskRental) {
+                        Map<String, Object> detailREntal= (Map<String, Object>) taskRental.getResult().getValue();
+
+                        String judul = wordCase(detailMobil.get("NamaKendaraan").toString()+" - "+detailREntal.get("NamaRental").toString());
+                        judulWisata.setText(judul);
+                        String textTemp = wordCase(detailREntal.get("AlamatRental").toString());
+                        if(textTemp.length() <=55){
+                            alamatwisata.setText(textTemp);
+                        }else{
+                            String resultAlamat="";
+                            String [] arrayAlamat = textTemp.split("");
+                            for(int i =0; i<52;i++){
+                                resultAlamat=resultAlamat+""+arrayAlamat[i];
+                            }
+                            alamatwisata.setText(wordCase(resultAlamat));
+                        }
+                    }
+                });
+
+            }
+        });
     }
 
     private void setDataHotel(String idMitra, String idKamar) {
@@ -389,6 +472,12 @@ public class RatingScreen extends AppCompatActivity {
                                     startActivity(a);
                                     Animatoo.animateSlideDown(RatingScreen.this);
                                     onStop();
+                                }else if (jenisScreen.equals("Rental")) {
+                                    Intent a = new Intent(RatingScreen.this, DetailTransactionRentalScreen.class);
+                                    a.putExtra("idScreen", idWisata);
+                                    startActivity(a);
+                                    Animatoo.animateSlideDown(RatingScreen.this);
+                                    onStop();
                                 }
                             }
                         }).show();
@@ -415,6 +504,12 @@ public class RatingScreen extends AppCompatActivity {
                             onStop();
                         }else if (jenisScreen.equals("Hotel")) {
                             Intent a = new Intent(RatingScreen.this, DetailTransactionHotelScreen.class);
+                            a.putExtra("idScreen", idWisata);
+                            startActivity(a);
+                            Animatoo.animateSlideDown(RatingScreen.this);
+                            onStop();
+                        }else if (jenisScreen.equals("Rental")) {
+                            Intent a = new Intent(RatingScreen.this, DetailTransactionRentalScreen.class);
                             a.putExtra("idScreen", idWisata);
                             startActivity(a);
                             Animatoo.animateSlideDown(RatingScreen.this);
@@ -499,6 +594,7 @@ public class RatingScreen extends AppCompatActivity {
         dataMode = new DataMode(this);
         transactionWIisata2 = new TransactionWIisata();
         transHotel= new TransactionHotel();
+        transRental= new TransactionRental();
         pDialog = new SweetAlertDialog(RatingScreen.this, SweetAlertDialog.PROGRESS_TYPE);
 
     }

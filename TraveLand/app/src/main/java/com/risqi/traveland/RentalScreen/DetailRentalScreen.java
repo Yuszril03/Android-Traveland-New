@@ -34,6 +34,7 @@ import com.risqi.traveland.RecyclerView.KomentarRecyclerViewAdapter;
 import com.risqi.traveland.SQLite.DataBeforeLogin;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
+import com.risqi.traveland.SettingScreen.LoginScreen;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -132,7 +133,37 @@ public class DetailRentalScreen extends AppCompatActivity {
 //        setFilterStar(0);
         setOnlickDataFilterStar();
 
+        toTransaksi();
 
+
+    }
+
+    private void toTransaksi() {
+
+        buttonPesan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor resLogin = dataLoginUser.getDataOne();
+                resLogin.moveToFirst();
+                if (resLogin.getCount() > 0) {
+                    Intent a = new Intent(DetailRentalScreen.this, TransactionRentalScreen.class);
+                    a.putExtra("Before", "DetailRental");
+                    a.putExtra("idDetail", "" +idRentalDetail);
+                    a.putExtra("idMaster", "" + idRental);
+                    startActivity(a);
+                    Animatoo.animateSlideRight(DetailRentalScreen.this);
+                    onStop();
+                } else {
+                    Intent a = new Intent(DetailRentalScreen.this, LoginScreen.class);
+                    a.putExtra("Before", "DetailRental");
+                    a.putExtra("idScreen", "" + idRentalDetail+"-"+idRental);
+                    startActivity(a);
+                    Animatoo.animateFade(DetailRentalScreen.this);
+                    onStop();
+                }
+
+            }
+        });
     }
 
     private void setOnlickDataFilterStar(){
@@ -535,6 +566,7 @@ public class DetailRentalScreen extends AppCompatActivity {
 
         //Mode
         dataMode = new DataMode(this);
+        dataLoginUser = new DataLoginUser(this);
     }
 
     public void backtomenurental(View view){

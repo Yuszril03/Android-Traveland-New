@@ -85,11 +85,15 @@ public class OrderingHotelRecyclerViewAdapter  extends RecyclerView.Adapter<Orde
             holder.StatusText.setText("Sudah Terbayar");
             holder.buttonSUbmit.setText("Scan QR");
             holder.StatusText.setTextColor(context.getResources().getColor(R.color.secondary));
+        }else  if(transactionHotel.getStatusTransaksi().equals("4")){
+            holder.StatusText.setText("Sudah Check-In");
+            holder.buttonSUbmit.setText("Scan QR");
+            holder.StatusText.setTextColor(context.getResources().getColor(R.color.secondary));
         }else  if(transactionHotel.getStatusTransaksi().equals("2")){
             holder.StatusText.setText("Dibatalkan");
             holder.buttonSUbmit.setText("Lihat Detail");
             holder.StatusText.setTextColor(context.getResources().getColor(R.color.secondary));
-        }else  if(transactionHotel.getStatusTransaksi().equals("4")){
+        }else  if(transactionHotel.getStatusTransaksi().equals("5")){
             if(transactionHotel.getUlasanCustomer().equals("")){
                 holder.StatusText.setText("Belum dinilai");
                 holder.buttonSUbmit.setText("Penilaian");

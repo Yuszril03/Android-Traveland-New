@@ -1,4 +1,4 @@
-package com.risqi.traveland.HotelScreen;
+package com.risqi.traveland.RentalScreen;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,8 +24,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.risqi.traveland.ETicket.ETicketScreen;
-import com.risqi.traveland.Firebase.MasterDataHotelDetail;
-import com.risqi.traveland.Firebase.TransactionHotel;
+import com.risqi.traveland.Firebase.MasterDataRentalDetail;
+import com.risqi.traveland.Firebase.TransactionRental;
 import com.risqi.traveland.OrderingScreen.OrderingScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.RatingScreen.RatingScreen;
@@ -39,7 +39,8 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class DetailTransactionHotelScreen extends AppCompatActivity {
+public class DetailTransactionRentalScreen extends AppCompatActivity {
+
     //Main Menu
     private ConstraintLayout layoutUtama;
     //Top Layout
@@ -49,7 +50,7 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
     private ConstraintLayout bgPersonal;
     //Layout Detail Hotel
     private ConstraintLayout bgHotel;
-    private TextView textHotel,KodeHotel,judulKOde,jHotel,tHotel,jAlamat,tAlamat,jKamar,tKamar,jHarga,tHarga,tJumlahKamar,jCheckin,tCheckin,jCheckOut,tCheckOut,StatusText,judulStatus;
+    private TextView textHotel,KodeHotel,judulKOde,jRental,tRental,jAlamatRental,tAlamatRental,jMobil,tMobil,jJenis,tJenis,jHarga,tHarga,jCheckin,tCheckin,jCheckOut,tCheckOut,StatusText,judulStatus;
     //LayoutMain payment
     private ImageView logoBank;
     private ConstraintLayout bgPembayaran;
@@ -67,63 +68,111 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
     private DatabaseReference database1, database2;
     private DataMode dataMode;
     private SweetAlertDialog pDialog;
-    private TransactionHotel transactionHotel,transactionHotelEXt;
-    private MasterDataHotelDetail masterDataHotelDetailExt;
+    private TransactionRental transactionRental,transactionRentalExt;
+    private MasterDataRentalDetail masterDataRentalDetail;
     private Task update,update2;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_transaction_hotel_screen);
+        setContentView(R.layout.activity_detail_transaction_rental_screen);
         getDataInten();
         initialize();
 
         SetMode();
-
         //SetDAta
         setDataTransaksi();
-        toMenuOrder();
 
+        toMenuOrder();
+        toCancel();
         //submit
         toSubmit();
 
-        //batalkan
-        toCancel();
+    }
 
+    private void toSubmit() {
+        buttonKondisiSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")){
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, TakePhotoTransactionScreen.class);
+                    a.putExtra("idScreen",idHotel);
+                    a.putExtra("jenisScreen","Rental");
+                    startActivity(a);
+                    Animatoo.animateSlideUp(DetailTransactionRentalScreen.this);
+                    onStop();
+
+                }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Pengambilan")){
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, ETicketScreen.class);
+                    a.putExtra("idScreen",idHotel);
+                    a.putExtra("jenisScreen","Rental");
+                    startActivity(a);
+                    Animatoo.animateSlideUp(DetailTransactionRentalScreen.this);
+                    onStop();
+                }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Pengembalian")){
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, ETicketScreen.class);
+                    a.putExtra("idScreen",idHotel);
+                    a.putExtra("jenisScreen","Rental");
+                    startActivity(a);
+                    Animatoo.animateSlideUp(DetailTransactionRentalScreen.this);
+                    onStop();
+                }
+                else if(buttonKondisiSubmit.getText().equals("Kembali")){
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, HistoryOrderingScreen.class);
+                    startActivity(a);
+                    Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
+                    onStop();
+                }else if(buttonKondisiSubmit.getText().equals("Lihat Penilaian")){
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, ReviewRatingScreen.class);
+                    a.putExtra("idScreen",idHotel);
+                    a.putExtra("jenisScreen","Rental");
+                    startActivity(a);
+                    Animatoo.animateSlideUp(DetailTransactionRentalScreen.this);
+                    onStop();
+                }
+                else if(buttonKondisiSubmit.getText().equals("Penilaian")){
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, RatingScreen.class);
+                    a.putExtra("idScreen",idHotel);
+                    a.putExtra("jenisScreen","Rental");
+                    startActivity(a);
+                    Animatoo.animateSlideUp(DetailTransactionRentalScreen.this);
+                    onStop();
+                }
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
         if(buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")){
-            Intent a = new Intent(DetailTransactionHotelScreen.this, OrderingScreen.class);
+            Intent a = new Intent(DetailTransactionRentalScreen.this, OrderingScreen.class);
 
             startActivity(a);
-            Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+            Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
             onStop();
 
-        }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Check-In") || buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Check-Out")){
-            Intent a = new Intent(DetailTransactionHotelScreen.this, OrderingScreen.class);
+        }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Pengambilan") || buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Pengembalian")){
+            Intent a = new Intent(DetailTransactionRentalScreen.this, OrderingScreen.class);
 
             startActivity(a);
-            Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+            Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
             onStop();
         }
         else if(buttonKondisiSubmit.getText().equals("Kembali")){
-            Intent a = new Intent(DetailTransactionHotelScreen.this, HistoryOrderingScreen.class);
+            Intent a = new Intent(DetailTransactionRentalScreen.this, HistoryOrderingScreen.class);
             startActivity(a);
-            Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+            Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
             onStop();
         }else if(buttonKondisiSubmit.getText().equals("Lihat Penilaian")){
-            Intent a = new Intent(DetailTransactionHotelScreen.this, HistoryOrderingScreen.class);
+            Intent a = new Intent(DetailTransactionRentalScreen.this, HistoryOrderingScreen.class);
             startActivity(a);
-            Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+            Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
             onStop();
         }
         else if(buttonKondisiSubmit.getText().equals("Penilaian")){
-            Intent a = new Intent(DetailTransactionHotelScreen.this, HistoryOrderingScreen.class);
+            Intent a = new Intent(DetailTransactionRentalScreen.this, HistoryOrderingScreen.class);
             startActivity(a);
-            Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+            Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
             onStop();
         }
     }
@@ -132,7 +181,7 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
         Batalkan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SweetAlertDialog(DetailTransactionHotelScreen.this, SweetAlertDialog.WARNING_TYPE)
+                new SweetAlertDialog(DetailTransactionRentalScreen.this, SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Apakah Anda Yakin")
                         .setContentText("Membatalkan transaksi ini!")
                         .setConfirmText("Iya!")
@@ -147,38 +196,29 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
                                 pDialog.setCancelable(false);
                                 pDialog.show();
 
-                                int jumlahTotal = jumlahKamarAsli+jumlahKamarOrder;
-
-                                HashMap updateDataKamar = masterDataHotelDetailExt.updateJumlahKamar(""+jumlahTotal);
-                                update2 = FirebaseDatabase.getInstance().getReference().child("Master-Data-Hotel-Detail").child(iDetail).updateChildren(updateDataKamar);
-                                update2.addOnCompleteListener(new OnCompleteListener() {
+                                HashMap updateData = transactionRentalExt.updateBatalkan("2");
+                                update = FirebaseDatabase.getInstance().getReference().child("Transaction-Rental").child(idHotel).updateChildren(updateData);
+                                update.addOnCompleteListener(new OnCompleteListener() {
                                     @Override
-                                    public void onComplete(@NonNull Task task) {
-                                        HashMap updateData = transactionHotelEXt.updateBatalkan("2");
-                                        update = FirebaseDatabase.getInstance().getReference().child("Transaction-Hotel").child(idHotel).updateChildren(updateData);
-                                        update.addOnCompleteListener(new OnCompleteListener() {
+                                    public void onComplete(@NonNull Task task2) {
+                                        new Handler().postDelayed(new Runnable() {
                                             @Override
-                                            public void onComplete(@NonNull Task task2) {
-                                                new Handler().postDelayed(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        pDialog.dismiss();
-                                                        setDataTransaksi();
-                                                        new SweetAlertDialog(DetailTransactionHotelScreen.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                                .setTitleText("Berhasil")
-                                                                .setContentText("berhasil membatalkan transaksi!")
-                                                                .setConfirmText("Iya!")
-                                                                .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
-                                                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                                    @Override
-                                                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                                                        sweetAlertDialog.dismissWithAnimation();
-                                                                    }
-                                                                }).show();
-                                                    }
-                                                }, 2000);
+                                            public void run() {
+                                                pDialog.dismiss();
+                                                setDataTransaksi();
+                                                new SweetAlertDialog(DetailTransactionRentalScreen.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                        .setTitleText("Berhasil")
+                                                        .setContentText("berhasil membatalkan transaksi!")
+                                                        .setConfirmText("Iya!")
+                                                        .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
+                                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                            @Override
+                                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                sweetAlertDialog.dismissWithAnimation();
+                                                            }
+                                                        }).show();
                                             }
-                                        });
+                                        }, 2000);
                                     }
                                 });
 
@@ -188,162 +228,95 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
         });
     }
 
-    private void toSubmit() {
-        buttonKondisiSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, TakePhotoTransactionScreen.class);
-                    a.putExtra("idScreen",idHotel);
-                    a.putExtra("jenisScreen","Hotel");
-                    startActivity(a);
-                    Animatoo.animateSlideUp(DetailTransactionHotelScreen.this);
-                    onStop();
-
-                }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Check-In")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, ETicketScreen.class);
-                    a.putExtra("idScreen",idHotel);
-                    a.putExtra("jenisScreen","Hotel");
-                    startActivity(a);
-                    Animatoo.animateSlideUp(DetailTransactionHotelScreen.this);
-                    onStop();
-                }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Check-Out")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, ETicketScreen.class);
-                    a.putExtra("idScreen",idHotel);
-                    a.putExtra("jenisScreen","Hotel");
-                    startActivity(a);
-                    Animatoo.animateSlideUp(DetailTransactionHotelScreen.this);
-                    onStop();
-                }
-                else if(buttonKondisiSubmit.getText().equals("Kembali")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, HistoryOrderingScreen.class);
-                    startActivity(a);
-                    Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
-                    onStop();
-                }else if(buttonKondisiSubmit.getText().equals("Lihat Penilaian")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, ReviewRatingScreen.class);
-                    a.putExtra("idScreen",idHotel);
-                    a.putExtra("jenisScreen","Hotel");
-                    startActivity(a);
-                    Animatoo.animateSlideUp(DetailTransactionHotelScreen.this);
-                    onStop();
-                }
-                else if(buttonKondisiSubmit.getText().equals("Penilaian")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, RatingScreen.class);
-                    a.putExtra("idScreen",idHotel);
-                    a.putExtra("jenisScreen","Hotel");
-                    startActivity(a);
-                    Animatoo.animateSlideUp(DetailTransactionHotelScreen.this);
-                    onStop();
-                }
-            }
-        });
-    }
-
     private void toMenuOrder() {
         btnbackscroller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, OrderingScreen.class);
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, OrderingScreen.class);
 
                     startActivity(a);
-                    Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+                    Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
                     onStop();
 
-                }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Check-In")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, OrderingScreen.class);
+                }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Pengambilan") || buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Pengembalian")){
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, OrderingScreen.class);
 
                     startActivity(a);
-                    Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
-                    onStop();
-                }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket Check-Out")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, OrderingScreen.class);
-
-                    startActivity(a);
-                    Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+                    Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
                     onStop();
                 }
                 else if(buttonKondisiSubmit.getText().equals("Kembali")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, HistoryOrderingScreen.class);
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, HistoryOrderingScreen.class);
                     startActivity(a);
-                    Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+                    Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
                     onStop();
                 }else if(buttonKondisiSubmit.getText().equals("Lihat Penilaian")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, HistoryOrderingScreen.class);
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, HistoryOrderingScreen.class);
                     startActivity(a);
-                    Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+                    Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
                     onStop();
                 }
                 else if(buttonKondisiSubmit.getText().equals("Penilaian")){
-                    Intent a = new Intent(DetailTransactionHotelScreen.this, HistoryOrderingScreen.class);
+                    Intent a = new Intent(DetailTransactionRentalScreen.this, HistoryOrderingScreen.class);
                     startActivity(a);
-                    Animatoo.animateSlideLeft(DetailTransactionHotelScreen.this);
+                    Animatoo.animateSlideLeft(DetailTransactionRentalScreen.this);
                     onStop();
                 }
             }
         });
     }
 
-    private void getDataInten() {
-        if (getIntent().getExtras() != null) {
-            Bundle bundle = getIntent().getExtras();
-            idHotel = bundle.getString("idScreen");
-        } else {
-            idHotel = getIntent().getStringExtra("idScreen");
-        }
-    }
-
     private void setDataTransaksi() {
         database1 = FirebaseDatabase.getInstance().getReference();
-        database1.child("Transaction-Hotel").child(idHotel).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        database1.child("Transaction-Rental").child(idHotel).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Map<String, Object> transaksiHotel = (Map<String, Object>) task.getResult().getValue();
-                setDataUser(transaksiHotel.get("IdCutomer").toString());
-                setDataHotel(transaksiHotel.get("IdMitra").toString());
-                setDataKamar(transaksiHotel.get("IdKamar").toString());
-                setDataBank(transaksiHotel.get("JenisPembayaran").toString());
-                iDetail= transaksiHotel.get("IdKamar").toString();
+                Map<String, Object> transaksiRental = (Map<String, Object>) task.getResult().getValue();
+                setDataUser(transaksiRental.get("IdCutomer").toString());
+                setDataRental(transaksiRental.get("IdMitra").toString());
+                setDataMobil(transaksiRental.get("IdMobil").toString());
+                setDataBank(transaksiRental.get("JenisPembayaran").toString());
+                iDetail= transaksiRental.get("IdMobil").toString();
 
                 KodeHotel.setText(idHotel);
 
-                tHarga.setText("Rp."+transaksiHotel.get("HargaKamar"));
-                tJumlahKamar.setText("x"+transaksiHotel.get("JumlahKamar")+" Kamar");
-                jumlahKamarOrder = Integer.parseInt(transaksiHotel.get("JumlahKamar").toString());
-                tCheckin.setText(transaksiHotel.get("CheckIn").toString());
-                tCheckOut.setText(transaksiHotel.get("CheckOut").toString());
+                tHarga.setText("Rp."+transaksiRental.get("HargaMobil"));
+                tJenis.setText(transaksiRental.get("UkuranMobil").toString());
+                jumlahKamarOrder = 1;
+                tCheckin.setText(transaksiRental.get("CheckIn").toString());
+                tCheckOut.setText(transaksiRental.get("CheckOut").toString());
 
-                totalTextDewasa.setText("Total Sewa ("+transaksiHotel.get("JumlahHari")+" Hari)");
-                totalDewasa.setText("Rp."+transaksiHotel.get("TotalSemua"));
-                totalPembayaran.setText("Rp."+transaksiHotel.get("TotalSemua"));
+                totalTextDewasa.setText("Total Sewa ("+transaksiRental.get("JumlahHari")+" Hari)");
+                totalDewasa.setText("Rp."+transaksiRental.get("TotalSemua"));
+                totalPembayaran.setText("Rp."+transaksiRental.get("TotalSemua"));
 
 
-                if(transaksiHotel.get("StatusTransaksi").toString().equals("1")){
+                if(transaksiRental.get("StatusTransaksi").toString().equals("1")){
                     Batalkan.setVisibility(View.VISIBLE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
                     StatusText.setText("Belum Terbayar");
                     buttonKondisiSubmit.setText("Upload Bukti Transaksi");
-                }else  if(transaksiHotel.get("StatusTransaksi").toString().equals("2")){
+                }else  if(transaksiRental.get("StatusTransaksi").toString().equals("2")){
                     Batalkan.setVisibility(View.GONE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
                     StatusText.setText("Dibatalkan");
                     buttonKondisiSubmit.setText("Kembali");
-                }else  if(transaksiHotel.get("StatusTransaksi").toString().equals("3")){
+                }else  if(transaksiRental.get("StatusTransaksi").toString().equals("3")){
                     Batalkan.setVisibility(View.GONE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
                     StatusText.setText("Sudah Terbayar");
-                    buttonKondisiSubmit.setText("Tampilkan E-Tiket Check-In");
-                }else  if(transaksiHotel.get("StatusTransaksi").toString().equals("4")){
+                    buttonKondisiSubmit.setText("Tampilkan E-Tiket Pengambilan");
+                }else  if(transaksiRental.get("StatusTransaksi").toString().equals("4")){
                     Batalkan.setVisibility(View.GONE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
-                    StatusText.setText("Sudah Check-In");
-                    buttonKondisiSubmit.setText("Tampilkan E-Tiket Check-Out");
-                }else  if(transaksiHotel.get("StatusTransaksi").toString().equals("5")){
+                    StatusText.setText("Sudah Diambil");
+                    buttonKondisiSubmit.setText("Tampilkan E-Tiket Pengembalian");
+                }else  if(transaksiRental.get("StatusTransaksi").toString().equals("5")){
                     Batalkan.setVisibility(View.GONE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
-                    StatusText.setText("Sudah Check-Out");
-                    if(transaksiHotel.get("UlasanCustomer").toString().equals("")){
+                    StatusText.setText("Sudah Kembalikan");
+                    if(transaksiRental.get("UlasanCustomer").toString().equals("")){
                         buttonKondisiSubmit.setText("Penilaian");
                     }else{
                         buttonKondisiSubmit.setText("Lihat Penilaian");
@@ -353,14 +326,14 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
         });
     }
 
-    private void setDataHotel(String idMitra) {
+    private void setDataRental(String idMitra) {
         database1 = FirebaseDatabase.getInstance().getReference();
-        database1.child("Master-Data-Hotel").child(idMitra).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        database1.child("Master-Data-Rental").child(idMitra).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Map<String, Object> dataHotel = (Map<String, Object>) task.getResult().getValue();
-                tHotel.setText(dataHotel.get("NamaHotel").toString());
-                tAlamat.setText(dataHotel.get("AlamatHotel").toString());
+                Map<String, Object> dataRental= (Map<String, Object>) task.getResult().getValue();
+                tRental.setText(dataRental.get("NamaRental").toString());
+                tAlamatRental.setText(dataRental.get("AlamatRental").toString());
             }
         });
     }
@@ -376,14 +349,13 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
             }
         });
     }
-    private void setDataKamar(String IdKamar) {
+    private void setDataMobil(String IdKamar) {
         database1 = FirebaseDatabase.getInstance().getReference();
-        database1.child("Master-Data-Hotel-Detail").child(IdKamar).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        database1.child("Master-Data-Rental-Detail").child(IdKamar).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 Map<String, Object> dataHotelDetail = (Map<String, Object>) task.getResult().getValue();
-                tKamar.setText(dataHotelDetail.get("NamaKamar").toString());
-                jumlahKamarAsli = Integer.parseInt(dataHotelDetail.get("JumlahKamar").toString());
+                tMobil.setText(dataHotelDetail.get("NamaKendaraan").toString());
             }
         });
     }
@@ -394,8 +366,8 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 Map<String, Object> dataBank = (Map<String, Object>) task.getResult().getValue();
                 namaPembayaran.setText(dataBank.get("NamaBank").toString());
-                Glide.with(DetailTransactionHotelScreen.this).clear(logoBank);
-                Glide.with(DetailTransactionHotelScreen.this)
+                Glide.with(DetailTransactionRentalScreen.this).clear(logoBank);
+                Glide.with(DetailTransactionRentalScreen.this)
                         .load(dataBank.get("GambarBank").toString())
 //                    .transform(new MultiTransformation(new FitCenter()))
                         .apply(new RequestOptions()
@@ -405,6 +377,15 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
                         .into(logoBank);
             }
         });
+    }
+
+    private void getDataInten() {
+        if (getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            idHotel = bundle.getString("idScreen");
+        } else {
+            idHotel = getIntent().getStringExtra("idScreen");
+        }
     }
 
     private void SetMode() {
@@ -438,15 +419,16 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
             bgHotel.setBackgroundResource(R.drawable.background_payment_dark);
             KodeHotel.setTextColor(getResources().getColor(R.color.white));
             judulKOde.setTextColor(getResources().getColor(R.color.white));
-            jHotel.setTextColor(getResources().getColor(R.color.white));
-            tHotel.setTextColor(getResources().getColor(R.color.white));
-            jAlamat.setTextColor(getResources().getColor(R.color.white));
-            tAlamat.setTextColor(getResources().getColor(R.color.white));
-            jKamar.setTextColor(getResources().getColor(R.color.white));
-            tKamar.setTextColor(getResources().getColor(R.color.white));
+            jRental.setTextColor(getResources().getColor(R.color.white));
+            tRental.setTextColor(getResources().getColor(R.color.white));
+            jAlamatRental.setTextColor(getResources().getColor(R.color.white));
+            tAlamatRental.setTextColor(getResources().getColor(R.color.white));
+            jMobil.setTextColor(getResources().getColor(R.color.white));
+            tMobil.setTextColor(getResources().getColor(R.color.white));
             jHarga.setTextColor(getResources().getColor(R.color.white));
             tHarga.setTextColor(getResources().getColor(R.color.white));
-            tJumlahKamar.setTextColor(getResources().getColor(R.color.white));
+            jJenis.setTextColor(getResources().getColor(R.color.white));
+            tJenis.setTextColor(getResources().getColor(R.color.white));
             jCheckin.setTextColor(getResources().getColor(R.color.white));
             tCheckin.setTextColor(getResources().getColor(R.color.white));
             jCheckOut.setTextColor(getResources().getColor(R.color.white));
@@ -480,11 +462,11 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
         layoutUtama = findViewById(R.id.layoutUtama);
 
         //Transaksi
-        transactionHotel = new TransactionHotel();
-        masterDataHotelDetailExt = new MasterDataHotelDetail();
+        transactionRental = new TransactionRental();
+        masterDataRentalDetail = new MasterDataRentalDetail();
 
         //Sweet Alert
-        pDialog = new SweetAlertDialog(DetailTransactionHotelScreen.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog = new SweetAlertDialog(DetailTransactionRentalScreen.this, SweetAlertDialog.PROGRESS_TYPE);
 
         //Layout Top
         btnbackscroller = findViewById(R.id.btnbackscroller);
@@ -504,15 +486,16 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
         bgHotel = findViewById(R.id.bgWisata);
         KodeHotel = findViewById(R.id.KodeWisata);
         judulKOde = findViewById(R.id.judulKOde);
-        jHotel = findViewById(R.id.judulWisata);
-        tHotel = findViewById(R.id.NamaWisata);
-        jAlamat = findViewById(R.id.JudulAlamatWisata);
-        tAlamat = findViewById(R.id.AlamatWisata);
-        jKamar = findViewById(R.id.judulAnakKecil);
-        tKamar = findViewById(R.id.hargaAnakText);
-        jHarga = findViewById(R.id.judulDewasa);
-        tHarga = findViewById(R.id.hargaDewasaText);
-        tJumlahKamar = findViewById(R.id.jumlahDewasa);
+        jRental = findViewById(R.id.judulWisata);
+        tRental = findViewById(R.id.NamaWisata);
+        jAlamatRental = findViewById(R.id.JudulAlamatWisata);
+        tAlamatRental = findViewById(R.id.AlamatWisata);
+        jMobil = findViewById(R.id.judulAnakKecil);
+        tMobil = findViewById(R.id.hargaAnakText);
+        jHarga = findViewById(R.id.judulHargaRental);
+        tHarga = findViewById(R.id.jumlahDewasa);
+        jJenis = findViewById(R.id.judulDewasa);
+        tJenis = findViewById(R.id.hargaDewasaText);
         jCheckin = findViewById(R.id.judulCheckIn);
         tCheckin = findViewById(R.id.checkIN);
         jCheckOut = findViewById(R.id.judulCheckOut);
@@ -551,7 +534,7 @@ public class DetailTransactionHotelScreen extends AppCompatActivity {
 
 //        //other
         dataMode = new DataMode(this);
-        transactionHotelEXt= new TransactionHotel();
+        transactionRentalExt= new TransactionRental();
 
     }
 }

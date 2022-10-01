@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.risqi.traveland.HotelScreen.DetailTransactionHotelScreen;
 import com.risqi.traveland.R;
+import com.risqi.traveland.RentalScreen.DetailTransactionRentalScreen;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.WisataScreen.DetailTransactionWisataScreen;
 
@@ -117,7 +118,72 @@ public class ReviewRatingScreen extends AppCompatActivity {
                     }
                 }
             });
+        }else if (jenisScreen.equals("Rental")) {
+            database1 = FirebaseDatabase.getInstance().getReference();
+            database1.child("Transaction-Rental").child(idWisata).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    Map<String, Object> transaksiRentals = (Map<String, Object>) task.getResult().getValue();
+                    setDataRental(transaksiRentals.get("IdMitra").toString(),transaksiRentals.get("IdMobil").toString());
+                    setBIntang(Integer.parseInt(transaksiRentals.get("Rating").toString()));
+                    if(transaksiRentals.get("UlasanCustomer").toString().equals("")){
+                        komentarUser.setText("Tidak ada komentar yang diberikan.");
+                    }else{
+                        komentarUser.setText(wordCase(transaksiRentals.get("UlasanCustomer").toString()));
+                        if(transaksiRentals.get("UlasanMitra").toString().equals("")){
+                            bgkomeMitra.setVisibility(View.GONE);
+                        }else{
+                            bgkomeMitra.setVisibility(View.VISIBLE);
+                            KomentarMitra.setText(wordCase(transaksiRentals.get("UlasanMitra").toString()));
+                        }
+                    }
+                }
+            });
         }
+    }
+
+    private void setDataRental(String idMitra, String idMobil) {
+        database2 = FirebaseDatabase.getInstance().getReference();
+        database2.child("Master-Data-Rental-Detail").child(idMobil).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> taskMobil) {
+                Map<String, Object> detailMobil = (Map<String, Object>) taskMobil.getResult().getValue();
+
+                hargaAnak.setText("Rp."+detailMobil.get("HargaSewa").toString());
+                Glide.with(ReviewRatingScreen.this).clear(imageViewWisata);
+                Glide.with(ReviewRatingScreen.this)
+                        .load(detailMobil.get("fotoKendaraan").toString())
+//                    .transform(new MultiTransformation(new FitCenter()))
+                        .apply(new RequestOptions()
+
+                                .priority(Priority.HIGH)
+                                .centerCrop())
+                        .into(imageViewWisata);
+
+                database1 = FirebaseDatabase.getInstance().getReference();
+                database1.child("Master-Data-Rental").child(idMitra).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> taskRental) {
+                        Map<String, Object> detailRental= (Map<String, Object>) taskRental.getResult().getValue();
+
+                        String judul = wordCase(detailMobil.get("NamaKendaraan").toString()+" - "+detailRental.get("NamaRental").toString());
+                        judulWisata.setText(judul);
+                        String textTemp = wordCase(detailRental.get("AlamatRental").toString());
+                        if(textTemp.length() <=55){
+                            alamatwisata.setText(textTemp);
+                        }else{
+                            String resultAlamat="";
+                            String [] arrayAlamat = textTemp.split("");
+                            for(int i =0; i<52;i++){
+                                resultAlamat=resultAlamat+""+arrayAlamat[i];
+                            }
+                            alamatwisata.setText(wordCase(resultAlamat));
+                        }
+                    }
+                });
+            }
+        });
+
     }
 
     private void setBIntang(int rating) {
@@ -268,6 +334,12 @@ public class ReviewRatingScreen extends AppCompatActivity {
                     startActivity(a);
                     Animatoo.animateSlideDown(ReviewRatingScreen.this);
                     onStop();
+                }else  if (jenisScreen.equals("Rental")) {
+                    Intent a = new Intent(ReviewRatingScreen.this, DetailTransactionRentalScreen.class);
+                    a.putExtra("idScreen", idWisata);
+                    startActivity(a);
+                    Animatoo.animateSlideDown(ReviewRatingScreen.this);
+                    onStop();
                 }
             }
         });
@@ -283,6 +355,12 @@ public class ReviewRatingScreen extends AppCompatActivity {
             onStop();
         }else  if (jenisScreen.equals("Hotel")) {
             Intent a = new Intent(ReviewRatingScreen.this, DetailTransactionHotelScreen.class);
+            a.putExtra("idScreen", idWisata);
+            startActivity(a);
+            Animatoo.animateSlideDown(ReviewRatingScreen.this);
+            onStop();
+        }else  if (jenisScreen.equals("Rental")) {
+            Intent a = new Intent(ReviewRatingScreen.this, DetailTransactionRentalScreen.class);
             a.putExtra("idScreen", idWisata);
             startActivity(a);
             Animatoo.animateSlideDown(ReviewRatingScreen.this);

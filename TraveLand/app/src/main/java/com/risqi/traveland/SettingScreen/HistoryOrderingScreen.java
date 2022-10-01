@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.TransactionHotel;
+import com.risqi.traveland.Firebase.TransactionRental;
 import com.risqi.traveland.Firebase.TransactionWIisata;
 import com.risqi.traveland.R;
 import com.risqi.traveland.RecyclerView.OrderingHotelRecyclerViewAdapter;
@@ -58,7 +59,7 @@ public class HistoryOrderingScreen extends AppCompatActivity {
 
     //Transaksi rental
     private OrderingRentalRecyclerViewAdapter orderingRentalRecyclerViewAdapter;
-    private List<String> dataRental = new ArrayList<>();
+    private List<TransactionRental> dataRental = new ArrayList<>();
 
     //Button Pilihan
     //Wisata
@@ -254,7 +255,7 @@ public class HistoryOrderingScreen extends AppCompatActivity {
 
                 for (DataSnapshot postData : snapshot.getChildren()){
                     TransactionHotel transHotel = postData.getValue(TransactionHotel.class);
-                    if(transHotel.getStatusTransaksi().equals("4")){
+                    if(transHotel.getStatusTransaksi().equals("5")){
                         if(transHotel.getIdCutomer().equals(NIK)){
                             dataHotel.add(transHotel);
                             KeyData.add(postData.getKey());
@@ -292,25 +293,55 @@ public class HistoryOrderingScreen extends AppCompatActivity {
     }
 
     private void setDataTransaksiRental() {
-        orderingRentalRecyclerViewAdapter = new OrderingRentalRecyclerViewAdapter(HistoryOrderingScreen.this, dataRental);
+        orderingRentalRecyclerViewAdapter = new OrderingRentalRecyclerViewAdapter(HistoryOrderingScreen.this, dataRental,KeyData);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
         dataTransaksi.setLayoutManager(layoutManager);
         dataTransaksi.setItemAnimator(new DefaultItemAnimator());
         dataTransaksi.setAdapter(orderingRentalRecyclerViewAdapter);
-        dataRental.clear();
 
-        for (int i = 1; i <= 10; i++) {
-            dataRental.add("Fill");
 
-        }
-        if(dataRental.size()==0){
-            constraintwisatanodata.setVisibility(View.VISIBLE);
-            textOrderFailed.setText("Belum ada data transaksi");
-        }else{
-            constraintwisatanodata.setVisibility(View.GONE);
-        }
-        orderingRentalRecyclerViewAdapter.notifyDataSetChanged();
+        database1 = FirebaseDatabase.getInstance().getReference("Transaction-Rental");
+        database1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dataRental.clear();
+                KeyData.clear();
+
+                for (DataSnapshot postData : snapshot.getChildren()){
+                    TransactionRental transRental = postData.getValue(TransactionRental.class);
+                    if(transRental.getStatusTransaksi().equals("5")){
+                        if(transRental.getIdCutomer().equals(NIK)){
+                            dataRental.add(transRental);
+                            KeyData.add(postData.getKey());
+                        }
+
+                    }else if(transRental.getStatusTransaksi().equals("2")){
+                        if(transRental.getIdCutomer().equals(NIK)){
+                            dataRental.add(transRental);
+                            KeyData.add(postData.getKey());
+                        }
+
+                    }else{
+
+
+                    }
+                }
+                if(dataRental.size()==0){
+                    constraintwisatanodata.setVisibility(View.VISIBLE);
+                    textOrderFailed.setText("Belum ada data transaksi");
+                }else{
+                    constraintwisatanodata.setVisibility(View.GONE);
+                }
+                orderingRentalRecyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private void setDataLoginUSer() {

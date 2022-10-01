@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.risqi.traveland.HotelScreen.DetailTransactionHotelScreen;
 import com.risqi.traveland.R;
+import com.risqi.traveland.RentalScreen.DetailTransactionRentalScreen;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.WisataScreen.DetailTransactionWisataScreen;
 
@@ -69,6 +70,17 @@ public class NotifTransactionSuccessScreen extends AppCompatActivity {
                 @Override
                 public void run() {
                     Intent a = new Intent(NotifTransactionSuccessScreen.this, DetailTransactionHotelScreen.class);
+                    a.putExtra("idScreen", "" + idWisata);
+                    startActivity(a);
+                    Animatoo.animateSlideRight(NotifTransactionSuccessScreen.this);
+                    onStop();
+                }
+            }, 2000);
+        }else if(NextScreen.equals("UploadFotoRental")){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent a = new Intent(NotifTransactionSuccessScreen.this, DetailTransactionRentalScreen.class);
                     a.putExtra("idScreen", "" + idWisata);
                     startActivity(a);
                     Animatoo.animateSlideRight(NotifTransactionSuccessScreen.this);
