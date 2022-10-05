@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,6 +58,7 @@ public class LoginScreen extends AppCompatActivity {
     private Button buttonLogin, btnDaftar, back;
     private EditText emailText, KataSandiText;
     private ImageView dangerEmail, dangerKataSandi, formEmail, formKataSandi;
+    private TextView textForgot;
     private ImageButton showPass;
 
     //Database
@@ -90,7 +92,22 @@ public class LoginScreen extends AppCompatActivity {
         shoHidePass();
         clickDangerAlert();
         toActivity();
+        toForgot();
 
+    }
+
+    private void toForgot() {
+        textForgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginScreen.this, ForgotPasswordScreen.class);
+                intent.putExtra("Before", activityBefore);
+                intent.putExtra("idScreen", idDetail);
+                startActivity(intent);
+                Animatoo.animateSlideRight(LoginScreen.this);
+                onStop();
+            }
+        });
     }
 
     private void toActivity() {
@@ -609,6 +626,7 @@ public class LoginScreen extends AppCompatActivity {
         layoutData = findViewById(R.id.layoutData);
         showPass = findViewById(R.id.showPass);
         back = findViewById(R.id.button3);
+        textForgot = findViewById(R.id.textView2);
 
         dataMode = new DataMode(this);
         dataLoginUser = new DataLoginUser(this);

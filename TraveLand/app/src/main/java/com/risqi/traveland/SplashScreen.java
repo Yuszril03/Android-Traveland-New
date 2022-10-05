@@ -326,7 +326,7 @@ public class SplashScreen extends AppCompatActivity {
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(SplashScreen.this, ForgotPasswordScreen.class);
+                                        Intent intent = new Intent(SplashScreen.this, MainMenuScreen.class);
                                         startActivity(intent);
                                         Animatoo.animateFade(SplashScreen.this);
                                         finish();
