@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.MasterDataRental;
 import com.risqi.traveland.Firebase.MasterDataRentalDetail;
+import com.risqi.traveland.Firebase.TransactionRental;
 import com.risqi.traveland.MainMenuScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.RecyclerView.RentalRecyclerViewAdapter;
@@ -40,7 +41,8 @@ public class MenuRentalScreen extends AppCompatActivity {
     //Rcycler and Database
     private List<MasterDataRentalDetail> masterDataRentalDetaill = new ArrayList<>();
     private List<String> idmasterDataRentalDetaill = new ArrayList<>();
-    private DatabaseReference Reff,database1;
+    private List<Integer> ratingBintang = new ArrayList<>();
+    private DatabaseReference Reff,database1,database2;
     RecyclerView recyclerViewRental;
     private RentalRecyclerViewAdapter rentalRecyclerViewAdapter;
 
@@ -116,7 +118,7 @@ public class MenuRentalScreen extends AppCompatActivity {
     }
 
     private void setRental(String cari){
-        rentalRecyclerViewAdapter = new RentalRecyclerViewAdapter(this, masterDataRentalDetaill, idmasterDataRentalDetaill);
+        rentalRecyclerViewAdapter = new RentalRecyclerViewAdapter(this, masterDataRentalDetaill, idmasterDataRentalDetaill,ratingBintang);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false);
         recyclerViewRental.setLayoutManager(layoutManager);
         recyclerViewRental.setItemAnimator(new DefaultItemAnimator());
@@ -128,18 +130,73 @@ public class MenuRentalScreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 masterDataRentalDetaill.clear();
                 idmasterDataRentalDetaill.clear();
+                ratingBintang.clear();
                 if (cari.equals("")){
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
                         MasterDataRentalDetail masterdatarentaldetail = postSnapshot.getValue(MasterDataRentalDetail.class);
-                        masterDataRentalDetaill.add(masterdatarentaldetail);
-                        idmasterDataRentalDetaill.add(postSnapshot.getKey());
+
+                        database2 = FirebaseDatabase.getInstance().getReference("Transaction-Rental");
+                        database2.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapTransaction) {
+                                int valueRating1 = 0;
+                                int valueRating2 = 0;
+                                int valueRating3 = 0;
+                                int valueRating4 = 0;
+                                int valueRating5 = 0;
+
+                                for (DataSnapshot postTransaction : snapTransaction.getChildren()){
+                                    TransactionRental transRental = postTransaction.getValue(TransactionRental.class);
+
+                                    if(transRental.getIdMobil().equals(postSnapshot.getKey()) && masterdatarentaldetail.getStatusKendaraan()==1){
+                                        if(transRental.getStatusTransaksi().equals("5") && !transRental.getRating().equals("")){
+                                            if (transRental.getRating().equals("1")) {
+                                                valueRating1++;
+                                            } else if (transRental.getRating().equals("2")) {
+                                                valueRating2++;
+                                            } else if (transRental.getRating().equals("3")) {
+                                                valueRating3++;
+                                            } else if (transRental.getRating().equals("4")) {
+                                                valueRating4++;
+                                            } else if (transRental.getRating().equals("5")) {
+                                                valueRating5++;
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                                int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
+                                int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
+
+
+
+                                if (totalRating > 0) {
+                                    ratingBintang.add((totalRating / totalAllRating));
+                                } else {
+                                    ratingBintang.add(0);
+                                }
+                                masterDataRentalDetaill.add(masterdatarentaldetail);
+                                idmasterDataRentalDetaill.add(postSnapshot.getKey());
+                                if (masterDataRentalDetaill.isEmpty()){
+                                    constraintLayout.setVisibility(View.VISIBLE);
+                                }else {
+                                    constraintLayout.setVisibility(View.INVISIBLE);
+                                }
+                                rentalRecyclerViewAdapter.notifyDataSetChanged();
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
                     }
-                    if (masterDataRentalDetaill.isEmpty()){
-                        constraintLayout.setVisibility(View.VISIBLE);
-                    }else {
-                        constraintLayout.setVisibility(View.INVISIBLE);
-                    }
-                    rentalRecyclerViewAdapter.notifyDataSetChanged();
+
                 }else {
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
                         MasterDataRentalDetail masterdatarentaldetail = postSnapshot.getValue(MasterDataRentalDetail.class);
@@ -151,17 +208,78 @@ public class MenuRentalScreen extends AppCompatActivity {
                                 MasterDataRental rental = snapshotRental.getValue(MasterDataRental.class);
 
                                 String judul = masterdatarentaldetail.getNamaKendaraan()+" - "+rental.getNamaRental();
-                                if (judul.toLowerCase().contains(cari)){
-                                    masterDataRentalDetaill.add(masterdatarentaldetail);
-                                    idmasterDataRentalDetaill.add(postSnapshot.getKey());
+                                if (judul.toLowerCase().contains(cari) && masterdatarentaldetail.getStatusKendaraan()==1){
+
+                                    database2 = FirebaseDatabase.getInstance().getReference("Transaction-Rental");
+                                    database2.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapTransaction) {
+                                            int valueRating1 = 0;
+                                            int valueRating2 = 0;
+                                            int valueRating3 = 0;
+                                            int valueRating4 = 0;
+                                            int valueRating5 = 0;
+
+                                            for (DataSnapshot postTransaction : snapTransaction.getChildren()){
+                                                TransactionRental transRental = postTransaction.getValue(TransactionRental.class);
+
+                                                if(transRental.getIdMobil().equals(postSnapshot.getKey()) && masterdatarentaldetail.getStatusKendaraan()==1){
+                                                    if(transRental.getStatusTransaksi().equals("5") && !transRental.getRating().equals("")){
+                                                        if (transRental.getRating().equals("1")) {
+                                                            valueRating1++;
+                                                        } else if (transRental.getRating().equals("2")) {
+                                                            valueRating2++;
+                                                        } else if (transRental.getRating().equals("3")) {
+                                                            valueRating3++;
+                                                        } else if (transRental.getRating().equals("4")) {
+                                                            valueRating4++;
+                                                        } else if (transRental.getRating().equals("5")) {
+                                                            valueRating5++;
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+
+                                            int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
+                                            int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
+
+
+
+                                            if (totalRating > 0) {
+                                                ratingBintang.add((totalRating / totalAllRating));
+                                            } else {
+                                                ratingBintang.add(0);
+                                            }
+                                            masterDataRentalDetaill.add(masterdatarentaldetail);
+                                            idmasterDataRentalDetaill.add(postSnapshot.getKey());
+                                            if (masterDataRentalDetaill.isEmpty()){
+                                                constraintLayout.setVisibility(View.VISIBLE);
+                                            }else {
+                                                constraintLayout.setVisibility(View.INVISIBLE);
+                                            }
+                                            rentalRecyclerViewAdapter.notifyDataSetChanged();
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+
+//                                    masterDataRentalDetaill.add(masterdatarentaldetail);
+//                                    idmasterDataRentalDetaill.add(postSnapshot.getKey());
                                 }
 
-                                if (masterDataRentalDetaill.isEmpty()){
-                                    constraintLayout.setVisibility(View.VISIBLE);
-                                }else {
-                                    constraintLayout.setVisibility(View.INVISIBLE);
-                                }
-                                rentalRecyclerViewAdapter.notifyDataSetChanged();
+//                                if (masterDataRentalDetaill.isEmpty()){
+//                                    constraintLayout.setVisibility(View.VISIBLE);
+//                                }else {
+//                                    constraintLayout.setVisibility(View.INVISIBLE);
+//                                }
+//                                rentalRecyclerViewAdapter.notifyDataSetChanged();
 
                             }
 

@@ -392,13 +392,22 @@
                         android:textSize="18sp"
                         app:layout_constraintLeft_toLeftOf="@id/judulAnakKecil"
                         app:layout_constraintTop_toBottomOf="@id/checkIN" />
-
+                    <TextView
+                        android:id="@+id/maxPembayaran"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto"
+                        android:text="Status Transaksi"
+                        android:textColor="@color/darkMode"
+                        android:textSize="14sp"
+                        app:layout_constraintLeft_toLeftOf="@id/StatusText"
+                        app:layout_constraintTop_toBottomOf="@id/StatusText" />
                     <TextView
                         android:id="@+id/StatusText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="25dp"
                         android:fontFamily="@font/roboto_medium"
                         android:text="Belum Terbayar"
                         android:textColor="@color/secondary"

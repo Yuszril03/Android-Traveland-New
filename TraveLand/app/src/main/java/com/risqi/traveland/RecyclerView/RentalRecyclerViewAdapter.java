@@ -146,7 +146,7 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
         });
 
         holder.hargaParent.setText(formatRupiah(Double.parseDouble(masterdatarentaldetail.getHargaSewa().toString()))+"/Hari");
-
+        holder.bintang.setText(ratingWisata.get(position)+".0");
         if(masterdatarentaldetail.getFotoKendaraan().equals(""))
         {
 
@@ -189,10 +189,12 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
     private Context context;
     private List<MasterDataRentalDetail> masterDataRentalDetail;
     private List<String> idmasterDataRentalDetail;
-    public RentalRecyclerViewAdapter(Context context, List<MasterDataRentalDetail> masterDataRentalDetail, List<String> idmasterDataRentalDetail){
+    private List<Integer> ratingWisata;
+    public RentalRecyclerViewAdapter(Context context, List<MasterDataRentalDetail> masterDataRentalDetail, List<String> idmasterDataRentalDetail,List<Integer> ratingWisata){
         this.context=context;
         this.masterDataRentalDetail=masterDataRentalDetail;
         this.idmasterDataRentalDetail=idmasterDataRentalDetail;
+        this.ratingWisata=ratingWisata;
     }
 
 

@@ -24,15 +24,19 @@
             app:layout_constraintBottom_toBottomOf="@+id/titleScroller"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/titleScroller" />
+
         <Button
+            android:visibility="gone"
             android:id="@+id/btnFind"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/icon_filter_no"
             app:layout_constraintBottom_toBottomOf="@+id/titleScroller"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/titleScroller" />
+            app:layout_constraintTop_toTopOf="@+id/titleScroller"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/titleScroller"

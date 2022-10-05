@@ -34,6 +34,8 @@ import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.SettingScreen.HistoryOrderingScreen;
 import com.risqi.traveland.TakePhotoTransaction.TakePhotoTransactionScreen;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +52,7 @@ public class DetailTransactionRentalScreen extends AppCompatActivity {
     private ConstraintLayout bgPersonal;
     //Layout Detail Hotel
     private ConstraintLayout bgHotel;
-    private TextView textHotel,KodeHotel,judulKOde,jRental,tRental,jAlamatRental,tAlamatRental,jMobil,tMobil,jJenis,tJenis,jHarga,tHarga,jCheckin,tCheckin,jCheckOut,tCheckOut,StatusText,judulStatus;
+    private TextView maxPembayaran, textHotel,KodeHotel,judulKOde,jRental,tRental,jAlamatRental,tAlamatRental,jMobil,tMobil,jJenis,tJenis,jHarga,tHarga,jCheckin,tCheckin,jCheckOut,tCheckOut,StatusText,judulStatus;
     //LayoutMain payment
     private ImageView logoBank;
     private ConstraintLayout bgPembayaran;
@@ -290,9 +292,20 @@ public class DetailTransactionRentalScreen extends AppCompatActivity {
                 totalTextDewasa.setText("Total Sewa ("+transaksiRental.get("JumlahHari")+" Hari)");
                 totalDewasa.setText("Rp."+transaksiRental.get("TotalSemua"));
                 totalPembayaran.setText("Rp."+transaksiRental.get("TotalSemua"));
-
+                maxPembayaran.setVisibility(View.GONE);
 
                 if(transaksiRental.get("StatusTransaksi").toString().equals("1")){
+
+
+                    maxPembayaran.setVisibility(View.VISIBLE);
+                    String [] split1 = transaksiRental.get("TanggalBuat").toString().split(" ");
+                    String [] split2 = split1[0].split("/");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy");
+                    Calendar myCalendar = Calendar.getInstance();
+                    myCalendar.set(Integer.parseInt(split2[2]),Integer.parseInt(split2[1])-1,Integer.parseInt(split2[0]));
+                    myCalendar.add(Calendar.DATE,1);
+                    maxPembayaran.setText("(Max Pembayaran : "+simpleDateFormat.format(myCalendar.getTime())+")");
+
                     Batalkan.setVisibility(View.VISIBLE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
                     StatusText.setText("Belum Terbayar");
@@ -434,6 +447,7 @@ public class DetailTransactionRentalScreen extends AppCompatActivity {
             jCheckOut.setTextColor(getResources().getColor(R.color.white));
             tCheckOut.setTextColor(getResources().getColor(R.color.white));
             judulStatus.setTextColor(getResources().getColor(R.color.white));
+            maxPembayaran.setTextColor(getResources().getColor(R.color.white));
 
 
             //Layout Payment
@@ -502,6 +516,7 @@ public class DetailTransactionRentalScreen extends AppCompatActivity {
         tCheckOut = findViewById(R.id.checkOut);
         StatusText = findViewById(R.id.StatusText);
         judulStatus = findViewById(R.id.judulStatus);
+        maxPembayaran = findViewById(R.id.maxPembayaran);
 
         //LayoutMain Payment
         bgPembayaran = findViewById(R.id.bgPembayaran);

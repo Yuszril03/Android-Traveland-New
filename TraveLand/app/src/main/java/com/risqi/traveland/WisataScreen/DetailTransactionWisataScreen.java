@@ -33,6 +33,8 @@ import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.SettingScreen.HistoryOrderingScreen;
 import com.risqi.traveland.TakePhotoTransaction.TakePhotoTransactionScreen;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +51,7 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
     private ConstraintLayout bgPersonal;
     //Layout Detail Wisata
     private ConstraintLayout bgWisata;
-    private TextView KodeWisata,judulKOde, jumlahDewasa, jumlahAnak, textWisata, judulWisata, NamaWisata, JudulAlamatWisata, AlamatWisata, judulAnakKecil, hargaAnakText, judulDewasa, hargaDewasaText,StatusText,judulStatus;
+    private TextView maxPembayaran, KodeWisata, judulKOde, jumlahDewasa, jumlahAnak, textWisata, judulWisata, NamaWisata, JudulAlamatWisata, AlamatWisata, judulAnakKecil, hargaAnakText, judulDewasa, hargaDewasaText, StatusText, judulStatus;
     //LayoutMain payment
     private ImageView logoBank;
     private ConstraintLayout bgPembayaran;
@@ -59,10 +61,10 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
     private TextView textRincian, totalTextAnak, totalAnak, totalTextDewasa, totalDewasa, Totaltext, totalPembayaran;
 
     //Button Submit
-    private Button buttonKondisiSubmit,Batalkan;
+    private Button buttonKondisiSubmit, Batalkan;
 
     //Other
-    private String idWisata="";
+    private String idWisata = "";
     private DatabaseReference database1, database2;
     private DataMode dataMode;
     private SweetAlertDialog pDialog;
@@ -148,39 +150,37 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
         buttonKondisiSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")){
+                if (buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, TakePhotoTransactionScreen.class);
-                    a.putExtra("idScreen",idWisata);
-                    a.putExtra("jenisScreen","Wisata");
+                    a.putExtra("idScreen", idWisata);
+                    a.putExtra("jenisScreen", "Wisata");
                     startActivity(a);
                     Animatoo.animateSlideUp(DetailTransactionWisataScreen.this);
                     onStop();
 
-                }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket")){
+                } else if (buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, ETicketScreen.class);
-                    a.putExtra("idScreen",idWisata);
-                    a.putExtra("jenisScreen","Wisata");
+                    a.putExtra("idScreen", idWisata);
+                    a.putExtra("jenisScreen", "Wisata");
                     startActivity(a);
                     Animatoo.animateSlideUp(DetailTransactionWisataScreen.this);
                     onStop();
-                }
-                else if(buttonKondisiSubmit.getText().equals("Kembali")){
+                } else if (buttonKondisiSubmit.getText().equals("Kembali")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, HistoryOrderingScreen.class);
                     startActivity(a);
                     Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
                     onStop();
-                }else if(buttonKondisiSubmit.getText().equals("Lihat Penilaian")){
+                } else if (buttonKondisiSubmit.getText().equals("Lihat Penilaian")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, ReviewRatingScreen.class);
-                    a.putExtra("idScreen",idWisata);
-                    a.putExtra("jenisScreen","Wisata");
+                    a.putExtra("idScreen", idWisata);
+                    a.putExtra("jenisScreen", "Wisata");
                     startActivity(a);
                     Animatoo.animateSlideUp(DetailTransactionWisataScreen.this);
                     onStop();
-                }
-                else if(buttonKondisiSubmit.getText().equals("Penilaian")){
+                } else if (buttonKondisiSubmit.getText().equals("Penilaian")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, RatingScreen.class);
-                    a.putExtra("idScreen",idWisata);
-                    a.putExtra("jenisScreen","Wisata");
+                    a.putExtra("idScreen", idWisata);
+                    a.putExtra("jenisScreen", "Wisata");
                     startActivity(a);
                     Animatoo.animateSlideUp(DetailTransactionWisataScreen.this);
                     onStop();
@@ -201,36 +201,48 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
 
                 KodeWisata.setText(idWisata);
 
-                jumlahDewasa.setText(transaksiWisata.get("JumlahDewasa").toString()+"x");
-                jumlahAnak.setText(transaksiWisata.get("JumlahAnak").toString()+"x");
-                hargaAnakText.setText("Rp."+transaksiWisata.get("HargaAnak").toString());
-                hargaDewasaText.setText("Rp."+transaksiWisata.get("HargaDewasa").toString());
-                totalAnak.setText("Rp."+transaksiWisata.get("TotalAnak").toString());
-                totalDewasa.setText("Rp."+transaksiWisata.get("TotalDewasa").toString());
-                totalPembayaran.setText("Rp."+transaksiWisata.get("TotalSemua").toString());
+                jumlahDewasa.setText(transaksiWisata.get("JumlahDewasa").toString() + "x");
+                jumlahAnak.setText(transaksiWisata.get("JumlahAnak").toString() + "x");
+                hargaAnakText.setText("Rp." + transaksiWisata.get("HargaAnak").toString());
+                hargaDewasaText.setText("Rp." + transaksiWisata.get("HargaDewasa").toString());
+                totalAnak.setText("Rp." + transaksiWisata.get("TotalAnak").toString());
+                totalDewasa.setText("Rp." + transaksiWisata.get("TotalDewasa").toString());
+                totalPembayaran.setText("Rp." + transaksiWisata.get("TotalSemua").toString());
 
-                if(transaksiWisata.get("StatusTransaksi").toString().equals("1")){
+                if (transaksiWisata.get("StatusTransaksi").toString().equals("1")) {
+                    maxPembayaran.setVisibility(View.VISIBLE);
+                    String [] split1 = transaksiWisata.get("TanggalBuat").toString().split(" ");
+                    String [] split2 = split1[0].split("/");
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEEE, d MMMM yyyy");
+                    Calendar myCalendar = Calendar.getInstance();
+                    myCalendar.set(Integer.parseInt(split2[2]),Integer.parseInt(split2[1])-1,Integer.parseInt(split2[0]));
+                    myCalendar.add(Calendar.DATE,1);
+                    maxPembayaran.setText("(Max Pembayaran : "+simpleDateFormat.format(myCalendar.getTime())+")");
+
                     Batalkan.setVisibility(View.VISIBLE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
                     StatusText.setText("Belum Terbayar");
                     buttonKondisiSubmit.setText("Upload Bukti Transaksi");
-                }else  if(transaksiWisata.get("StatusTransaksi").toString().equals("2")){
+                } else if (transaksiWisata.get("StatusTransaksi").toString().equals("2")) {
+                    maxPembayaran.setVisibility(View.GONE);
                     Batalkan.setVisibility(View.GONE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
                     StatusText.setText("Dibatalkan");
                     buttonKondisiSubmit.setText("Kembali");
-                }else  if(transaksiWisata.get("StatusTransaksi").toString().equals("3")){
+                } else if (transaksiWisata.get("StatusTransaksi").toString().equals("3")) {
+                    maxPembayaran.setVisibility(View.GONE);
                     Batalkan.setVisibility(View.GONE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
                     StatusText.setText("Sudah Terbayar");
                     buttonKondisiSubmit.setText("Tampilkan E-Tiket");
-                }else  if(transaksiWisata.get("StatusTransaksi").toString().equals("4")){
+                } else if (transaksiWisata.get("StatusTransaksi").toString().equals("4")) {
+                    maxPembayaran.setVisibility(View.GONE);
                     Batalkan.setVisibility(View.GONE);
                     StatusText.setTextColor(getResources().getColor(R.color.secondary));
                     StatusText.setText("Tiket Sudah Digunakan");
-                    if(transaksiWisata.get("UlasanCustomer").toString().equals("")){
+                    if (transaksiWisata.get("UlasanCustomer").toString().equals("")) {
                         buttonKondisiSubmit.setText("Penilaian");
-                    }else{
+                    } else {
                         buttonKondisiSubmit.setText("Lihat Penilaian");
                     }
                 }
@@ -288,32 +300,30 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
         btnbackscroller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")){
+                if (buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, OrderingScreen.class);
 
                     startActivity(a);
                     Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
                     onStop();
 
-                }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket")){
+                } else if (buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, OrderingScreen.class);
 
                     startActivity(a);
                     Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
                     onStop();
-                }
-                else if(buttonKondisiSubmit.getText().equals("Kembali")){
+                } else if (buttonKondisiSubmit.getText().equals("Kembali")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, HistoryOrderingScreen.class);
                     startActivity(a);
                     Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
                     onStop();
-                }else if(buttonKondisiSubmit.getText().equals("Lihat Penilaian")){
+                } else if (buttonKondisiSubmit.getText().equals("Lihat Penilaian")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, HistoryOrderingScreen.class);
                     startActivity(a);
                     Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
                     onStop();
-                }
-                else if(buttonKondisiSubmit.getText().equals("Penilaian")){
+                } else if (buttonKondisiSubmit.getText().equals("Penilaian")) {
                     Intent a = new Intent(DetailTransactionWisataScreen.this, HistoryOrderingScreen.class);
                     startActivity(a);
                     Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
@@ -364,6 +374,7 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
         hargaDewasaText = findViewById(R.id.hargaDewasaText);
         StatusText = findViewById(R.id.StatusText);
         judulStatus = findViewById(R.id.judulStatus);
+        maxPembayaran = findViewById(R.id.maxPembayaran);
 
         //LayoutMain Payment
         bgPembayaran = findViewById(R.id.bgPembayaran);
@@ -382,8 +393,8 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
         totalPembayaran = findViewById(R.id.totalPembayaran);
 
         //Button
-        buttonKondisiSubmit= findViewById(R.id.PesanSekarang);
-        Batalkan= findViewById(R.id.Batalkan);
+        buttonKondisiSubmit = findViewById(R.id.PesanSekarang);
+        Batalkan = findViewById(R.id.Batalkan);
 
         pDialog = new SweetAlertDialog(DetailTransactionWisataScreen.this, SweetAlertDialog.PROGRESS_TYPE);
 
@@ -397,8 +408,9 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
 
 //        //other
         dataMode = new DataMode(this);
-        transactionWisataExt= new TransactionWIisata();
+        transactionWisataExt = new TransactionWIisata();
     }
+
     private void getDataInten() {
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -450,6 +462,7 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
             hargaDewasaText.setTextColor(getResources().getColor(R.color.white));
             jumlahDewasa.setTextColor(getResources().getColor(R.color.white));
             judulStatus.setTextColor(getResources().getColor(R.color.white));
+            maxPembayaran.setTextColor(getResources().getColor(R.color.white));
 
 
             //Layout Payment
@@ -468,38 +481,35 @@ public class DetailTransactionWisataScreen extends AppCompatActivity {
             totalPembayaran.setTextColor(getResources().getColor(R.color.white));
 
 
-
-
         }
     }
+
     @Override
     public void onBackPressed() {
-        if(buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")){
+        if (buttonKondisiSubmit.getText().equals("Upload Bukti Transaksi")) {
             Intent a = new Intent(DetailTransactionWisataScreen.this, OrderingScreen.class);
 
             startActivity(a);
             Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
             onStop();
 
-        }else if(buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket")){
+        } else if (buttonKondisiSubmit.getText().equals("Tampilkan E-Tiket")) {
             Intent a = new Intent(DetailTransactionWisataScreen.this, OrderingScreen.class);
 
             startActivity(a);
             Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
             onStop();
-        }
-        else if(buttonKondisiSubmit.getText().equals("Kembali")){
+        } else if (buttonKondisiSubmit.getText().equals("Kembali")) {
             Intent a = new Intent(DetailTransactionWisataScreen.this, HistoryOrderingScreen.class);
             startActivity(a);
             Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
             onStop();
-        }else if(buttonKondisiSubmit.getText().equals("Lihat Penilaian")){
+        } else if (buttonKondisiSubmit.getText().equals("Lihat Penilaian")) {
             Intent a = new Intent(DetailTransactionWisataScreen.this, HistoryOrderingScreen.class);
             startActivity(a);
             Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);
             onStop();
-        }
-        else if(buttonKondisiSubmit.getText().equals("Penilaian")){
+        } else if (buttonKondisiSubmit.getText().equals("Penilaian")) {
             Intent a = new Intent(DetailTransactionWisataScreen.this, HistoryOrderingScreen.class);
             startActivity(a);
             Animatoo.animateSlideLeft(DetailTransactionWisataScreen.this);

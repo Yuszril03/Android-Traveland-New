@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.risqi.traveland.Firebase.MasterDataHotel;
 import com.risqi.traveland.Firebase.MasterDataHotelDetail;
+import com.risqi.traveland.Firebase.TransactionHotel;
 import com.risqi.traveland.MainMenuScreen;
 import com.risqi.traveland.R;
 import com.risqi.traveland.RecyclerView.HotelRecyclerViewAdapter;
@@ -41,7 +42,8 @@ public class MenuHotelScreen extends AppCompatActivity {
     //RecyclerView And Database
     private List<MasterDataHotelDetail> masterDataHotelDetaill = new ArrayList<>();
     private List<String> idmasterDataHotelDetail = new ArrayList<>();
-    private DatabaseReference Reff,database1,database2;
+    private List<Integer> ratingBintang = new ArrayList<>();
+    private DatabaseReference Reff,database1,database2,database3;
     RecyclerView recyclerViewHotel;
     private HotelRecyclerViewAdapter hotelRecyclerViewAdapter;
 
@@ -116,7 +118,7 @@ public class MenuHotelScreen extends AppCompatActivity {
     }
 
     private void setHotel(String cari){
-        hotelRecyclerViewAdapter = new HotelRecyclerViewAdapter(this, masterDataHotelDetaill,idmasterDataHotelDetail);
+        hotelRecyclerViewAdapter = new HotelRecyclerViewAdapter(this, masterDataHotelDetaill,idmasterDataHotelDetail,ratingBintang);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL,false);
         recyclerViewHotel.setLayoutManager(layoutManager);
         recyclerViewHotel.setItemAnimator(new DefaultItemAnimator());
@@ -128,19 +130,75 @@ public class MenuHotelScreen extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 masterDataHotelDetaill.clear();
                 idmasterDataHotelDetail.clear();
+                ratingBintang.clear();
 
                 if(cari.equals("")){
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
                         MasterDataHotelDetail masterdatahoteldetail = postSnapshot.getValue(MasterDataHotelDetail.class);
-                        masterDataHotelDetaill.add(masterdatahoteldetail);
-                        idmasterDataHotelDetail.add(postSnapshot.getKey());
+                        if(masterdatahoteldetail.getStatusKamar()==1 && !masterdatahoteldetail.getJumlahKamar().equals("0")){
+
+                            database2 = FirebaseDatabase.getInstance().getReference("Transaction-Hotel");
+                            database2.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapTransaction) {
+                                    int valueRating1 = 0;
+                                    int valueRating2 = 0;
+                                    int valueRating3 = 0;
+                                    int valueRating4 = 0;
+                                    int valueRating5 = 0;
+                                    for (DataSnapshot postTransaction : snapTransaction.getChildren()){
+                                        TransactionHotel tranasHotel = postTransaction.getValue(TransactionHotel.class);
+                                        if(tranasHotel.getIdKamar().equals(postSnapshot.getKey())){
+                                            if(tranasHotel.getStatusTransaksi().equals("5") && !tranasHotel.getRating().equals("")){
+                                                if (tranasHotel.getRating().equals("1")) {
+                                                    valueRating1++;
+                                                } else if (tranasHotel.getRating().equals("2")) {
+                                                    valueRating2++;
+                                                } else if (tranasHotel.getRating().equals("3")) {
+                                                    valueRating3++;
+                                                } else if (tranasHotel.getRating().equals("4")) {
+                                                    valueRating4++;
+                                                } else if (tranasHotel.getRating().equals("5")) {
+                                                    valueRating5++;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
+                                    int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
+
+
+
+                                    if (totalRating > 0) {
+                                        ratingBintang.add((totalRating / totalAllRating));
+                                    } else {
+                                        ratingBintang.add(0);
+                                    }
+                                    masterDataHotelDetaill.add(masterdatahoteldetail);
+                                    idmasterDataHotelDetail.add(postSnapshot.getKey());
+
+                                    if(masterDataHotelDetaill.isEmpty()){
+                                        constraintLayout.setVisibility(View.VISIBLE);
+                                    }else {
+                                        constraintLayout.setVisibility(View.INVISIBLE);
+                                    }
+                                    hotelRecyclerViewAdapter.notifyDataSetChanged();
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+
+                        }
+
                     }
-                    if(masterDataHotelDetaill.isEmpty()){
-                        constraintLayout.setVisibility(View.VISIBLE);
-                    }else {
-                        constraintLayout.setVisibility(View.INVISIBLE);
-                    }
-                    hotelRecyclerViewAdapter.notifyDataSetChanged();
+
                 }else{
                     for (DataSnapshot postSnapshot : snapshot.getChildren()){
                         MasterDataHotelDetail masterdatahoteldetail = postSnapshot.getValue(MasterDataHotelDetail.class);
@@ -151,17 +209,75 @@ public class MenuHotelScreen extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshotHotel) {
                                 MasterDataHotel dataHotel = snapshotHotel.getValue(MasterDataHotel.class);
                                 String judul = masterdatahoteldetail.getNamaKamar()+"-"+dataHotel.getNamaHotel();
-                                if (judul.toLowerCase().contains(cari)) {
-                                    masterDataHotelDetaill.add(masterdatahoteldetail);
-                                    idmasterDataHotelDetail.add(postSnapshot.getKey());
+                                if (judul.toLowerCase().contains(cari) && masterdatahoteldetail.getStatusKamar()==1 && !masterdatahoteldetail.getJumlahKamar().equals("0")) {
+
+                                    database2 = FirebaseDatabase.getInstance().getReference("Transaction-Hotel");
+                                    database2.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapTransaction) {
+                                            int valueRating1 = 0;
+                                            int valueRating2 = 0;
+                                            int valueRating3 = 0;
+                                            int valueRating4 = 0;
+                                            int valueRating5 = 0;
+                                            for (DataSnapshot postTransaction : snapTransaction.getChildren()){
+                                                TransactionHotel tranasHotel = postTransaction.getValue(TransactionHotel.class);
+                                                if(tranasHotel.getIdKamar().equals(postSnapshot.getKey())){
+                                                    if(tranasHotel.getStatusTransaksi().equals("5") && !tranasHotel.getRating().equals("")){
+                                                        if (tranasHotel.getRating().equals("1")) {
+                                                            valueRating1++;
+                                                        } else if (tranasHotel.getRating().equals("2")) {
+                                                            valueRating2++;
+                                                        } else if (tranasHotel.getRating().equals("3")) {
+                                                            valueRating3++;
+                                                        } else if (tranasHotel.getRating().equals("4")) {
+                                                            valueRating4++;
+                                                        } else if (tranasHotel.getRating().equals("5")) {
+                                                            valueRating5++;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            int totalRating = ((1 * valueRating1) + (2 * valueRating2) + (3 * valueRating3) + (4 * valueRating4) + (5 * valueRating5));
+                                            int totalAllRating = (valueRating1 + valueRating2 + valueRating3 + valueRating4 + valueRating5);
+
+
+
+                                            if (totalRating > 0) {
+                                                ratingBintang.add((totalRating / totalAllRating));
+                                            } else {
+                                                ratingBintang.add(0);
+                                            }
+                                            masterDataHotelDetaill.add(masterdatahoteldetail);
+                                            idmasterDataHotelDetail.add(postSnapshot.getKey());
+
+                                            if(masterDataHotelDetaill.isEmpty()){
+                                                constraintLayout.setVisibility(View.VISIBLE);
+                                            }else {
+                                                constraintLayout.setVisibility(View.INVISIBLE);
+                                            }
+                                            hotelRecyclerViewAdapter.notifyDataSetChanged();
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
+//                                    masterDataHotelDetaill.add(masterdatahoteldetail);
+//                                    idmasterDataHotelDetail.add(postSnapshot.getKey());
                                 }
 
-                                if(masterDataHotelDetaill.isEmpty()){
-                                    constraintLayout.setVisibility(View.VISIBLE);
-                                }else {
-                                    constraintLayout.setVisibility(View.INVISIBLE);
-                                }
-                                hotelRecyclerViewAdapter.notifyDataSetChanged();
+//                                if(masterDataHotelDetaill.isEmpty()){
+//                                    constraintLayout.setVisibility(View.VISIBLE);
+//                                }else {
+//                                    constraintLayout.setVisibility(View.INVISIBLE);
+//                                }
+//                                hotelRecyclerViewAdapter.notifyDataSetChanged();
                             }
 
                             @Override
@@ -188,6 +304,7 @@ public class MenuHotelScreen extends AppCompatActivity {
         Intent a = new  Intent(MenuHotelScreen.this, MainMenuScreen.class);
         startActivity(a);
         Animatoo.animateFade(MenuHotelScreen.this);
+        finish();
         onStop();
     }
 
@@ -196,6 +313,7 @@ public class MenuHotelScreen extends AppCompatActivity {
         Intent a = new  Intent(MenuHotelScreen.this, MainMenuScreen.class);
         startActivity(a);
         Animatoo.animateFade(MenuHotelScreen.this);
+        finish();
         onStop();
     }
 }

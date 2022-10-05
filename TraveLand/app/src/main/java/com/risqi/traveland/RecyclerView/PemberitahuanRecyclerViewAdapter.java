@@ -28,9 +28,8 @@ public class PemberitahuanRecyclerViewAdapter extends RecyclerView.Adapter<Pembe
 
     @Override
     public void onBindViewHolder(@NonNull PemberitahuanRecyclerViewAdapter.NameViewHolder holder, int position) {
-        TempDataInformation information = dataInformations.get(position);
 
-        holder.informasi.setText(information.getNamaInformasi());
+        holder.informasi.setText(dataInformations.get(position));
     }
 
     @Override
@@ -48,8 +47,8 @@ public class PemberitahuanRecyclerViewAdapter extends RecyclerView.Adapter<Pembe
 
     }
     private Context context;
-    private List<TempDataInformation> dataInformations;
-    public  PemberitahuanRecyclerViewAdapter(Context context,  List<TempDataInformation> dataInformations)
+    private List<String> dataInformations;
+    public  PemberitahuanRecyclerViewAdapter(Context context,  List<String> dataInformations)
     {
         this.context=context;
         this.dataInformations = dataInformations;

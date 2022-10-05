@@ -4,8 +4,10 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -34,8 +36,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.risqi.traveland.Firebase.DataLoginCustomer;
+import com.risqi.traveland.HotelScreen.DetailHotelScreen;
 import com.risqi.traveland.R;
+import com.risqi.traveland.RentalScreen.DetailRentalScreen;
+import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
+import com.risqi.traveland.WisataScreen.DetailWisataScreen;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
 
@@ -72,6 +79,7 @@ public class RegisterScreen extends AppCompatActivity {
     DatabaseReference dataBase3;
     Task dataBase5;
     SweetAlertDialog pDialog;
+    private DataLoginUser dataLoginUser;
     final Calendar myCalendar = Calendar.getInstance();
     final Calendar calendarCreated = Calendar.getInstance();
 
@@ -667,8 +675,13 @@ public class RegisterScreen extends AppCompatActivity {
         HashMap insertCustomerUpdate = new HashMap();
         insertCustomerUpdate.put("Gender", gender);
         insertCustomerUpdate.put("StatusCustomer", 1);
+
+        String keyAndroid = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        DataLoginCustomer dataLoginCustomer = new DataLoginCustomer();
+        Map<String, String> insertCustomerLOGON = dataLoginCustomer.insertData(editNik.getText().toString(), Build.MODEL,Build.MANUFACTURER);
 //
         dataBase1 = FirebaseDatabase.getInstance().getReference();
+        int finalGender = gender;
         dataBase1.child("Master-Data-Customer").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -704,21 +717,76 @@ public class RegisterScreen extends AppCompatActivity {
                                         dataBase5.addOnSuccessListener(new OnSuccessListener() {
                                             @Override
                                             public void onSuccess(Object o) {
-                                                new SweetAlertDialog(RegisterScreen.this, SweetAlertDialog.SUCCESS_TYPE)
-                                                        .setTitleText("Berhasil")
-                                                        .setContentText("Data Berhasil Tersimpan")
-                                                        .setConfirmText("Okey")
-                                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                                                            @Override
-                                                            public void onClick(SweetAlertDialog sDialog) {
-                                                                sDialog.dismissWithAnimation();
-                                                                Intent intent = new Intent(RegisterScreen.this, LoginScreen.class);
-                                                                startActivity(intent);
-                                                                Animatoo.animateSlideRight(RegisterScreen.this);
-                                                                finish();
-                                                            }
-                                                        })
-                                                        .show();
+
+                                                dataBase3 = FirebaseDatabase.getInstance().getReference().child("Data-Login-Customer").child(keyAndroid);
+                                                dataBase3.setValue(insertCustomerLOGON).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        new SweetAlertDialog(RegisterScreen.this, SweetAlertDialog.SUCCESS_TYPE)
+                                                                .setTitleText("Berhasil")
+                                                                .setContentText("Anda Berhasil Masuk!")
+                                                                .setConfirmText("Iya!")
+                                                                .showCancelButton(false)
+                                                                .setConfirmButtonBackgroundColor(Color.parseColor("#008EFF"))
+                                                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                                    @Override
+                                                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                                                        sweetAlertDialog.dismissWithAnimation();
+                                                                        dataLoginUser.insertData(editNik.getText().toString(), editNama.getText().toString(), "", ""+ finalGender, convertMD5(editPassword.getText().toString()));
+                                                                        pDialog.dismiss();
+                                                                        if (activityBefore.equals("Profil")) {
+                                                                            Intent intent = new Intent(RegisterScreen.this, MainProfileScreen.class);
+                                                                            startActivity(intent);
+                                                                            Animatoo.animateSlideDown(RegisterScreen.this);
+                                                                            onStop();
+//                                                    finish();
+                                                                        }
+                                                                        else if(activityBefore.equals("DetailWisata")){
+                                                                            Intent intent = new Intent(RegisterScreen.this, DetailWisataScreen.class);
+                                                                            intent.putExtra("idScreen",idDetail);
+                                                                            startActivity(intent);
+                                                                            Animatoo.animateFade(RegisterScreen.this);
+                                                                            onStop();
+                                                                        }else if(activityBefore.equals("DetailHotel")){
+                                                                            Intent intent = new Intent(RegisterScreen.this, DetailHotelScreen.class);
+                                                                            String [] arrayData =  idDetail.split("-");
+                                                                            intent.putExtra("idMaster",arrayData[1]);
+                                                                            intent.putExtra("idDetail",arrayData[0]);
+                                                                            startActivity(intent);
+                                                                            Animatoo.animateFade(RegisterScreen.this);
+                                                                            onStop();
+                                                                        }else if(activityBefore.equals("DetailRental")){
+                                                                            Intent intent = new Intent(RegisterScreen.this, DetailRentalScreen.class);
+                                                                            String [] arrayData =  idDetail.split("-");
+                                                                            intent.putExtra("idMaster",arrayData[1]);
+                                                                            intent.putExtra("idDetail",arrayData[0]);
+                                                                            startActivity(intent);
+                                                                            Animatoo.animateFade(RegisterScreen.this);
+                                                                            onStop();
+                                                                        }
+                                                                    }
+                                                                })
+                                                                .show();
+                                                    }
+                                                });
+
+
+
+//                                                new SweetAlertDialog(RegisterScreen.this, SweetAlertDialog.SUCCESS_TYPE)
+//                                                        .setTitleText("Berhasil")
+//                                                        .setContentText("Data Berhasil Tersimpan")
+//                                                        .setConfirmText("Okey")
+//                                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                                                            @Override
+//                                                            public void onClick(SweetAlertDialog sDialog) {
+//                                                                sDialog.dismissWithAnimation();
+//                                                                Intent intent = new Intent(RegisterScreen.this, LoginScreen.class);
+//                                                                startActivity(intent);
+//                                                                Animatoo.animateSlideRight(RegisterScreen.this);
+//                                                                finish();
+//                                                            }
+//                                                        })
+//                                                        .show();
 
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
@@ -834,6 +902,7 @@ public class RegisterScreen extends AppCompatActivity {
     }
 
     private void initialize() {
+        dataLoginUser = new DataLoginUser(this);
         login = findViewById(R.id.button5);
         daftar = findViewById(R.id.button);
         //FORM

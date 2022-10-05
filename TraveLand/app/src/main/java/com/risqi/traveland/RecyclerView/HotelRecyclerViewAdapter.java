@@ -136,7 +136,7 @@ public class HotelRecyclerViewAdapter extends RecyclerView.Adapter<HotelRecycler
 
             }
         });
-
+        holder.bintang.setText(ratingBintang.get(position)+".0");
         holder.hargaParent.setText(formatRupiah(Double.parseDouble(masterdatahoteldetail.getHargaKamar().toString()))+"/Malam");
 //
 
@@ -196,11 +196,13 @@ public class HotelRecyclerViewAdapter extends RecyclerView.Adapter<HotelRecycler
     private Context context;
     private List<MasterDataHotelDetail> masterDataHotelDetail;
     private List<String> idmasterDataHotelDetail;
+    private List<Integer> ratingBintang;
 
-    public HotelRecyclerViewAdapter(Context context, List<MasterDataHotelDetail> masterDataHotelDetail, List<String> idmasterDataHotelDetail) {
+    public HotelRecyclerViewAdapter(Context context, List<MasterDataHotelDetail> masterDataHotelDetail, List<String> idmasterDataHotelDetail,List<Integer> ratingBintang) {
         this.context = context;
         this.masterDataHotelDetail = masterDataHotelDetail;
         this.idmasterDataHotelDetail = idmasterDataHotelDetail;
+        this.ratingBintang = ratingBintang;
     }
 
 }

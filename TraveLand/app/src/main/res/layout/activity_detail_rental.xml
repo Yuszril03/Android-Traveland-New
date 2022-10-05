@@ -105,9 +105,9 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
+                            android:id="@+id/bintangAwal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
                             android:layout_marginRight="10dp"
                             android:fontFamily="@font/roboto_medium"
                             android:text="4.5"
