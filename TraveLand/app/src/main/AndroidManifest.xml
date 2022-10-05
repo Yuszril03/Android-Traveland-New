@@ -36,6 +36,9 @@
         android:theme="@style/Theme.TraveLand.light"
         tools:targetApi="31">
         <activity
+            android:name=".SettingScreen.ForgotPasswordScreen"
+            android:exported="false" />
+        <activity
             android:name=".RentalScreen.DetailTransactionRentalScreen"
             android:exported="false" />
         <activity

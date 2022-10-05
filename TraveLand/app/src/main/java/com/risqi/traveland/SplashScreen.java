@@ -23,11 +23,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.risqi.traveland.RentalScreen.DetailTransactionRentalScreen;
 import com.risqi.traveland.SQLite.DataFirstApp;
 import com.risqi.traveland.SQLite.DataLoginUser;
 import com.risqi.traveland.SQLite.DataMode;
 import com.risqi.traveland.SQLite.DataVersion;
+import com.risqi.traveland.SettingScreen.ForgotPasswordScreen;
 import com.risqi.traveland.SettingScreen.VersionScreen;
 
 import java.text.ParseException;
@@ -326,7 +326,7 @@ public class SplashScreen extends AppCompatActivity {
                                         finish();
                                         onStop();
                                     } else {
-                                        Intent intent = new Intent(SplashScreen.this, MainMenuScreen.class);
+                                        Intent intent = new Intent(SplashScreen.this, ForgotPasswordScreen.class);
                                         startActivity(intent);
                                         Animatoo.animateFade(SplashScreen.this);
                                         finish();
