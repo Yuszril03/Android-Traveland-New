@@ -179,7 +179,7 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
     }
-
+    // -     jenis  Nama => - toRegister():void // - toRegister():String
     private void toRegister() {
         //dafter
         btnDaftar.setOnClickListener(new View.OnClickListener() {
